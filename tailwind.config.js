@@ -55,6 +55,25 @@ module.exports = {
       80: '20rem',
       96: '24rem',
     },
+    fontFamily: {
+      primaryBlack: ['Poppins Black', 'sans-serif'],
+      primaryRegular: ['Poppins Regular', 'sans-serif'],
+      primaryRegularItalic: ['Poppins Italic', 'sans-serif'],
+      primaryBold: ['Poppins Bold', 'sans-serif'],
+      primaryBoldItalic: ['Poppins Bold Italic', 'sans-serif'],
+      primaryExtraLight: ['Poppins ExtraLight', 'sans-serif'],
+      primaryExtraLightItalic: ['Poppins ExtraLight Italic', 'sans-serif'],
+      primaryExtraBold: ['Poppins ExtraBold', 'sans-serif'],
+      primaryExtraBoldItalic: ['Poppins ExtraBold Italic', 'sans-serif'],
+      primaryLight: ['Poppins Light', 'sans-serif'],
+      primaryLightItalic: ['Poppins Light Italic', 'sans-serif'],
+      primaryMedium: ['Poppins Medium', 'sans-serif'],
+      primaryMediumItalic: ['Poppins Medium Italic', 'sans-serif'],
+      primarySemiBold: ['Poppins SemiBold', 'sans-serif'],
+      primarySemiBoldItalic: ['Poppins SemiBold Italic', 'sans-serif'],
+      primaryThin: ['Poppins Thin', 'sans-serif'],
+      primaryThinItalic: ['Poppins Thin Italic', 'sans-serif'],
+    },
     colors: {
       transparent: 'transparent',
       primary: {
@@ -129,7 +148,9 @@ module.exports = {
         700: '#634454',
         800: '#564655',
         900: '#494755',
-      }
+      },
     },
-  }
+  },
+  // eslint-disable-next-line no-undef
+  plugins: [require('@tailwindcss/typography')],
 };

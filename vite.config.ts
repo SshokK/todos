@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 import * as path from 'path';
 
 import react from '@vitejs/plugin-react';
@@ -10,11 +10,15 @@ export default defineConfig({
     react(),
     checker({
       typescript: true,
-    })
+    }),
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './src/'),
+      views: path.resolve(__dirname, './src/views'),
+      components: path.resolve(__dirname, './src/components'),
+      contexts: path.resolve(__dirname, './src/contexts'),
+      utils: path.resolve(__dirname, './src/utils'),
     },
   },
-})
+});
