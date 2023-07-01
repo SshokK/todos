@@ -1,3 +1,5 @@
+import * as dateFns from 'date-fns';
+
 export const subtractDays = ({
   date,
   daysCount,
@@ -5,9 +7,5 @@ export const subtractDays = ({
   date: Date;
   daysCount: number;
 }): Date => {
-  const d = new Date();
-
-  d.setDate(date.getDate() - daysCount);
-
-  return d;
+  return dateFns.subDays(date, daysCount);
 };

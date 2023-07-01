@@ -47,7 +47,10 @@ export const CLASSNAMES = {
     'flex-1',
     'flex',
     'items-center',
+    'gap-3',
   ),
+
+  order: classnames('w-6'),
 
   titleInputContainer: classnames('w-full'),
 

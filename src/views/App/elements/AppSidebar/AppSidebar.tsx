@@ -4,19 +4,30 @@ import type { AppSidebarProps } from './AppSidebar.types.ts';
 import * as components from 'components';
 import * as styles from './AppSidebar.styles.ts';
 
-import { useTodosContext } from 'contexts';
+import { getTodoById, useStore } from 'store';
+import { useAppSidebarHandlers } from './hooks';
 
 export const AppSidebar: FC<AppSidebarProps> = ({ todoId }) => {
-  const todosContext = useTodosContext();
+  const todo = useStore(getTodoById(todoId));
+
+  const handlers = useAppSidebarHandlers({
+    props: {
+      todoId,
+    },
+  });
 
   return (
     <div className={styles.CLASSNAMES.container}>
       <components.Separator />
       <components.Typography type={components.TYPOGRAPHY_TYPE.TITLE_1}>
-        {todosContext.todos.find((todo) => todo.id === todoId)?.title}
+        {todo?.title}
       </components.Typography>
       <components.Typography type={components.TYPOGRAPHY_TYPE.BODY}>
-        {todosContext.todos.find((todo) => todo.id === todoId)?.content}
+        <components.RichTextEditor
+          value={todo?.content}
+          onChange={handlers.handleTodoContentChange}
+          placeholder="Description..."
+        />
       </components.Typography>
     </div>
   );

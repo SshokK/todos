@@ -1,10 +1,11 @@
-import type { Todo } from '../../contexts';
-
 export type TodoItemProps = {
-  todo: Todo;
+  id: string;
+  title: string;
+  isDone: boolean;
+  order?: number;
   isCompact?: boolean;
-  onClick?: (todo: Todo) => void;
-  onDelete?: (todo: Todo) => void;
-  onTitleChange?: (title: string, todo: Todo) => void;
-  onCompletionToggle?: (isDone: boolean, todo: Todo) => void;
+  onClick?: (id: TodoItemProps['id']) => void;
+  onDelete?: (id: TodoItemProps['id']) => void;
+  onTitleChange?: (id: TodoItemProps['id'], title: string) => void;
+  onCompletionToggle?: (id: TodoItemProps['id'], isDone: boolean) => void;
 };

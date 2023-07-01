@@ -1,8 +1,5 @@
-import { subtractDays } from './subtract-days.ts';
+import * as dateFns from 'date-fns';
 
 export const getYesterday = (): Date => {
-  return subtractDays({
-    date: new Date(),
-    daysCount: 1,
-  });
+  return dateFns.subDays(new Date(), 1);
 };

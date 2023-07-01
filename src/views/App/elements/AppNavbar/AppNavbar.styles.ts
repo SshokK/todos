@@ -17,6 +17,7 @@ export const CLASSNAMES = {
     'flex-col',
     'items-center',
     'gap-4',
+    'relative',
   ),
 
   upcomingTodoGroupsContainer: classnames(
@@ -38,5 +39,7 @@ export const CLASSNAMES = {
     'flex',
     'items-center',
     'text-secondary-500',
+    'absolute',
+    'h-full',
   ),
 };

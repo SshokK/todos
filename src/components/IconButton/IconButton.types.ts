@@ -1,9 +1,14 @@
-import type { ComponentType, MouseEvent, ComponentProps } from 'react';
+import type {
+  ComponentType,
+  MouseEvent,
+  ComponentProps,
+  HTMLProps,
+} from 'react';
 import type * as constants from './IconButton.constants';
 
 import type { Tooltip } from '../Tooltip';
 
-export type IconButtonProps = {
+export type IconButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   type?: constants.ICON_BUTTON_TYPE;
   size?: constants.ICON_BUTTON_SIZE;
   Icon?: ComponentType;

@@ -18,6 +18,12 @@ export enum TYPOGRAPHY_TYPE {
   LINK = 'link',
 }
 
+export enum TYPOGRAPHY_TEXT_ALIGNMENT {
+  LEFT = 'left',
+  CENTER = 'center',
+  RIGHT = 'right',
+}
+
 export const TYPOGRAPHY_ELEMENTS: Record<TYPOGRAPHY_TYPE, react.FC> = {
   [TYPOGRAPHY_TYPE.TITLE_1]: (
     props: react.DetailedHTMLProps<

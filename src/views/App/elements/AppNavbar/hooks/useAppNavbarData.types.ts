@@ -1,9 +1,9 @@
-import type { Todo } from 'contexts';
+import type { Todo } from 'store';
 
-export type AppNavbarFormattedData = {
-  todosForToday: Todo[];
+export type AppNavbarStoreData = {
+  unfinishedTodosForToday: Todo[];
 };
 
 export type AppNavbarData = {
-  formattedData: AppNavbarFormattedData;
+  storeData: AppNavbarStoreData;
 };

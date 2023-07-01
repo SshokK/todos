@@ -2,7 +2,8 @@ import type { CalendarData } from './useCalendarData.types.ts';
 import type { CalendarProps } from '../Calendar.types.ts';
 
 import * as constants from '../Calendar.constants.ts';
-import * as helpers from '../Calendar.helpers.ts';
+import * as elements from '../elements';
+import * as helpers from './useCalendarData.helpers.ts';
 
 import { useMemo, useState } from 'react';
 
@@ -13,7 +14,7 @@ export const useCalendarData = ({
     constants.INITIAL_DATE,
   );
   const [animationDirection, setAnimationDirection] = useState(
-    constants.ANIMATION_DIRECTION.RIGHT,
+    elements.ANIMATION_DIRECTION.RIGHT,
   );
 
   const localState: CalendarData['localState'] = {

@@ -12,7 +12,8 @@
       "views/*": ["./src/views/*"],
       "components/*": ["./src/components/*"],
       "contexts/*": ["./src/contexts/*"],
-      "utils/*": ["./src/utils/*"]
+      "utils/*": ["./src/utils/*"],
+      "store/*": ["./src/store/*"]
     },
     "skipLibCheck": true,
 

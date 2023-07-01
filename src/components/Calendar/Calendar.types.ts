@@ -1,19 +1,21 @@
-import type { ComponentProps, ComponentType } from 'react';
-import type { Toolbar } from '../Toolbar';
+import type { ComponentProps } from 'react';
+import type * as elements from './elements';
 
-export type CalendarItem = {
+export type CalendarItemDate = string;
+
+export type CalendarItem = ComponentProps<
+  typeof elements.CalendarItem
+>['itemComponentProps'] & {
   id: string | number;
-  date: string;
-  [key: string]: unknown;
 };
 
 export type CalendarProps = {
-  items: CalendarItem[];
+  items: Record<CalendarItemDate, CalendarItem[]>;
   columnsCount: number;
-
-  toolbarConfig?: ComponentProps<typeof Toolbar>['config'];
-  className?: string;
-  // Suppressing component props type in order to make Calendar generic
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ItemComponent?: ComponentType<any>;
+  toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
+  ItemComponent?: ComponentProps<typeof elements.CalendarItem>['ItemComponent'];
+  itemComponentProps?: ComponentProps<
+    typeof elements.CalendarItem
+  >['itemComponentProps'];
+  onItemOrderChange?: (items: CalendarProps['items']) => void;
 };

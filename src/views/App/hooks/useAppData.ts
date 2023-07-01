@@ -1,18 +1,15 @@
-import * as helpers from './useAppData.helpers.ts';
+import type { AppData } from './useAppData.types.ts';
 
-import { useTodosContext } from 'contexts';
-import { useMemo } from 'react';
+import * as store from 'store';
 
-export const useAppData = () => {
-  const todosContext = useTodosContext();
+import { useStore } from 'store';
 
-  const formattedData = useMemo(() => {
-    return {
-      todosGroupedByDates: helpers.getTodosGroupedByDates(todosContext.todos),
-    };
-  }, [todosContext.todos]);
+export const useAppData = (): AppData => {
+  const storeData = useStore((state) => ({
+    todos: store.getTodosForCalendar(state),
+  }));
 
   return {
-    formattedData,
+    storeData,
   };
 };

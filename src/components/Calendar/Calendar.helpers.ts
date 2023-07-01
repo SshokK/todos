@@ -1,21 +1,6 @@
 import * as utils from 'utils';
 
-export const getFurtherDays = ({
-  startDate,
-  daysCount,
-}: {
-  startDate: Date;
-  daysCount: number;
-}): Date[] => {
-  return [...Array(daysCount).keys()].flatMap((i) => {
-    return utils.addDays({
-      date: startDate,
-      daysCount: i,
-    });
-  });
-};
-
-export const formatCurrentDate = (date: Date): string => {
+export const formatHumanizedDate = (date: Date): string => {
   switch (date.toDateString()) {
     case new Date().toDateString(): {
       return `Today`;

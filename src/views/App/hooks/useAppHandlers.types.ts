@@ -16,6 +16,10 @@ export type AppHandlers = {
 
   handleTodoItemAdd: () => void;
 
+  handleTodoItemOrderChange: ComponentProps<
+    typeof components.Calendar
+  >['onItemOrderChange'];
+
   handleTodoCompletionToggle: ComponentProps<
     typeof components.TodoItem
   >['onCompletionToggle'];

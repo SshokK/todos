@@ -2,14 +2,24 @@ import type { FC } from 'react';
 
 import * as components from 'components';
 import * as elements from './elements';
+import * as constants from './App.constants.ts';
+import * as styles from './App.styles.ts';
 
-import { useTodosContext } from 'contexts';
-import { useAppHandlers, useAppLifecycle } from './hooks';
+import {
+  useAppData,
+  useAppCalendarToolbarConfig,
+  useAppHandlers,
+  useAppLifecycle,
+} from './hooks';
 
 export const App: FC = () => {
-  const todosContext = useTodosContext();
+  const { storeData } = useAppData();
 
   const handlers = useAppHandlers();
+
+  const calendarToolbarConfig = useAppCalendarToolbarConfig({
+    onTodoItemAdd: handlers.handleTodoItemAdd,
+  });
 
   useAppLifecycle({
     onMount: handlers.handleMount(<elements.AppNavbar />),
@@ -23,37 +33,18 @@ export const App: FC = () => {
       >
         To do items
       </components.Typography>
-      <div className="flex h-full w-full flex-col gap-4">
+      <div className={styles.CLASSNAMES.calendarContainer}>
         <components.Calendar
-          toolbarConfig={[
-            {
-              key: 'add',
-              type: components.TOOLBAR_ELEMENT_TYPE.ACTION,
-              props: {
-                Icon: components.IconPlus,
-                onClick: handlers.handleTodoItemAdd,
-              },
-            },
-            {
-              key: 'separator1',
-              type: components.TOOLBAR_ELEMENT_TYPE.SEPARATOR,
-              props: {},
-            },
-          ]}
-          columnsCount={3}
-          className="h-full"
+          toolbarConfig={calendarToolbarConfig}
+          columnsCount={constants.CALENDAR_COLUMNS_COUNT}
+          onItemOrderChange={handlers.handleTodoItemOrderChange}
+          items={storeData.todos}
           ItemComponent={components.TodoItem}
-          items={todosContext.todos.map((todo) => ({
-            id: todo.id,
-            date: todo.date,
-            todo: todo,
+          itemComponentProps={{
             onDelete: handlers.handleTodoDeletion,
             onCompletionToggle: handlers.handleTodoCompletionToggle,
             onTitleChange: handlers.handleTodoTitleChange,
-            onClick: handlers.handleTodoClick(
-              <elements.AppSidebar todoId={todo.id} />,
-            ),
-          }))}
+          }}
         />
       </div>
     </>

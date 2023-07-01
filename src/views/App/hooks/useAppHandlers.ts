@@ -1,11 +1,14 @@
 import type { AppHandlers } from './useAppHandlers.types.ts';
 
-import { useSidebarsContext, useTodosContext } from 'contexts';
+import { useSidebarsContext } from 'contexts';
 import { useCallback } from 'react';
+import { useStore } from 'store';
+
+import * as utils from 'utils';
 
 export const useAppHandlers = (): AppHandlers => {
   const sidebarsContext = useSidebarsContext();
-  const todosContext = useTodosContext();
+  const store = useStore();
 
   const handleMount: AppHandlers['handleMount'] = useCallback(
     (navbarElement) => () => {
@@ -24,64 +27,34 @@ export const useAppHandlers = (): AppHandlers => {
     };
 
   const handleTodoTitleChange: AppHandlers['handleTodoTitleChange'] = (
+    id,
     title,
-    changedTodo,
   ) => {
-    todosContext.setTodos((todos) =>
-      todos.map((todo) => {
-        if (todo.id === changedTodo.id) {
-          return {
-            ...todo,
-            title,
-          };
-        }
-
-        return todo;
-      }),
-    );
+    store.setTodoTitle(id, title);
   };
 
   const handleTodoCompletionToggle: AppHandlers['handleTodoCompletionToggle'] =
-    (isDone, changedTodo) => {
-      todosContext.setTodos((todos) =>
-        todos.map((todo) => {
-          if (todo.id === changedTodo.id) {
-            return {
-              ...todo,
-              isDone,
-            };
-          }
-
-          return todo;
-        }),
-      );
+    (id, isDone) => {
+      store.toggleTodo(id, isDone);
     };
 
-  const handleTodoDeletion: AppHandlers['handleTodoDeletion'] = (
-    changedTodo,
-  ) => {
-    todosContext.setTodos((todos) =>
-      todos.flatMap((todo) => {
-        if (todo.id === changedTodo.id) {
-          return [];
-        }
-
-        return [todo];
-      }),
-    );
+  const handleTodoDeletion: AppHandlers['handleTodoDeletion'] = (id) => {
+    store.deleteTodo(id);
   };
 
   const handleTodoItemAdd: AppHandlers['handleTodoItemAdd'] = () => {
-    todosContext.setTodos((todos) => [
-      ...todos,
-      {
-        id: Math.random(),
-        title: '',
-        content: '',
-        date: new Date().toDateString(),
-        isDone: false,
-      },
-    ]);
+    store.addTodo({
+      id: utils.getRandomId(),
+      title: '',
+      content: '',
+      isDone: false,
+    });
+  };
+
+  const handleTodoItemOrderChange: AppHandlers['handleTodoItemOrderChange'] = (
+    todos,
+  ) => {
+    store.setTodos(todos as Parameters<typeof store.setTodos>[0]);
   };
 
   return {
@@ -91,5 +64,6 @@ export const useAppHandlers = (): AppHandlers => {
     handleTodoCompletionToggle,
     handleTodoDeletion,
     handleTodoItemAdd,
+    handleTodoItemOrderChange,
   };
 };

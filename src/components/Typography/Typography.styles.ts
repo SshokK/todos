@@ -58,3 +58,12 @@ export const TYPE_CLASSNAMES: Record<constants.TYPOGRAPHY_TYPE, string> = {
     'decoration-transparent',
   ),
 };
+
+export const TEXT_ALIGNMENT_CLASSNAMES: Record<
+  constants.TYPOGRAPHY_TEXT_ALIGNMENT,
+  string
+> = {
+  [constants.TYPOGRAPHY_TEXT_ALIGNMENT.LEFT]: 'text-left',
+  [constants.TYPOGRAPHY_TEXT_ALIGNMENT.CENTER]: 'text-center',
+  [constants.TYPOGRAPHY_TEXT_ALIGNMENT.RIGHT]: 'text-right',
+};

@@ -1,3 +1,5 @@
+import * as dateFns from 'date-fns';
+
 export const addDays = ({
   date,
   daysCount,
@@ -5,9 +7,5 @@ export const addDays = ({
   date: Date;
   daysCount: number;
 }): Date => {
-  const d = new Date();
-
-  d.setDate(date.getDate() + daysCount);
-
-  return d;
+  return dateFns.addDays(date, daysCount);
 };

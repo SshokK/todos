@@ -6,24 +6,29 @@ export const useTodoItemHandlers = ({
 }: {
   props: Pick<
     TodoItemProps,
-    'todo' | 'onClick' | 'onDelete' | 'onCompletionToggle' | 'onTitleChange'
+    | 'id'
+    | 'isDone'
+    | 'onClick'
+    | 'onDelete'
+    | 'onCompletionToggle'
+    | 'onTitleChange'
   >;
 }): TodoItemHandlers => {
   const handleSidebarOpen: TodoItemHandlers['handleSidebarOpen'] = () => {
-    props.onClick?.(props.todo);
+    props.onClick?.(props.id);
   };
 
   const handleTitleChange: TodoItemHandlers['handleTitleChange'] = (title) => {
-    props.onTitleChange?.(title, props.todo);
+    props.onTitleChange?.(props.id, title);
   };
 
   const handleCompletionToggle: TodoItemHandlers['handleCompletionToggle'] =
     () => {
-      props.onCompletionToggle?.(!props.todo.isDone, props.todo);
+      props.onCompletionToggle?.(props.id, !props.isDone);
     };
 
   const handleDeletion: TodoItemHandlers['handleDeletion'] = () => {
-    props.onDelete?.(props.todo);
+    props.onDelete?.(props.id);
   };
 
   return {

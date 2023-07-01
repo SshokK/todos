@@ -12,7 +12,7 @@ export const VARIANTS: Variants = {
   [constants.ANIMATION_NAME.OPEN]: {
     opacity: 1,
     x: 0,
-    width: '30rem',
+    width: '20rem',
   },
   [constants.ANIMATION_NAME.CLOSED]: INITIAL,
 };

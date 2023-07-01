@@ -5,18 +5,23 @@ import classnames from 'classnames';
 
 import * as styles from './TodoItem.styles.ts';
 
-import { TEXTFIELD_TYPE } from '../TextField';
-import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE } from '../IconButton';
-
-import { IconButton } from '../IconButton';
-import { TextField } from '../TextField';
+import { TextField, TEXTFIELD_TYPE } from '../TextField';
+import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE, IconButton } from '../IconButton';
 import { IconCheckCircled, IconCicrle } from '../Icons';
 import { Toolbar } from '../Toolbar';
 
 import { useTodoItemHandlers, useTodoItemToolbarConfig } from './hooks';
+import {
+  Typography,
+  TYPOGRAPHY_TEXT_ALIGNMENT,
+  TYPOGRAPHY_TYPE,
+} from '../Typography';
 
 export const TodoItem: FC<TodoItemProps> = ({
-  todo,
+  id,
+  title,
+  isDone,
+  order,
   isCompact,
   onClick,
   onDelete,
@@ -25,7 +30,8 @@ export const TodoItem: FC<TodoItemProps> = ({
 }) => {
   const handlers = useTodoItemHandlers({
     props: {
-      todo,
+      id,
+      isDone,
       onClick,
       onDelete,
       onCompletionToggle,
@@ -46,12 +52,12 @@ export const TodoItem: FC<TodoItemProps> = ({
       })}
     >
       <IconButton
-        Icon={todo.isDone ? IconCheckCircled : IconCicrle}
+        Icon={isDone ? IconCheckCircled : IconCicrle}
         size={isCompact ? ICON_BUTTON_SIZE.MD : ICON_BUTTON_SIZE.LG}
         type={ICON_BUTTON_TYPE.SECONDARY}
         onClick={handlers.handleCompletionToggle}
         className={classnames({
-          [styles.CLASSNAMES.stateToggleButtonCompleted]: todo.isDone,
+          [styles.CLASSNAMES.stateToggleButtonCompleted]: isDone,
         })}
       />
       <div
@@ -62,19 +68,28 @@ export const TodoItem: FC<TodoItemProps> = ({
         })}
         onClick={handlers.handleSidebarOpen}
       >
-        {todo.isDone && <hr className={styles.CLASSNAMES.strikethrough} />}
+        {isDone && <hr className={styles.CLASSNAMES.strikethrough} />}
         <header className={styles.CLASSNAMES.header}>
+          {!Number.isNaN(Number(order)) && (
+            <Typography
+              type={TYPOGRAPHY_TYPE.BODY}
+              textAlignment={TYPOGRAPHY_TEXT_ALIGNMENT.RIGHT}
+              className={styles.CLASSNAMES.order}
+            >
+              {(order as number) + 1}.
+            </Typography>
+          )}
           <TextField
             type={TEXTFIELD_TYPE.TRANSPARENT}
-            value={todo.title}
-            isDisabled={isCompact || todo.isDone}
+            value={title}
+            isDisabled={isCompact || isDone}
             onChange={handlers.handleTitleChange}
             placeholder="No title"
             classNames={{
               container: styles.CLASSNAMES.titleInputContainer,
               input: classnames({
                 [styles.CLASSNAMES.titleInput]: true,
-                [styles.CLASSNAMES.titleInputDisabled]: todo.isDone,
+                [styles.CLASSNAMES.titleInputDisabled]: isDone,
               }),
             }}
           />

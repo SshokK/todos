@@ -8,10 +8,8 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <contexts.TodosContextProvider>
-      <contexts.SidebarsContextProvider>
-        <views.App />
-      </contexts.SidebarsContextProvider>
-    </contexts.TodosContextProvider>
+    <contexts.SidebarsContextProvider>
+      <views.App />
+    </contexts.SidebarsContextProvider>
   </React.StrictMode>,
 );
