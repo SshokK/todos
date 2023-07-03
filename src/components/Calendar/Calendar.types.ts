@@ -11,7 +11,6 @@ export type CalendarItem = ComponentProps<
 
 export type CalendarProps = {
   items: Record<CalendarItemDate, CalendarItem[]>;
-  columnsCount: number;
   toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
   ItemComponent?: ComponentProps<typeof elements.CalendarItem>['ItemComponent'];
   itemComponentProps?: ComponentProps<

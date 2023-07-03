@@ -14,9 +14,19 @@ export const CLASSNAMES = {
   columnsContainer: classnames(
     'flex',
     'flex-1',
-    'gap-10',
     'w-full',
     'h-full',
     'absolute',
   ),
+
+  columnContainer: classnames(
+    'w-[33.33%]',
+    'min-w-[33.33%]',
+    'h-full',
+    'p-0',
+    'left-[-33.33%]',
+    'relative',
+  ),
+
+  dummyColumnContent: classnames('w-full', 'h-full', 'bg-secondary-800'),
 };

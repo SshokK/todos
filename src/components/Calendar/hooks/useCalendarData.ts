@@ -1,31 +1,22 @@
 import type { CalendarData } from './useCalendarData.types.ts';
-import type { CalendarProps } from '../Calendar.types.ts';
 
 import * as constants from '../Calendar.constants.ts';
-import * as elements from '../elements';
 import * as helpers from './useCalendarData.helpers.ts';
 
 import { useMemo, useState } from 'react';
 
-export const useCalendarData = ({
-  columnsCount,
-}: Pick<CalendarProps, 'columnsCount'>): CalendarData => {
+export const useCalendarData = (): CalendarData => {
   const [firstColumnDate, setFirstColumnDate] = useState(
     constants.INITIAL_DATE,
-  );
-  const [animationDirection, setAnimationDirection] = useState(
-    elements.ANIMATION_DIRECTION.RIGHT,
   );
 
   const localState: CalendarData['localState'] = {
     firstColumnDate,
-    animationDirection,
   };
 
   const localActions: CalendarData['localActions'] = useMemo(
     () => ({
       setFirstColumnDate,
-      setAnimationDirection,
     }),
     [],
   );
@@ -33,13 +24,13 @@ export const useCalendarData = ({
   const formattedData: CalendarData['formattedData'] = useMemo(() => {
     const dates = helpers.getFurtherDays({
       startDate: localState.firstColumnDate,
-      daysCount: columnsCount,
+      daysCount: constants.COLUMNS_COUNT,
     });
 
     return {
       dates,
     };
-  }, [columnsCount, localState.firstColumnDate]);
+  }, [localState.firstColumnDate]);
 
   return {
     localState,

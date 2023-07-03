@@ -1,1 +1,0 @@
-export const CALENDAR_COLUMNS_COUNT = 3;

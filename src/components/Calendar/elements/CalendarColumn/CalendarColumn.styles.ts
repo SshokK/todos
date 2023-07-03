@@ -1,8 +1,18 @@
 import classnames from 'classnames';
 
 export const CLASSNAMES = {
-  column: classnames('w-4/12', 'flex', 'flex-col', 'gap-2'),
+  column: classnames(
+    'flex',
+    'flex-col',
+    'gap-2',
+    'h-full',
+    'overflow-auto',
+    'pr-6',
+    'relative',
+  ),
+
   itemsOuterContainer: classnames('flex', 'flex-1'),
+
   itemsInnerContainer: classnames(
     'flex',
     'flex-col',
@@ -20,5 +30,5 @@ export const CLASSNAMES = {
     'flex',
   ),
 
-  separator: classnames('pl-10'),
+  separator: classnames('pl-4'),
 };

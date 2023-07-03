@@ -2,7 +2,6 @@ import type { FC } from 'react';
 
 import * as components from 'components';
 import * as elements from './elements';
-import * as constants from './App.constants.ts';
 import * as styles from './App.styles.ts';
 
 import {
@@ -36,7 +35,6 @@ export const App: FC = () => {
       <div className={styles.CLASSNAMES.calendarContainer}>
         <components.Calendar
           toolbarConfig={calendarToolbarConfig}
-          columnsCount={constants.CALENDAR_COLUMNS_COUNT}
           onItemOrderChange={handlers.handleTodoItemOrderChange}
           items={storeData.todos}
           ItemComponent={components.TodoItem}

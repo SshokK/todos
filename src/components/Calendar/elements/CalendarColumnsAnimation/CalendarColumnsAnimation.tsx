@@ -1,30 +1,28 @@
 import type { FC } from 'react';
 import type { CalendarColumnsAnimationProps } from './CalendarColumnsAnimation.types.ts';
 
-import * as animations from './CalendarColumnsAnimation.animations.ts';
-import * as constants from './CalendarColumnsAnimation.constants.ts';
 import * as framerMotion from 'framer-motion';
+import * as animations from './CalendarColumnsAnimation.animations.ts';
 
 export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
-  animationTriggerKey,
-  direction,
-  className,
+  dates,
   children,
+  classNames,
 }) => {
   return (
-    <framerMotion.AnimatePresence initial={false} custom={direction}>
-      <framerMotion.motion.div
-        key={animationTriggerKey}
-        variants={animations.VARIANTS}
-        initial={constants.ANIMATION_NAME.ENTER}
-        animate={constants.ANIMATION_NAME.ACTIVE}
-        exit={constants.ANIMATION_NAME.EXIT}
-        transition={animations.TRANSITION}
-        custom={direction}
-        className={className}
-      >
-        {children}
-      </framerMotion.motion.div>
+    <framerMotion.AnimatePresence initial={false} mode={'wait'}>
+      <framerMotion.LayoutGroup>
+        {dates.map((date, i) => (
+          <framerMotion.motion.div
+            key={date.toDateString()}
+            layoutId={date.toDateString()}
+            className={classNames?.columnContainer}
+            transition={animations.TRANSITION}
+          >
+            {children(date, i)}
+          </framerMotion.motion.div>
+        ))}
+      </framerMotion.LayoutGroup>
     </framerMotion.AnimatePresence>
   );
 };

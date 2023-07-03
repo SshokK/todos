@@ -11,19 +11,15 @@ import { useCalendarData, useCalendarHandlers } from './hooks';
 export const Calendar: FC<CalendarProps> = ({
   items,
   toolbarConfig,
-  columnsCount,
   onItemOrderChange,
   ItemComponent,
   itemComponentProps,
 }) => {
-  const { localState, localActions, formattedData } = useCalendarData({
-    columnsCount,
-  });
+  const { localActions, formattedData } = useCalendarData();
 
   const handlers = useCalendarHandlers({
     props: {
       items,
-      columnsCount,
       onItemOrderChange,
     },
     localActions,
@@ -38,34 +34,37 @@ export const Calendar: FC<CalendarProps> = ({
         onPageReset={handlers.handlePageReset}
       />
       <div className={styles.CLASSNAMES.container}>
-        <elements.CalendarColumnsAnimation
-          animationTriggerKey={localState.firstColumnDate.toString()}
-          direction={localState.animationDirection}
-          className={styles.CLASSNAMES.columnsContainer}
-        >
-          {formattedData.dates.map((date, i) => (
-            <elements.CalendarColumn
-              key={date.toDateString()}
-              droppableId={date.toDateString()}
-              title={helpers.formatHumanizedDate(date)}
-              shouldShowRightSeparator={i < formattedData.dates.length - 1}
-              shouldShowNoItemsMessage={!items[date.toDateString()]?.length}
-            >
-              {items[date.toDateString()]?.map((item, i) => (
-                <elements.CalendarItem
-                  key={item.id}
-                  draggableId={String(item.id)}
-                  index={i}
-                  itemComponentProps={{
-                    ...itemComponentProps,
-                    ...item,
-                  }}
-                  ItemComponent={ItemComponent}
-                />
-              ))}
-            </elements.CalendarColumn>
-          ))}
-        </elements.CalendarColumnsAnimation>
+        <div className={styles.CLASSNAMES.columnsContainer}>
+          <elements.CalendarColumnsAnimation
+            dates={formattedData.dates}
+            classNames={{
+              columnContainer: styles.CLASSNAMES.columnContainer,
+            }}
+          >
+            {(date, i) => (
+              <elements.CalendarColumn
+                key={date.toDateString()}
+                droppableId={date.toDateString()}
+                title={helpers.formatHumanizedDate(date)}
+                shouldShowRightSeparator={i < formattedData.dates.length - 2}
+                shouldShowNoItemsMessage={!items[date.toDateString()]?.length}
+              >
+                {items[date.toDateString()]?.map((item, i) => (
+                  <elements.CalendarItem
+                    key={item.id}
+                    draggableId={String(item.id)}
+                    index={i}
+                    itemComponentProps={{
+                      ...itemComponentProps,
+                      ...item,
+                    }}
+                    ItemComponent={ItemComponent}
+                  />
+                ))}
+              </elements.CalendarColumn>
+            )}
+          </elements.CalendarColumnsAnimation>
+        </div>
       </div>
     </reactBeautifulDnD.DragDropContext>
   );

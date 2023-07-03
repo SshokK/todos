@@ -3,43 +3,62 @@ import type { CalendarData } from './useCalendarData.types.ts';
 import type { CalendarProps } from '../Calendar.types.ts';
 
 import * as utils from 'utils';
+import * as lodash from 'lodash';
 import * as constants from '../Calendar.constants.ts';
-import * as elements from '../elements';
+
+import { useCallback } from 'react';
 
 export const useCalendarHandlers = ({
   props,
   localActions,
 }: {
-  props: Pick<CalendarProps, 'items' | 'columnsCount' | 'onItemOrderChange'>;
+  props: Pick<CalendarProps, 'items' | 'onItemOrderChange'>;
   localActions: CalendarData['localActions'];
 }): CalendarHandlers => {
-  const handlePrevPageChange: CalendarHandlers['handlePrevPageChange'] = () => {
-    localActions.setAnimationDirection(elements.ANIMATION_DIRECTION.LEFT);
-    localActions.setFirstColumnDate((firstColumnDate) =>
-      utils.subtractDays({
-        date: firstColumnDate,
-        daysCount: props.columnsCount,
-      }),
+  const handlePrevPageChange: CalendarHandlers['handlePrevPageChange'] =
+    // Suppressing because ESLint can't detect deps of lodash.throttle
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(
+      lodash.throttle(
+        () => {
+          localActions.setFirstColumnDate((firstColumnDate) =>
+            utils.subtractDays({
+              date: firstColumnDate,
+              daysCount: 1,
+            }),
+          );
+        },
+        constants.PAGINATION_THROTTLE_TIME,
+        {
+          trailing: false,
+        },
+      ),
+      [localActions],
     );
-  };
 
-  const handleNextPageChange: CalendarHandlers['handleNextPageChange'] = () => {
-    localActions.setAnimationDirection(elements.ANIMATION_DIRECTION.RIGHT);
-    localActions.setFirstColumnDate((firstColumnDate) =>
-      utils.addDays({
-        date: firstColumnDate,
-        daysCount: props.columnsCount,
-      }),
+  const handleNextPageChange: CalendarHandlers['handleNextPageChange'] =
+    // Suppressing because ESLint can't detect deps of lodash.throttle
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useCallback(
+      lodash.throttle(
+        () => {
+          localActions.setFirstColumnDate((firstColumnDate) =>
+            utils.addDays({
+              date: firstColumnDate,
+              daysCount: 1,
+            }),
+          );
+        },
+        constants.PAGINATION_THROTTLE_TIME,
+        {
+          trailing: false,
+        },
+      ),
+      [localActions],
     );
-  };
 
   const handlePageReset: CalendarHandlers['handlePageReset'] = () => {
     localActions.setFirstColumnDate(constants.INITIAL_DATE);
-    localActions.setAnimationDirection((direction) =>
-      direction === elements.ANIMATION_DIRECTION.RIGHT
-        ? elements.ANIMATION_DIRECTION.LEFT
-        : elements.ANIMATION_DIRECTION.RIGHT,
-    );
   };
 
   const handleItemDrop: CalendarHandlers['handleItemDrop'] = (result) => {
