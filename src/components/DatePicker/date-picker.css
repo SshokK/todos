@@ -1,0 +1,71 @@
+.react-datepicker {
+  @apply p-4 h-80;
+}
+
+.react-datepicker-wrapper {
+  @apply hidden;
+}
+
+.react-datepicker-popper {
+  @apply relative transform-none inset-0 !important
+}
+
+.react-datepicker__header  {
+  @apply flex;
+}
+
+.react-datepicker__week {
+  @apply flex gap-4;
+}
+
+.react-datepicker__day {
+  @apply p-1 w-8 h-8 flex justify-center items-center cursor-pointer rounded transition	outline-none hover:text-secondary-600 hover:bg-secondary-300/40
+}
+
+.react-datepicker__day-name {
+  @apply p-1 w-8 h-8
+}
+
+.react-datepicker__day--outside-month {
+  @apply text-secondary-400
+}
+
+.react-datepicker__aria-live {
+  @apply hidden
+}
+
+.react-datepicker__header  {
+  @apply flex flex-col
+}
+
+.react-datepicker__day-names {
+  @apply flex gap-4 font-primaryMedium text-secondary-500 pb-2
+}
+
+.react-datepicker__month-container {
+  @apply flex flex-col
+}
+
+.react-datepicker__current-month {
+  @apply flex justify-center border-b border-secondary-500 p-2 mb-3 pb-5 font-primaryMedium
+}
+
+.react-datepicker__navigation {
+  @apply absolute
+}
+
+.react-datepicker__navigation--next {
+  @apply right-4 top-5
+}
+
+.react-datepicker__navigation--previous {
+  @apply left-4 top-5
+}
+
+.react-datepicker__day--today {
+  @apply text-primary-100 font-primaryMedium
+}
+
+.react-datepicker__day--selected {
+  @apply bg-secondary-300/60 text-primary-100 hover:text-primary-100
+}

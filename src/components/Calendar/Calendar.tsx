@@ -28,10 +28,12 @@ export const Calendar: FC<CalendarProps> = ({
   return (
     <reactBeautifulDnD.DragDropContext onDragEnd={handlers.handleItemDrop}>
       <elements.CalendarToolbar
+        firstColumnDate={formattedData.firstVisibleColumnDate}
         config={toolbarConfig}
         onPrevPageClick={handlers.handlePrevPageChange}
         onNextPageClick={handlers.handleNextPageChange}
         onPageReset={handlers.handlePageReset}
+        onDateChange={handlers.handleDateChange}
       />
       <div className={styles.CLASSNAMES.container}>
         <div className={styles.CLASSNAMES.columnsContainer}>

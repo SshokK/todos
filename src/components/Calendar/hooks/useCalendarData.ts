@@ -2,6 +2,7 @@ import type { CalendarData } from './useCalendarData.types.ts';
 
 import * as constants from '../Calendar.constants.ts';
 import * as helpers from './useCalendarData.helpers.ts';
+import * as utils from '../../../utils';
 
 import { useMemo, useState } from 'react';
 
@@ -28,6 +29,10 @@ export const useCalendarData = (): CalendarData => {
     });
 
     return {
+      firstVisibleColumnDate: utils.addDays({
+        date: localState.firstColumnDate,
+        daysCount: 1,
+      }),
       dates,
     };
   }, [localState.firstColumnDate]);

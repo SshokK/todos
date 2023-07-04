@@ -29,6 +29,7 @@ export const App: FC = () => {
       <components.Typography
         type={components.TYPOGRAPHY_TYPE.TITLE_2}
         size={components.TYPOGRAPHY_SIZE.XL}
+        className={styles.CLASSNAMES.heading}
       >
         To do items
       </components.Typography>

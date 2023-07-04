@@ -7,6 +7,7 @@ import * as lodash from 'lodash';
 import * as constants from '../Calendar.constants.ts';
 
 import { useCallback } from 'react';
+import { subtractDays } from 'utils';
 
 export const useCalendarHandlers = ({
   props,
@@ -61,6 +62,17 @@ export const useCalendarHandlers = ({
     localActions.setFirstColumnDate(constants.INITIAL_DATE);
   };
 
+  const handleDateChange: CalendarHandlers['handleDateChange'] = (date) => {
+    localActions.setFirstColumnDate(
+      date
+        ? subtractDays({
+            date: date,
+            daysCount: 1,
+          })
+        : constants.INITIAL_DATE,
+    );
+  };
+
   const handleItemDrop: CalendarHandlers['handleItemDrop'] = (result) => {
     if (!result.destination) {
       return;
@@ -99,6 +111,7 @@ export const useCalendarHandlers = ({
     handlePrevPageChange,
     handleNextPageChange,
     handlePageReset,
+    handleDateChange,
     handleItemDrop,
   };
 };

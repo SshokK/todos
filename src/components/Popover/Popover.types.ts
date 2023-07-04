@@ -4,6 +4,7 @@ import type * as constants from './Popover.constants';
 export type PopoverProps = {
   content?: react.ReactNode;
   children?: react.ReactNode;
+  onOpenChange?: (isOpen: boolean) => void;
   isOpen?: boolean;
   isDisabled?: boolean;
   isBlank?: boolean;

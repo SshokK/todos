@@ -39,6 +39,11 @@ export type ToolbarTypographyConfig = ToolbarConfigBase & {
   props: ComponentProps<typeof elements.ToolbarTypography>;
 };
 
+export type ToolbarDatepickerConfig = ToolbarConfigBase & {
+  type: constants.TOOLBAR_ELEMENT_TYPE.DATEPICKER;
+  props: ComponentProps<typeof elements.ToolbarDatePicker>;
+};
+
 export type ToolbarSpacingConfig = ToolbarConfigBase & {
   type: constants.TOOLBAR_ELEMENT_TYPE.SPACING;
   props: ComponentProps<typeof elements.ToolbarSpacing>;
@@ -50,5 +55,6 @@ export type ToolbarConfig = (
   | ToolbarSeparatorConfig
   | ToolbarTextFieldConfig
   | ToolbarTypographyConfig
+  | ToolbarDatepickerConfig
   | ToolbarSpacingConfig
 )[];

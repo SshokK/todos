@@ -6,7 +6,7 @@ export const CLASSNAMES = {
   contentWithStyles: classnames(
     'rounded-md',
     'bg-secondary-100',
-    'shadow',
+    'shadow-xl',
     'pt-2',
     'pb-2',
     'px-2',

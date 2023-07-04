@@ -13,6 +13,7 @@ export const Popover = react.forwardRef<HTMLButtonElement, types.PopoverProps>(
       content,
       children,
       isOpen,
+      onOpenChange,
       isDisabled,
       isBlank,
       isWithCloseButton,
@@ -23,7 +24,10 @@ export const Popover = react.forwardRef<HTMLButtonElement, types.PopoverProps>(
     ref,
   ) => {
     return (
-      <reactPopover.Root open={isDisabled ? false : isOpen}>
+      <reactPopover.Root
+        open={isDisabled ? false : isOpen}
+        onOpenChange={onOpenChange}
+      >
         <reactPopover.Trigger ref={ref} asChild>
           {children}
         </reactPopover.Trigger>

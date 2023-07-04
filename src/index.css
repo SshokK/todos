@@ -14,7 +14,6 @@
   src: local('Poppins Bold'), local('Poppins-Bold'), url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
 }
 
-
 @font-face {
   font-family: "Poppins Bold Italic";
   font-weight: normal;
@@ -113,4 +112,3 @@ html {
   @apply text-secondary-900;
   @apply font-primaryRegular;
 }
-

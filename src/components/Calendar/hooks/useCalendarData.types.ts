@@ -11,6 +11,7 @@ export type CalendarLocalActions = {
 };
 
 export type CalendarFormattedData = {
+  firstVisibleColumnDate: Date;
   dates: Date[];
 };
 

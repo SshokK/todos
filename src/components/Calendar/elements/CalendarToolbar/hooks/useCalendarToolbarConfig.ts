@@ -17,7 +17,11 @@ export const useCalendarToolbarConfig = ({
 }: {
   props: Pick<
     CalendarToolbarProps,
-    'config' | 'onPrevPageClick' | 'onNextPageClick'
+    | 'firstColumnDate'
+    | 'config'
+    | 'onPrevPageClick'
+    | 'onNextPageClick'
+    | 'onDateChange'
   >;
 }): ComponentProps<typeof Toolbar>['config'] => {
   return useMemo(
@@ -29,6 +33,14 @@ export const useCalendarToolbarConfig = ({
         props: {
           Icon: IconChevronLeft,
           onClick: props.onPrevPageClick,
+        },
+      },
+      {
+        key: 'jumpToDate',
+        type: TOOLBAR_ELEMENT_TYPE.DATEPICKER,
+        props: {
+          value: props.firstColumnDate,
+          onChange: props.onDateChange,
         },
       },
       {
@@ -60,6 +72,12 @@ export const useCalendarToolbarConfig = ({
         },
       },
     ],
-    [props?.config, props.onNextPageClick, props.onPrevPageClick],
+    [
+      props?.config,
+      props.firstColumnDate,
+      props.onDateChange,
+      props.onNextPageClick,
+      props.onPrevPageClick,
+    ],
   );
 };
