@@ -18,6 +18,7 @@ export const CLASSNAMES = {
     'flex-col',
     'flex-1',
     'gap-2',
+    'pb-2',
     'overflow-auto',
   ),
 

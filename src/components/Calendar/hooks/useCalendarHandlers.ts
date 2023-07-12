@@ -5,9 +5,9 @@ import type { CalendarProps } from '../Calendar.types.ts';
 import * as utils from 'utils';
 import * as lodash from 'lodash';
 import * as constants from '../Calendar.constants.ts';
+import * as elements from '../elements';
 
 import { useCallback } from 'react';
-import { subtractDays } from 'utils';
 
 export const useCalendarHandlers = ({
   props,
@@ -65,21 +65,43 @@ export const useCalendarHandlers = ({
   const handleDateChange: CalendarHandlers['handleDateChange'] = (date) => {
     localActions.setFirstColumnDate(
       date
-        ? subtractDays({
+        ? utils.subtractDays({
             date: date,
-            daysCount: 1,
+            daysCount: 2,
           })
         : constants.INITIAL_DATE,
     );
   };
 
+  const handleDragStart: CalendarHandlers['handleDragStart'] = () => {
+    localActions.setIsDragging(true);
+  };
+
   const handleItemDrop: CalendarHandlers['handleItemDrop'] = (result) => {
+    localActions.setIsDragging(false);
+
     if (!result.destination) {
       return;
     }
 
     const { source, destination } = result;
 
+    if (destination?.droppableId === elements.REMOVAL_ZONE_DROPPABLE_ID) {
+      const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
+
+      sourceColumnItems.splice(source.index, 1);
+
+      return props.onItemOrderChange?.({
+        ...props.items,
+        [source.droppableId]: sourceColumnItems,
+      });
+    }
+
+    /**
+     *
+     * Item was moved to a different column
+     *
+     */
     if (source.droppableId !== destination.droppableId) {
       const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
       const destColumnItems = [...(props.items[destination.droppableId] ?? [])];
@@ -88,23 +110,29 @@ export const useCalendarHandlers = ({
 
       destColumnItems.splice(destination.index, 0, removed);
 
-      props.onItemOrderChange?.({
+      return props.onItemOrderChange?.({
         ...props.items,
         [source.droppableId]: sourceColumnItems,
         [destination.droppableId]: destColumnItems,
       });
-    } else {
-      const copiedItems = [...props.items[source.droppableId]];
-
-      const [removed] = copiedItems.splice(source.index, 1);
-
-      copiedItems.splice(destination.index, 0, removed);
-
-      props.onItemOrderChange?.({
-        ...props.items,
-        [source.droppableId]: copiedItems,
-      });
     }
+
+    /**
+     *
+     * Item was moved within the same column
+     *
+     */
+
+    const copiedItems = [...props.items[source.droppableId]];
+
+    const [removed] = copiedItems.splice(source.index, 1);
+
+    copiedItems.splice(destination.index, 0, removed);
+
+    props.onItemOrderChange?.({
+      ...props.items,
+      [source.droppableId]: copiedItems,
+    });
   };
 
   return {
@@ -112,6 +140,7 @@ export const useCalendarHandlers = ({
     handleNextPageChange,
     handlePageReset,
     handleDateChange,
+    handleDragStart,
     handleItemDrop,
   };
 };

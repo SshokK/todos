@@ -10,14 +10,17 @@ export const useCalendarData = (): CalendarData => {
   const [firstColumnDate, setFirstColumnDate] = useState(
     constants.INITIAL_DATE,
   );
+  const [isDragging, setIsDragging] = useState(false);
 
   const localState: CalendarData['localState'] = {
     firstColumnDate,
+    isDragging,
   };
 
   const localActions: CalendarData['localActions'] = useMemo(
     () => ({
       setFirstColumnDate,
+      setIsDragging,
     }),
     [],
   );
@@ -29,9 +32,9 @@ export const useCalendarData = (): CalendarData => {
     });
 
     return {
-      firstVisibleColumnDate: utils.addDays({
+      centralVisibleColumnDate: utils.addDays({
         date: localState.firstColumnDate,
-        daysCount: 1,
+        daysCount: 2,
       }),
       dates,
     };

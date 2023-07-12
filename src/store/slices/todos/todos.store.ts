@@ -60,6 +60,16 @@ export const todosStore: Slice<TodosState> = (set) => ({
     }));
   },
 
+  setTodoDate: (todoId, newDate) => {
+    set((state) => ({
+      todos: helpers.moveTodo({
+        todos: state.todos,
+        todoId: todoId,
+        newDate: newDate,
+      }),
+    }));
+  },
+
   setTodoContent: (todoId, content) => {
     set((state) => ({
       todos: helpers.updateTodo({

@@ -40,7 +40,7 @@ export const App: FC = () => {
           items={storeData.todos}
           ItemComponent={components.TodoItem}
           itemComponentProps={{
-            onDelete: handlers.handleTodoDeletion,
+            onDateChange: handlers.handleTodoDateChange,
             onCompletionToggle: handlers.handleTodoCompletionToggle,
             onTitleChange: handlers.handleTodoTitleChange,
           }}

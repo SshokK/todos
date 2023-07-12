@@ -15,7 +15,7 @@ export const Calendar: FC<CalendarProps> = ({
   ItemComponent,
   itemComponentProps,
 }) => {
-  const { localActions, formattedData } = useCalendarData();
+  const { localState, localActions, formattedData } = useCalendarData();
 
   const handlers = useCalendarHandlers({
     props: {
@@ -26,9 +26,12 @@ export const Calendar: FC<CalendarProps> = ({
   });
 
   return (
-    <reactBeautifulDnD.DragDropContext onDragEnd={handlers.handleItemDrop}>
+    <reactBeautifulDnD.DragDropContext
+      onDragStart={handlers.handleDragStart}
+      onDragEnd={handlers.handleItemDrop}
+    >
       <elements.CalendarToolbar
-        firstColumnDate={formattedData.firstVisibleColumnDate}
+        firstColumnDate={formattedData.centralVisibleColumnDate}
         config={toolbarConfig}
         onPrevPageClick={handlers.handlePrevPageChange}
         onNextPageClick={handlers.handleNextPageChange}
@@ -68,6 +71,7 @@ export const Calendar: FC<CalendarProps> = ({
           </elements.CalendarColumnsAnimation>
         </div>
       </div>
+      <elements.CalendarItemRemoval isDragging={localState.isDragging} />
     </reactBeautifulDnD.DragDropContext>
   );
 };

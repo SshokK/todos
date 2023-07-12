@@ -12,7 +12,9 @@ export type AppHandlers = {
     typeof components.TodoItem
   >['onTitleChange'];
 
-  handleTodoDeletion: ComponentProps<typeof components.TodoItem>['onDelete'];
+  handleTodoDateChange: ComponentProps<
+    typeof components.TodoItem
+  >['onDateChange'];
 
   handleTodoItemAdd: () => void;
 

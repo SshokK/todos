@@ -9,7 +9,7 @@ export const useTodoItemHandlers = ({
     | 'id'
     | 'isDone'
     | 'onClick'
-    | 'onDelete'
+    | 'onDateChange'
     | 'onCompletionToggle'
     | 'onTitleChange'
   >;
@@ -27,14 +27,14 @@ export const useTodoItemHandlers = ({
       props.onCompletionToggle?.(props.id, !props.isDone);
     };
 
-  const handleDeletion: TodoItemHandlers['handleDeletion'] = () => {
-    props.onDelete?.(props.id);
+  const handleDateChange: TodoItemHandlers['handleDateChange'] = (date) => {
+    props.onDateChange?.(props.id, date ?? new Date());
   };
 
   return {
     handleSidebarOpen,
     handleTitleChange,
     handleCompletionToggle,
-    handleDeletion,
+    handleDateChange,
   };
 };

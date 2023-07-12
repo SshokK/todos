@@ -5,17 +5,17 @@ import classnames from 'classnames';
 
 import * as styles from './TodoItem.styles.ts';
 
-import { TextField, TEXTFIELD_TYPE } from '../TextField';
-import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE, IconButton } from '../IconButton';
+import { TYPOGRAPHY_TEXT_ALIGNMENT, TYPOGRAPHY_TYPE } from '../Typography';
+import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE } from '../IconButton';
+import { TEXTFIELD_TYPE } from '../TextField';
+
+import { TextField } from '../TextField';
+import { IconButton } from '../IconButton';
 import { IconCheckCircled, IconCicrle } from '../Icons';
 import { Toolbar } from '../Toolbar';
+import { Typography } from '../Typography';
 
 import { useTodoItemHandlers, useTodoItemToolbarConfig } from './hooks';
-import {
-  Typography,
-  TYPOGRAPHY_TEXT_ALIGNMENT,
-  TYPOGRAPHY_TYPE,
-} from '../Typography';
 
 export const TodoItem: FC<TodoItemProps> = ({
   id,
@@ -24,7 +24,7 @@ export const TodoItem: FC<TodoItemProps> = ({
   order,
   isCompact,
   onClick,
-  onDelete,
+  onDateChange,
   onCompletionToggle,
   onTitleChange,
 }) => {
@@ -33,14 +33,14 @@ export const TodoItem: FC<TodoItemProps> = ({
       id,
       isDone,
       onClick,
-      onDelete,
+      onDateChange,
       onCompletionToggle,
       onTitleChange,
     },
   });
 
   const toolbarConfig = useTodoItemToolbarConfig({
-    onDelete: handlers.handleDeletion,
+    onDateChange: handlers.handleDateChange,
   });
 
   return (

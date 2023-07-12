@@ -27,6 +27,4 @@ export const CLASSNAMES = {
     'left-[-33.33%]',
     'relative',
   ),
-
-  dummyColumnContent: classnames('w-full', 'h-full', 'bg-secondary-800'),
 };

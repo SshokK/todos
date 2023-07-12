@@ -12,5 +12,6 @@ export type TodosState = {
   toggleTodo: (todoId: Todo['id'], isDone: Todo['isDone']) => void;
   setTodos: (todos: TodosState['todos']) => void;
   setTodoTitle: (todoId: Todo['id'], title: Todo['title']) => void;
+  setTodoDate: (todoId: Todo['id'], date: Date) => void;
   setTodoContent: (todoId: Todo['id'], content: Todo['content']) => void;
 };

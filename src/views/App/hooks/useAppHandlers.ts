@@ -38,8 +38,11 @@ export const useAppHandlers = (): AppHandlers => {
       store.toggleTodo(id, isDone);
     };
 
-  const handleTodoDeletion: AppHandlers['handleTodoDeletion'] = (id) => {
-    store.deleteTodo(id);
+  const handleTodoDateChange: AppHandlers['handleTodoDateChange'] = (
+    id,
+    date,
+  ) => {
+    store.setTodoDate(id, date);
   };
 
   const handleTodoItemAdd: AppHandlers['handleTodoItemAdd'] = () => {
@@ -62,7 +65,7 @@ export const useAppHandlers = (): AppHandlers => {
     handleTodoClick,
     handleTodoTitleChange,
     handleTodoCompletionToggle,
-    handleTodoDeletion,
+    handleTodoDateChange,
     handleTodoItemAdd,
     handleTodoItemOrderChange,
   };

@@ -21,5 +21,6 @@ export * from './IconRows';
 export * from './IconSearch';
 export * from './IconSort';
 export * from './IconTrash';
+export * from './IconTrash2.tsx';
 export * from './IconValue';
 export * from './IconValueNone';

@@ -4,29 +4,25 @@ import type { TodoItemHandlers } from './useTodoItemHandlers.types.ts';
 import { TOOLBAR_ELEMENT_TYPE } from '../../Toolbar';
 
 import { Toolbar } from '../../Toolbar';
-import { IconTrash } from '../../Icons';
 
 import { useMemo } from 'react';
 
 export const useTodoItemToolbarConfig = ({
-  onDelete,
+  onDateChange,
 }: {
-  onDelete: TodoItemHandlers['handleDeletion'];
+  onDateChange: TodoItemHandlers['handleDateChange'];
 }) => {
-  const config = useMemo(() => {
+  return useMemo(() => {
     const config: ComponentProps<typeof Toolbar>['config'] = [];
 
     config.push({
-      key: 'delete',
-      type: TOOLBAR_ELEMENT_TYPE.ACTION,
+      key: 'changeDate',
+      type: TOOLBAR_ELEMENT_TYPE.DATEPICKER,
       props: {
-        Icon: IconTrash,
-        onClick: onDelete,
+        onChange: onDateChange,
       },
     });
 
     return config;
-  }, [onDelete]);
-
-  return config;
+  }, [onDateChange]);
 };

@@ -5,5 +5,6 @@ export type CalendarHandlers = {
   handleNextPageChange: () => void;
   handlePageReset: () => void;
   handleDateChange: (date: Date | null) => void;
+  handleDragStart: Required<DragDropContextProps>['onDragStart'];
   handleItemDrop: Required<DragDropContextProps>['onDragEnd'];
 };

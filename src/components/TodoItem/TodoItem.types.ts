@@ -5,7 +5,7 @@ export type TodoItemProps = {
   order?: number;
   isCompact?: boolean;
   onClick?: (id: TodoItemProps['id']) => void;
-  onDelete?: (id: TodoItemProps['id']) => void;
+  onDateChange?: (id: TodoItemProps['id'], date: Date) => void;
   onTitleChange?: (id: TodoItemProps['id'], title: string) => void;
   onCompletionToggle?: (id: TodoItemProps['id'], isDone: boolean) => void;
 };
