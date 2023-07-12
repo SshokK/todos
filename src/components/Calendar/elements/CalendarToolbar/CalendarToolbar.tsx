@@ -30,7 +30,7 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
   });
 
   return (
-    <div className={styles.CLASSNAMES.container}>
+    <header className={styles.CLASSNAMES.container}>
       <Toolbar config={toolbarConfig} />
       <IconButton
         Icon={IconReload}
@@ -41,6 +41,6 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
           title: 'Jump to today',
         }}
       />
-    </div>
+    </header>
   );
 };

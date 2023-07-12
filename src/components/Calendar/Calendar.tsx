@@ -38,7 +38,7 @@ export const Calendar: FC<CalendarProps> = ({
         onPageReset={handlers.handlePageReset}
         onDateChange={handlers.handleDateChange}
       />
-      <div className={styles.CLASSNAMES.container}>
+      <main className={styles.CLASSNAMES.container}>
         <div className={styles.CLASSNAMES.columnsContainer}>
           <elements.CalendarColumnsAnimation
             dates={formattedData.dates}
@@ -57,6 +57,7 @@ export const Calendar: FC<CalendarProps> = ({
                 {items[date.toDateString()]?.map((item, i) => (
                   <elements.CalendarItem
                     key={item.id}
+                    date={date}
                     draggableId={String(item.id)}
                     index={i}
                     itemComponentProps={{
@@ -70,7 +71,7 @@ export const Calendar: FC<CalendarProps> = ({
             )}
           </elements.CalendarColumnsAnimation>
         </div>
-      </div>
+      </main>
       <elements.CalendarItemRemoval isDragging={localState.isDragging} />
     </reactBeautifulDnD.DragDropContext>
   );

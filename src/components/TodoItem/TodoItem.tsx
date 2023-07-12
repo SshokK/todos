@@ -22,6 +22,7 @@ export const TodoItem: FC<TodoItemProps> = ({
   title,
   isDone,
   order,
+  date,
   isCompact,
   onClick,
   onDateChange,
@@ -40,6 +41,9 @@ export const TodoItem: FC<TodoItemProps> = ({
   });
 
   const toolbarConfig = useTodoItemToolbarConfig({
+    props: {
+      date,
+    },
     onDateChange: handlers.handleDateChange,
   });
 

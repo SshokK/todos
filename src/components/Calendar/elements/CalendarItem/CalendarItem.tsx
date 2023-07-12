@@ -17,6 +17,7 @@ import { useMemo } from 'react';
 export const CalendarItem: FC<CalendarItemProps> = ({
   draggableId,
   index,
+  date,
   itemComponentProps,
   ItemComponent,
 }) => {
@@ -30,7 +31,7 @@ export const CalendarItem: FC<CalendarItemProps> = ({
           {...dragProvided.draggableProps}
           className={styles.CLASSNAMES.container}
         >
-          <Item {...itemComponentProps} />
+          <Item date={date} {...itemComponentProps} />
           <IconButton
             {...dragProvided.dragHandleProps}
             Icon={IconDragHandle}
