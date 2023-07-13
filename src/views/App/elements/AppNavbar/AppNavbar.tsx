@@ -48,11 +48,11 @@ export const AppNavbar: FC = () => {
               </components.Card>
             </framerMotion.motion.div>
           ))}
-          {!storeData.unfinishedTodosForToday.length && (
-            <components.NoItemsMessage>
-              No unfinished todos for today
-            </components.NoItemsMessage>
-          )}
+          <components.NoItemsMessage
+            isVisible={!storeData.unfinishedTodosForToday.length}
+          >
+            No unfinished todos for today
+          </components.NoItemsMessage>
         </framerMotion.AnimatePresence>
       </div>
     </div>

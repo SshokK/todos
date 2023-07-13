@@ -16,14 +16,14 @@ export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
   return (
     <framerMotion.AnimatePresence initial={false} mode="wait">
       <framerMotion.LayoutGroup>
-        {dates.map((date, i) => (
+        {dates.map((date, i, dates) => (
           <framerMotion.motion.div
             key={date.toDateString()}
             layoutId={date.toDateString()}
             className={classNames?.columnContainer}
             transition={animations.TRANSITION}
           >
-            {children(date, i)}
+            {children(date, i, dates)}
             <Separator
               orientation={SEPARATOR_ORIENTATION.VERTICAL}
               className={classNames?.separator}

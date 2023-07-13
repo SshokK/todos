@@ -47,12 +47,13 @@ export const Calendar: FC<CalendarProps> = ({
               separator: styles.CLASSNAMES.separator,
             }}
           >
-            {(date) => (
+            {(date, i, dates) => (
               <elements.CalendarColumn
                 key={date.toDateString()}
                 droppableId={date.toDateString()}
                 title={helpers.formatHumanizedDate(date)}
                 shouldShowNoItemsMessage={!items[date.toDateString()]?.length}
+                isDropDisabled={i === 0 || i === dates.length - 1}
               >
                 {items[date.toDateString()]?.map((item, i) => (
                   <elements.CalendarItem

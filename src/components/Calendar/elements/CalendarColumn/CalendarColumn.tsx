@@ -12,12 +12,16 @@ import { NoItemsMessage } from '../../../NoItemsMessage';
 export const CalendarColumn: FC<CalendarColumnProps> = ({
   droppableId,
   title,
+  isDropDisabled,
   noItemsMessage,
   shouldShowNoItemsMessage,
   children,
 }) => {
   return (
-    <StrictModeDroppable droppableId={droppableId}>
+    <StrictModeDroppable
+      droppableId={droppableId}
+      isDropDisabled={isDropDisabled}
+    >
       {(provided) => (
         <>
           <div className={styles.CLASSNAMES.column}>
@@ -30,13 +34,13 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
                 {provided.placeholder}
               </div>
               <ul className={styles.CLASSNAMES.itemsInnerContainer}>
-                {shouldShowNoItemsMessage ? (
-                  <NoItemsMessage className={styles.CLASSNAMES.noItemsMessage}>
-                    {noItemsMessage}
-                  </NoItemsMessage>
-                ) : (
-                  children
-                )}
+                <NoItemsMessage
+                  isVisible={shouldShowNoItemsMessage}
+                  className={styles.CLASSNAMES.noItemsMessage}
+                >
+                  {noItemsMessage}
+                </NoItemsMessage>
+                {children}
               </ul>
             </div>
           </div>

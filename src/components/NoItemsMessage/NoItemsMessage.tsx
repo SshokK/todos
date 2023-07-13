@@ -12,26 +12,31 @@ import { TYPOGRAPHY_SIZE, TYPOGRAPHY_TYPE } from '../Typography';
 import { Typography } from '../Typography';
 
 export const NoItemsMessage: FC<NoItemsMessageProps> = ({
+  isVisible,
   className,
   children,
 }) => {
   return (
-    <framerMotion.motion.div
-      layout
-      variants={animations.VARIANTS}
-      initial={animations.ANIMATION_NAME.ENTER}
-      animate={animations.ANIMATION_NAME.ACTIVE}
-      exit={animations.ANIMATION_NAME.EXIT}
-      transition={animations.TRANSITION}
-      className={classnames(
-        className,
-        styles.CLASSNAMES.noUpcomingTodosMessage,
+    <framerMotion.AnimatePresence initial={false}>
+      {isVisible && (
+        <framerMotion.motion.div
+          layout
+          variants={animations.VARIANTS}
+          initial={animations.ANIMATION_NAME.ENTER}
+          animate={animations.ANIMATION_NAME.ACTIVE}
+          exit={animations.ANIMATION_NAME.EXIT}
+          transition={animations.TRANSITION}
+          className={classnames(
+            className,
+            styles.CLASSNAMES.noUpcomingTodosMessage,
+          )}
+        >
+          <Typography type={TYPOGRAPHY_TYPE.SUBTITLE} size={TYPOGRAPHY_SIZE.SM}>
+            {children}
+          </Typography>
+        </framerMotion.motion.div>
       )}
-    >
-      <Typography type={TYPOGRAPHY_TYPE.SUBTITLE} size={TYPOGRAPHY_SIZE.SM}>
-        {children}
-      </Typography>
-    </framerMotion.motion.div>
+    </framerMotion.AnimatePresence>
   );
 };
 
