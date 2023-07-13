@@ -33,13 +33,4 @@ export const CLASSNAMES = {
   upcomingTodosList: classnames('flex', 'flex-col', 'gap-1'),
 
   upcomingTodosListItem: classnames('bg-secondary-100', 'p-4'),
-
-  noUpcomingTodosMessage: classnames(
-    'flex-1',
-    'flex',
-    'items-center',
-    'text-secondary-500',
-    'absolute',
-    'h-full',
-  ),
 };

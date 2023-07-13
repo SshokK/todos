@@ -6,6 +6,7 @@ export * from './DatePicker';
 export * from './IconButton';
 export * from './Icons';
 export * from './Navbar';
+export * from './NoItemsMessage';
 export * from './Popover';
 export * from './RichTextEditor';
 export * from './Select';

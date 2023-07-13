@@ -3,48 +3,44 @@ import type { CalendarColumnProps } from './CalendarColumn.types.ts';
 
 import * as styles from './CalendarColumn.styles.ts';
 
-import { TYPOGRAPHY_SIZE, TYPOGRAPHY_TYPE } from '../../../Typography';
-import { SEPARATOR_ORIENTATION } from '../../../Separator';
+import { TYPOGRAPHY_TYPE } from '../../../Typography';
 
 import { Typography } from '../../../Typography';
-import { Separator } from '../../../Separator';
 import { StrictModeDroppable } from '../../../StrictModeDroppable';
+import { NoItemsMessage } from '../../../NoItemsMessage';
 
 export const CalendarColumn: FC<CalendarColumnProps> = ({
   droppableId,
   title,
   noItemsMessage,
-  shouldShowRightSeparator,
   shouldShowNoItemsMessage,
   children,
 }) => {
   return (
     <StrictModeDroppable droppableId={droppableId}>
-      {(dropProvided) => (
-        <div ref={dropProvided.innerRef} className={styles.CLASSNAMES.column}>
-          <Typography type={TYPOGRAPHY_TYPE.SUBTITLE}>{title}</Typography>
-          <div className={styles.CLASSNAMES.itemsOuterContainer}>
-            <ul className={styles.CLASSNAMES.itemsInnerContainer}>
-              {shouldShowNoItemsMessage ? (
-                <Typography
-                  type={TYPOGRAPHY_TYPE.SUBTITLE}
-                  size={TYPOGRAPHY_SIZE.SM}
-                  className={styles.CLASSNAMES.noItemsMessage}
-                >
-                  {noItemsMessage}
-                </Typography>
-              ) : (
-                children
-              )}
-            </ul>
-            {shouldShowRightSeparator && (
-              <Separator
-                orientation={SEPARATOR_ORIENTATION.VERTICAL}
-                className={styles.CLASSNAMES.separator}
-              />
-            )}
+      {(provided) => (
+        <>
+          <div className={styles.CLASSNAMES.column}>
+            <Typography type={TYPOGRAPHY_TYPE.SUBTITLE}>{title}</Typography>
+            <div
+              ref={provided.innerRef}
+              className={styles.CLASSNAMES.itemsOuterContainer}
+            >
+              <div className={styles.CLASSNAMES.draggablePlaceholder}>
+                {provided.placeholder}
+              </div>
+              <ul className={styles.CLASSNAMES.itemsInnerContainer}>
+                {shouldShowNoItemsMessage ? (
+                  <NoItemsMessage className={styles.CLASSNAMES.noItemsMessage}>
+                    {noItemsMessage}
+                  </NoItemsMessage>
+                ) : (
+                  children
+                )}
+              </ul>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </StrictModeDroppable>
   );

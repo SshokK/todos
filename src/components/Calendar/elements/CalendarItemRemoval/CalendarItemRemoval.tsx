@@ -23,31 +23,32 @@ export const CalendarItemRemoval: FC<CalendarItemRemovalProps> = ({
         >
           <footer
             ref={provided.innerRef}
-            className={styles.CLASSNAMES.itemRemovalZone}
+            className={styles.CLASSNAMES.container}
           >
+            <div className={styles.CLASSNAMES.draggablePlaceholder}>
+              {provided.placeholder}
+            </div>
             <framerMotion.motion.div
               layout
               className={classnames({
-                [styles.CLASSNAMES.itemRemovalBorders]: true,
-                [styles.CLASSNAMES.itemRemovalBordersActive]: isDragging,
+                [styles.CLASSNAMES.borders]: true,
+                [styles.CLASSNAMES.bordersActive]: isDragging,
               })}
             >
               <framerMotion.motion.div
                 className={classnames({
-                  [styles.CLASSNAMES.itemRemovalBordersSpacer]: true,
-                  [styles.CLASSNAMES.itemRemovalBordersSpacerActive]:
-                    isDragging,
-                  [styles.CLASSNAMES.itemRemovalBordersSpacerActiveDragOver]:
+                  [styles.CLASSNAMES.bordersSpacer]: true,
+                  [styles.CLASSNAMES.bordersSpacerActive]: isDragging,
+                  [styles.CLASSNAMES.bordersSpacerActiveDragOver]:
                     snapshot.isDraggingOver,
                 })}
               />
             </framerMotion.motion.div>
             <IconTrash2
               className={classnames({
-                [styles.CLASSNAMES.itemRemovalIcon]: true,
-                [styles.CLASSNAMES.itemRemovalIconActive]: isDragging,
-                [styles.CLASSNAMES.itemRemovalIconActiveDragOver]:
-                  snapshot.isDraggingOver,
+                [styles.CLASSNAMES.icon]: true,
+                [styles.CLASSNAMES.iconActive]: isDragging,
+                [styles.CLASSNAMES.iconActiveDragOver]: snapshot.isDraggingOver,
               })}
             />
           </footer>

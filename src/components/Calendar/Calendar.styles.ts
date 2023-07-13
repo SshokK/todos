@@ -20,11 +20,14 @@ export const CLASSNAMES = {
   ),
 
   columnContainer: classnames(
-    'w-[33.33%]',
-    'min-w-[33.33%]',
+    'w-[calc(33.33%+0.7rem)]',
+    'min-w-[calc(33.33%+0.7rem)]',
     'h-full',
     'p-0',
-    'left-[-33.33%]',
+    'left-[calc(-33.33%-0.7rem)]',
     'relative',
+    'flex',
   ),
+
+  separator: classnames('p-4'),
 };

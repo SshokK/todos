@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 
 export const CLASSNAMES = {
-  itemRemovalZone: classnames(
+  container: classnames(
     'flex',
     'flex-col',
     'items-center',
@@ -11,27 +11,27 @@ export const CLASSNAMES = {
     'relative',
   ),
 
-  itemRemovalBorders: classnames(
+  draggablePlaceholder: classnames('hidden'),
+
+  borders: classnames(
     'rounded',
     'border',
     'border-secondary-400',
     'border-solid',
     'flex',
     'justify-center',
+    'relative',
   ),
 
-  itemRemovalBordersActive: classnames('w-full', '!border-error-300'),
+  bordersActive: classnames('w-full', '!border-error-300'),
 
-  itemRemovalBordersSpacer: classnames('w-20', 'h-20', 'rounded', 'transition'),
+  bordersSpacer: classnames('w-20', 'h-20', 'rounded', 'transition'),
 
-  itemRemovalBordersSpacerActive: classnames('!w-full'),
+  bordersSpacerActive: classnames('!w-full'),
 
-  itemRemovalBordersSpacerActiveDragOver: classnames(
-    'bg-error-500',
-    'bg-opacity-5',
-  ),
+  bordersSpacerActiveDragOver: classnames('bg-error-500', 'bg-opacity-5'),
 
-  itemRemovalIcon: classnames(
+  icon: classnames(
     'text-[3rem]',
     'text-secondary-400',
     'transition',
@@ -39,7 +39,7 @@ export const CLASSNAMES = {
     'top-4',
   ),
 
-  itemRemovalIconActive: classnames('!text-error-300'),
+  iconActive: classnames('!text-error-300'),
 
-  itemRemovalIconActiveDragOver: classnames('!text-error'),
+  iconActiveDragOver: classnames('!text-error'),
 };

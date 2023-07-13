@@ -44,14 +44,14 @@ export const Calendar: FC<CalendarProps> = ({
             dates={formattedData.dates}
             classNames={{
               columnContainer: styles.CLASSNAMES.columnContainer,
+              separator: styles.CLASSNAMES.separator,
             }}
           >
-            {(date, i) => (
+            {(date) => (
               <elements.CalendarColumn
                 key={date.toDateString()}
                 droppableId={date.toDateString()}
                 title={helpers.formatHumanizedDate(date)}
-                shouldShowRightSeparator={i < formattedData.dates.length - 2}
                 shouldShowNoItemsMessage={!items[date.toDateString()]?.length}
               >
                 {items[date.toDateString()]?.map((item, i) => (

@@ -1,6 +1,6 @@
 import type { GlobalState } from '../store.types.ts';
 
-import create from 'zustand';
+import { create } from 'zustand';
 
 import * as slices from '../slices';
 

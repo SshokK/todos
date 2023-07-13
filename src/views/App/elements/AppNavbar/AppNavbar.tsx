@@ -4,7 +4,6 @@ import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as framerMotion from 'framer-motion';
 import * as animations from './AppNavbar.animations.ts';
-import * as constants from './AppNavbar.constants.ts';
 
 import { useAppNavbarData } from './hooks';
 
@@ -28,9 +27,9 @@ export const AppNavbar: FC = () => {
               layout
               className={styles.CLASSNAMES.todoCard}
               variants={animations.VARIANTS}
-              initial={constants.ANIMATION_NAME.ENTER}
-              animate={constants.ANIMATION_NAME.ACTIVE}
-              exit={constants.ANIMATION_NAME.EXIT}
+              initial={animations.ANIMATION_NAME.ENTER}
+              animate={animations.ANIMATION_NAME.ACTIVE}
+              exit={animations.ANIMATION_NAME.EXIT}
               transition={animations.TRANSITION}
             >
               <components.Card>
@@ -50,22 +49,9 @@ export const AppNavbar: FC = () => {
             </framerMotion.motion.div>
           ))}
           {!storeData.unfinishedTodosForToday.length && (
-            <framerMotion.motion.div
-              layout
-              variants={animations.VARIANTS}
-              initial={constants.ANIMATION_NAME.ENTER}
-              animate={constants.ANIMATION_NAME.ACTIVE}
-              exit={constants.ANIMATION_NAME.EXIT}
-              transition={animations.TRANSITION}
-              className={styles.CLASSNAMES.noUpcomingTodosMessage}
-            >
-              <components.Typography
-                type={components.TYPOGRAPHY_TYPE.SUBTITLE}
-                size={components.TYPOGRAPHY_SIZE.SM}
-              >
-                No unfinished todos for today
-              </components.Typography>
-            </framerMotion.motion.div>
+            <components.NoItemsMessage>
+              No unfinished todos for today
+            </components.NoItemsMessage>
           )}
         </framerMotion.AnimatePresence>
       </div>

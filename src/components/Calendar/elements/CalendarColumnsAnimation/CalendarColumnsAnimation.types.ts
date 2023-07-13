@@ -5,5 +5,6 @@ export type CalendarColumnsAnimationProps = {
   children: (date: Date, i: number) => ReactNode;
   classNames?: {
     columnContainer?: string;
+    separator?: string;
   };
 };
