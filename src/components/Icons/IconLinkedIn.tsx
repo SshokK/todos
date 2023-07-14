@@ -4,12 +4,12 @@ import * as styles from './styles';
 
 import classnames from 'classnames';
 
-export const IconCicrle = react.forwardRef<
+export const IconLinkedIn = react.forwardRef<
   SVGSVGElement,
   react.DetailedHTMLProps<react.HTMLAttributes<SVGSVGElement>, SVGSVGElement>
 >((props, ref) => {
   return (
-    <reactIcons.CircleIcon
+    <reactIcons.LinkedInLogoIcon
       ref={ref}
       {...(props as react.ComponentProps<typeof reactIcons.BoxModelIcon>)}
       className={classnames(styles.CLASSNAMES, props.className)}

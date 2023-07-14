@@ -7,7 +7,11 @@ import * as constants from './Separator.constants';
 
 import classnames from 'classnames';
 
-import { TYPOGRAPHY_SIZE, TYPOGRAPHY_TYPE } from '../Typography';
+import {
+  TYPOGRAPHY_SIZE,
+  TYPOGRAPHY_TEXT_ALIGNMENT,
+  TYPOGRAPHY_TYPE,
+} from '../Typography';
 
 import { Typography } from '../Typography';
 
@@ -30,7 +34,9 @@ export const Separator = react.forwardRef<HTMLHRElement, SeparatorProps>(
             <Typography
               size={TYPOGRAPHY_SIZE.XS}
               type={TYPOGRAPHY_TYPE.CAPTION}
+              textAlignment={TYPOGRAPHY_TEXT_ALIGNMENT.CENTER}
               className={styles.CLASSNAMES.text}
+              noBreak
             >
               {children}
             </Typography>

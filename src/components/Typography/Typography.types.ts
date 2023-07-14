@@ -5,6 +5,7 @@ export type TypographyProps = {
   type: constants.TYPOGRAPHY_TYPE;
   size?: constants.TYPOGRAPHY_SIZE;
   textAlignment?: constants.TYPOGRAPHY_TEXT_ALIGNMENT;
+  noBreak?: boolean;
   children?: react.ReactNode;
   href?: string;
   className?: string;

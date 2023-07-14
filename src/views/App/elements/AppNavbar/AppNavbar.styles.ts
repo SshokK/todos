@@ -11,6 +11,8 @@ export const CLASSNAMES = {
 
   todoDescription: classnames('text-secondary-500'),
 
+  separator: classnames('w-full'),
+
   upcomingTodosContainer: classnames(
     'flex-1',
     'flex',

@@ -6,6 +6,8 @@ import * as framerMotion from 'framer-motion';
 import * as animations from './Navbar.animations.ts';
 import * as constants from './Navbar.constants.ts';
 
+import { IconGithub, IconLinkedIn } from '../Icons';
+
 import { useSidebarsContext } from 'contexts';
 
 export const Navbar: FC<NavbarProps> = () => {
@@ -29,6 +31,14 @@ export const Navbar: FC<NavbarProps> = () => {
         </div>
         <footer className={styles.CLASSNAMES.copyright}>
           © Aleksandr Grudinskiy 2023
+          <span className={styles.CLASSNAMES.links}>
+            <a target="_blank" href={import.meta.env.VITE_LINKEDIN_LINK}>
+              <IconLinkedIn />
+            </a>
+            <a target="_blank" href={import.meta.env.VITE_GITHUB_LINK}>
+              <IconGithub />
+            </a>
+          </span>
         </footer>
       </framerMotion.motion.nav>
     </framerMotion.AnimatePresence>

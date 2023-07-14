@@ -2,6 +2,7 @@ import type { GlobalState } from '../../store.types.ts';
 import type { Todo } from './todos.store.types.ts';
 
 import * as utils from 'utils';
+import * as dateConstants from '../../../constants/date.constants.ts';
 
 export const getTodos = (state: GlobalState) => state.todos;
 
@@ -30,4 +31,55 @@ export const getUnfinishedTodosForToday = (state: GlobalState) => {
 
 export const getTodoById = (todoId: Todo['id']) => (state: GlobalState) => {
   return getTodosList(state).find((todo) => todo.id === todoId) ?? null;
+};
+
+export const getTodosCounts = (state: GlobalState) => {
+  return Object.entries(getTodos(state)).reduce(
+    (counts, [date, todos]) => {
+      const finishedTodosCount = todos.filter((todo) => todo.isDone).length;
+      const unfinishedTodosCount = todos.filter((todo) => !todo.isDone).length;
+
+      switch (true) {
+        case utils.isBefore({
+          dateA: new Date(date),
+          dateB: new Date(),
+          granularity: dateConstants.DATE_GRANULARITY.DAY,
+        }): {
+          return {
+            ...counts,
+            unfinishedOverdueTodos:
+              counts.unfinishedOverdueTodos + unfinishedTodosCount,
+            finishedTodos: counts.finishedTodos + finishedTodosCount,
+          };
+        }
+
+        case utils.isAfter({
+          dateA: new Date(date),
+          dateB: new Date(),
+          granularity: dateConstants.DATE_GRANULARITY.DAY,
+        }):
+        case utils.isSame({
+          dateA: new Date(date),
+          dateB: new Date(),
+          granularity: dateConstants.DATE_GRANULARITY.DAY,
+        }): {
+          return {
+            ...counts,
+            unfinishedFutureTodos:
+              counts.unfinishedFutureTodos + unfinishedTodosCount,
+            finishedTodos: counts.finishedTodos + finishedTodosCount,
+          };
+        }
+
+        default: {
+          return counts;
+        }
+      }
+    },
+    {
+      finishedTodos: 0,
+      unfinishedFutureTodos: 0,
+      unfinishedOverdueTodos: 0,
+    },
+  );
 };

@@ -11,6 +11,7 @@
       "@/*": ["./src/*", "./dist/*", ""],
       "views/*": ["./src/views/*"],
       "components/*": ["./src/components/*"],
+      "constants/*": ["./src/constants/*"],
       "contexts/*": ["./src/contexts/*"],
       "utils/*": ["./src/utils/*"],
       "store/*": ["./src/store/*"]

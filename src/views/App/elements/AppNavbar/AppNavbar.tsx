@@ -4,6 +4,7 @@ import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as framerMotion from 'framer-motion';
 import * as animations from './AppNavbar.animations.ts';
+import * as elements from './elements';
 
 import { useAppNavbarData } from './hooks';
 
@@ -19,6 +20,7 @@ export const AppNavbar: FC = () => {
           container: styles.CLASSNAMES.searchInput,
         }}
       />
+      <elements.TodosCounts />
       <div className={styles.CLASSNAMES.upcomingTodosContainer}>
         <framerMotion.AnimatePresence initial={false}>
           {storeData.unfinishedTodosForToday.map((todo) => (

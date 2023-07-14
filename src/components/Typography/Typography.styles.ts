@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 export const CLASSNAMES = classnames('text-inherit');
 
+export const NO_BREAK_CLASSNAMES = classnames('whitespace-nowrap');
+
 export const SIZE_CLASSNAMES: Record<constants.TYPOGRAPHY_SIZE, string> = {
   [constants.TYPOGRAPHY_SIZE.XS]: 'text-xs',
   [constants.TYPOGRAPHY_SIZE.SM]: 'prose-sm',

@@ -11,9 +11,12 @@ export const CLASSNAMES = {
     'flex-col',
   ),
 
-  navContent: classnames('p-6', 'flex-1', 'flex', 'flex-col'),
+  navContent: classnames('p-6', 'flex-1', 'flex', 'flex-col', 'overflow-auto'),
 
   copyright: classnames(
+    'flex',
+    'justify-between',
+    'items-center',
     'text-xs',
     'text-secondary-700',
     'font-primaryLight',
@@ -24,4 +27,6 @@ export const CLASSNAMES = {
     'bg-secondary-400',
     'truncate',
   ),
+
+  links: classnames('flex', 'gap-2', 'pl-4', 'text-lg'),
 };

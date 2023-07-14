@@ -32,4 +32,6 @@ export const CLASSNAMES = {
   actions: classnames('flex', 'gap-2'),
 
   stateToggleButtonCompleted: classnames('text-success-100'),
+
+  stateToggleButtonOverdue: classnames('text-error'),
 };

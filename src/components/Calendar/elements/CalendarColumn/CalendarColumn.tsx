@@ -23,28 +23,31 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
       isDropDisabled={isDropDisabled}
     >
       {(provided) => (
-        <>
-          <div className={styles.CLASSNAMES.column}>
-            <Typography type={TYPOGRAPHY_TYPE.SUBTITLE}>{title}</Typography>
-            <div
-              ref={provided.innerRef}
-              className={styles.CLASSNAMES.itemsOuterContainer}
-            >
-              <div className={styles.CLASSNAMES.draggablePlaceholder}>
-                {provided.placeholder}
-              </div>
-              <ul className={styles.CLASSNAMES.itemsInnerContainer}>
-                <NoItemsMessage
-                  isVisible={shouldShowNoItemsMessage}
-                  className={styles.CLASSNAMES.noItemsMessage}
-                >
-                  {noItemsMessage}
-                </NoItemsMessage>
-                {children}
-              </ul>
+        <div className={styles.CLASSNAMES.column}>
+          <Typography
+            type={TYPOGRAPHY_TYPE.SUBTITLE}
+            className={styles.CLASSNAMES.columnTitle}
+          >
+            {title}
+          </Typography>
+          <div
+            ref={provided.innerRef}
+            className={styles.CLASSNAMES.itemsOuterContainer}
+          >
+            <div className={styles.CLASSNAMES.draggablePlaceholder}>
+              {provided.placeholder}
             </div>
+            <ul className={styles.CLASSNAMES.itemsInnerContainer}>
+              <NoItemsMessage
+                isVisible={shouldShowNoItemsMessage}
+                className={styles.CLASSNAMES.noItemsMessage}
+              >
+                {noItemsMessage}
+              </NoItemsMessage>
+              {children}
+            </ul>
           </div>
-        </>
+        </div>
       )}
     </StrictModeDroppable>
   );

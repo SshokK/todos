@@ -8,7 +8,16 @@ import classnames from 'classnames';
 
 export const Typography = react.forwardRef<HTMLElement, TypographyProps>(
   (
-    { type, size, textAlignment, className, href, shouldTruncate, children },
+    {
+      type,
+      size,
+      textAlignment,
+      className,
+      href,
+      shouldTruncate,
+      noBreak,
+      children,
+    },
     ref,
   ) => {
     return constants.TYPOGRAPHY_ELEMENTS[
@@ -19,6 +28,7 @@ export const Typography = react.forwardRef<HTMLElement, TypographyProps>(
       href: href,
       className: classnames(className, {
         [styles.CLASSNAMES]: true,
+        [styles.NO_BREAK_CLASSNAMES]: noBreak,
         [styles.SIZE_CLASSNAMES[size ?? constants.TYPOGRAPHY_SIZE.MD]]: true,
         [styles.TYPE_CLASSNAMES[type ?? constants.TYPOGRAPHY_TYPE.BODY]]: true,
         [styles.TRUNCATE_CLASSNAMES]: shouldTruncate,

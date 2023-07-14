@@ -11,7 +11,9 @@ export const CLASSNAMES = {
     'relative',
   ),
 
-  itemsOuterContainer: classnames('flex', 'flex-1'),
+  columnTitle: classnames('px-2'),
+
+  itemsOuterContainer: classnames('flex', 'flex-1', 'overflow-auto'),
 
   draggablePlaceholder: classnames('hidden'),
 

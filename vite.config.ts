@@ -17,6 +17,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src/'),
       views: path.resolve(__dirname, './src/views'),
       components: path.resolve(__dirname, './src/components'),
+      constants: path.resolve(__dirname, './src/constants'),
       contexts: path.resolve(__dirname, './src/contexts'),
       utils: path.resolve(__dirname, './src/utils'),
       store: path.resolve(__dirname, './src/store'),
