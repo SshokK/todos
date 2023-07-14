@@ -20,7 +20,6 @@ export const NoItemsMessage: FC<NoItemsMessageProps> = ({
     <framerMotion.AnimatePresence initial={false}>
       {isVisible && (
         <framerMotion.motion.div
-          layout
           variants={animations.VARIANTS}
           initial={animations.ANIMATION_NAME.ENTER}
           animate={animations.ANIMATION_NAME.ACTIVE}
