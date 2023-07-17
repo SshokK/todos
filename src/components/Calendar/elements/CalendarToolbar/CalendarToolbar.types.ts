@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import type { Toolbar } from '../../../Toolbar';
 
 export type CalendarToolbarProps = {
-  firstColumnDate: Date;
+  centralVisibleColumnDate: Date;
   config?: ComponentProps<typeof Toolbar>['config'];
   onPrevPageClick?: () => void;
   onNextPageClick?: () => void;

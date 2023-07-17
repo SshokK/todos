@@ -1,6 +1,7 @@
 import type { CalendarItemContentProps } from './CalendarItemContent.types.ts';
 
 import * as react from 'react';
+import * as reactDOM from 'react-dom';
 import * as styles from './CalendarItemContent.styles.ts';
 import * as framerMotion from 'framer-motion';
 
@@ -17,12 +18,20 @@ export const CalendarItemContent = react.forwardRef<
   CalendarItemContentProps
 >(
   (
-    { draggableProps, dragHandleProps, isDropAnimating, dragTarget, children },
+    {
+      draggableProps,
+      portalTarget,
+      dragHandleProps,
+      isDropAnimating,
+      isDragging,
+      dragTarget,
+      children,
+    },
     ref,
   ) => {
     const { refs, formattedData } = useCalendarItemContentData();
 
-    return (
+    const content = (
       <framerMotion.motion.li
         ref={ref}
         {...draggableProps}
@@ -58,5 +67,11 @@ export const CalendarItemContent = react.forwardRef<
         </div>
       </framerMotion.motion.li>
     );
+
+    if (!isDragging || !portalTarget) {
+      return content;
+    }
+
+    return reactDOM.createPortal(content, portalTarget);
   },
 );

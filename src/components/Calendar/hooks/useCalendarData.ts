@@ -4,9 +4,15 @@ import * as constants from '../Calendar.constants.ts';
 import * as helpers from './useCalendarData.helpers.ts';
 import * as utils from '../../../utils';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 export const useCalendarData = (): CalendarData => {
+  const containerRef = useRef(null);
+
+  const refs: CalendarData['refs'] = {
+    container: containerRef,
+  };
+
   const [firstColumnDate, setFirstColumnDate] = useState<
     CalendarData['localState']['firstColumnDate']
   >(constants.INITIAL_DATE);
@@ -33,16 +39,19 @@ export const useCalendarData = (): CalendarData => {
       daysCount: constants.COLUMNS_COUNT,
     });
 
+    const centralVisibleColumnDate = utils.addDays({
+      date: localState.firstColumnDate,
+      daysCount: 2,
+    });
+
     return {
-      centralVisibleColumnDate: utils.addDays({
-        date: localState.firstColumnDate,
-        daysCount: 2,
-      }),
+      centralVisibleColumnDate,
       dates,
     };
   }, [localState.firstColumnDate]);
 
   return {
+    refs,
     localState,
     localActions,
     formattedData,

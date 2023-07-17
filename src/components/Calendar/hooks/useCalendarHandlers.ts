@@ -86,6 +86,11 @@ export const useCalendarHandlers = ({
 
     const { source, destination } = result;
 
+    /**
+     *
+     * Item was moved to the removal zone
+     *
+     */
     if (destination?.droppableId === elements.REMOVAL_ZONE_DROPPABLE_ID) {
       const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
 

@@ -17,7 +17,7 @@ export const useCalendarToolbarConfig = ({
 }: {
   props: Pick<
     CalendarToolbarProps,
-    | 'firstColumnDate'
+    | 'centralVisibleColumnDate'
     | 'config'
     | 'onPrevPageClick'
     | 'onNextPageClick'
@@ -39,7 +39,7 @@ export const useCalendarToolbarConfig = ({
         key: 'jumpToDate',
         type: TOOLBAR_ELEMENT_TYPE.DATEPICKER,
         props: {
-          value: props.firstColumnDate,
+          value: props.centralVisibleColumnDate,
           onChange: props.onDateChange,
         },
       },
@@ -74,7 +74,7 @@ export const useCalendarToolbarConfig = ({
     ],
     [
       props?.config,
-      props.firstColumnDate,
+      props.centralVisibleColumnDate,
       props.onDateChange,
       props.onNextPageClick,
       props.onPrevPageClick,

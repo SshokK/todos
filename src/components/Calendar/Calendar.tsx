@@ -15,7 +15,7 @@ export const Calendar: FC<CalendarProps> = ({
   ItemComponent,
   itemComponentProps,
 }) => {
-  const { localState, localActions, formattedData } = useCalendarData();
+  const { refs, localState, localActions, formattedData } = useCalendarData();
 
   const handlers = useCalendarHandlers({
     props: {
@@ -30,50 +30,50 @@ export const Calendar: FC<CalendarProps> = ({
       onDragStart={handlers.handleDragStart}
       onDragEnd={handlers.handleItemDrop}
     >
-      <elements.CalendarToolbar
-        firstColumnDate={formattedData.centralVisibleColumnDate}
-        config={toolbarConfig}
-        onPrevPageClick={handlers.handlePrevPageChange}
-        onNextPageClick={handlers.handleNextPageChange}
-        onPageReset={handlers.handlePageReset}
-        onDateChange={handlers.handleDateChange}
-      />
-      <main className={styles.CLASSNAMES.container}>
-        <div className={styles.CLASSNAMES.columnsContainer}>
-          <elements.CalendarColumnsAnimation
-            dates={formattedData.dates}
-            classNames={{
-              columnContainer: styles.CLASSNAMES.columnContainer,
-              separator: styles.CLASSNAMES.separator,
-            }}
-          >
-            {(date, i, dates) => (
-              <elements.CalendarColumn
-                key={date.toDateString()}
-                droppableId={date.toDateString()}
-                title={helpers.formatHumanizedDate(date)}
-                shouldShowNoItemsMessage={!items[date.toDateString()]?.length}
-                isDropDisabled={i === 0 || i === dates.length - 1}
-              >
-                {items[date.toDateString()]?.map((item, i) => (
-                  <elements.CalendarItem
-                    key={item.id}
-                    date={date}
-                    draggableId={String(item.id)}
-                    index={i}
-                    itemComponentProps={{
-                      ...itemComponentProps,
-                      ...item,
-                    }}
-                    ItemComponent={ItemComponent}
-                  />
-                ))}
-              </elements.CalendarColumn>
-            )}
-          </elements.CalendarColumnsAnimation>
-        </div>
-      </main>
-      <elements.CalendarItemRemoval isDragging={localState.isDragging} />
+      <div className={styles.CLASSNAMES.container}>
+        <elements.CalendarToolbar
+          centralVisibleColumnDate={formattedData.centralVisibleColumnDate}
+          config={toolbarConfig}
+          onPrevPageClick={handlers.handlePrevPageChange}
+          onNextPageClick={handlers.handleNextPageChange}
+          onPageReset={handlers.handlePageReset}
+          onDateChange={handlers.handleDateChange}
+        />
+        <main
+          ref={refs.container}
+          className={styles.CLASSNAMES.contentContainer}
+        >
+          <div className={styles.CLASSNAMES.columnsContainer}>
+            <elements.CalendarColumnsAnimation dates={formattedData.dates}>
+              {(date, i, dates) => (
+                <elements.CalendarColumn
+                  key={date.toDateString()}
+                  droppableId={date.toDateString()}
+                  title={helpers.formatHumanizedDate(date)}
+                  shouldShowNoItemsMessage={!items[date.toDateString()]?.length}
+                  isDropDisabled={i === 0 || i === dates.length - 1}
+                >
+                  {items[date.toDateString()]?.map((item, i) => (
+                    <elements.CalendarItem
+                      key={item.id}
+                      date={date}
+                      index={i}
+                      portalTarget={refs.container.current}
+                      draggableId={String(item.id)}
+                      ItemComponent={ItemComponent}
+                      itemComponentProps={{
+                        ...itemComponentProps,
+                        ...item,
+                      }}
+                    />
+                  ))}
+                </elements.CalendarColumn>
+              )}
+            </elements.CalendarColumnsAnimation>
+          </div>
+        </main>
+        <elements.CalendarItemRemoval isDragging={localState.isDragging} />
+      </div>
     </reactBeautifulDnD.DragDropContext>
   );
 };

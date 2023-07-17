@@ -1,36 +1,32 @@
 import type { FC } from 'react';
 import type { CalendarColumnsAnimationProps } from './CalendarColumnsAnimation.types.ts';
 
-import { SEPARATOR_ORIENTATION } from '../../../Separator';
-
 import * as framerMotion from 'framer-motion';
-import * as animations from './CalendarColumnsAnimation.animations.ts';
+import * as elements from './elements';
 
-import { Separator } from '../../../Separator';
+import { useCalendarColumnsAnimationData } from './hooks';
 
 export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
   dates,
   children,
-  classNames,
 }) => {
+  const { formattedData } = useCalendarColumnsAnimationData({
+    dates,
+  });
+
   return (
-    <framerMotion.AnimatePresence initial={false} mode="wait">
-      <framerMotion.LayoutGroup>
-        {dates.map((date, i, dates) => (
-          <framerMotion.motion.div
-            key={date.toDateString()}
-            layoutId={date.toDateString()}
-            className={classNames?.columnContainer}
-            transition={animations.TRANSITION}
-          >
-            {children(date, i, dates)}
-            <Separator
-              orientation={SEPARATOR_ORIENTATION.VERTICAL}
-              className={classNames?.separator}
-            />
-          </framerMotion.motion.div>
-        ))}
-      </framerMotion.LayoutGroup>
+    <framerMotion.AnimatePresence initial={false}>
+      {dates.map((date, i, dates) => (
+        <elements.CalendarAnimatedColumn
+          key={date.toDateString()}
+          prevDates={formattedData.prevDates}
+          date={date}
+          index={i}
+          isFadeEnabled={formattedData.isFadeEnabled}
+        >
+          {children(date, i, dates)}
+        </elements.CalendarAnimatedColumn>
+      ))}
     </framerMotion.AnimatePresence>
   );
 };

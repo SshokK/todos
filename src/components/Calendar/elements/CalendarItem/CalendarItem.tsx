@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 
 export const CalendarItem: FC<CalendarItemProps> = ({
   draggableId,
+  portalTarget,
   index,
   date,
   itemComponentProps,
@@ -20,8 +21,10 @@ export const CalendarItem: FC<CalendarItemProps> = ({
       {(provided, snapshot) => (
         <elements.CalendarItemContent
           ref={provided.innerRef}
+          portalTarget={portalTarget}
           draggableProps={provided.draggableProps}
           dragHandleProps={provided.dragHandleProps}
+          isDragging={snapshot.isDragging}
           isDropAnimating={snapshot.isDropAnimating}
           dragTarget={snapshot.draggingOver}
         >

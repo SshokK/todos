@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 
 export type CalendarItemProps = {
   draggableId: string;
+  portalTarget: HTMLElement | null;
   index: number;
   date: Date;
   itemComponentProps?: Record<string, unknown>;

@@ -1,4 +1,8 @@
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, MutableRefObject, SetStateAction } from 'react';
+
+export type CalendarRefs = {
+  container: MutableRefObject<HTMLElement | null>;
+};
 
 export type CalendarLocalState = {
   firstColumnDate: Date;
@@ -18,6 +22,7 @@ export type CalendarFormattedData = {
 };
 
 export type CalendarData = {
+  refs: CalendarRefs;
   localState: CalendarLocalState;
   localActions: CalendarLocalActions;
   formattedData: CalendarFormattedData;

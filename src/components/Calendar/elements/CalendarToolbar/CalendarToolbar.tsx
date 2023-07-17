@@ -12,7 +12,7 @@ import { IconReload } from '../../../Icons';
 import { useCalendarToolbarConfig } from './hooks';
 
 export const CalendarToolbar: FC<CalendarToolbarProps> = ({
-  firstColumnDate,
+  centralVisibleColumnDate,
   config,
   onPrevPageClick,
   onNextPageClick,
@@ -21,7 +21,7 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
 }) => {
   const toolbarConfig = useCalendarToolbarConfig({
     props: {
-      firstColumnDate,
+      centralVisibleColumnDate,
       config,
       onPrevPageClick,
       onNextPageClick,
