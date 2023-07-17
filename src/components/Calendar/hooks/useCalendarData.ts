@@ -1,54 +1,57 @@
 import type { CalendarData } from './useCalendarData.types.ts';
+import type { CalendarProps } from '../Calendar.types.ts';
 
 import * as constants from '../Calendar.constants.ts';
 import * as helpers from './useCalendarData.helpers.ts';
-import * as utils from '../../../utils';
 
 import { useMemo, useRef, useState } from 'react';
 
-export const useCalendarData = (): CalendarData => {
+export const useCalendarData = (
+  props: Pick<CalendarProps, 'date'>,
+): CalendarData => {
   const containerRef = useRef(null);
 
   const refs: CalendarData['refs'] = {
     container: containerRef,
   };
 
-  const [firstColumnDate, setFirstColumnDate] = useState<
-    CalendarData['localState']['firstColumnDate']
-  >(constants.INITIAL_DATE);
+  const [date, setDate] = useState<CalendarData['localState']['date']>(
+    props.date ?? constants.INITIAL_DATE,
+  );
 
   const [isDragging, setIsDragging] =
     useState<CalendarData['localState']['isDragging']>(false);
 
   const localState: CalendarData['localState'] = {
-    firstColumnDate,
+    date,
     isDragging,
   };
 
   const localActions: CalendarData['localActions'] = useMemo(
     () => ({
-      setFirstColumnDate,
+      setDate,
       setIsDragging,
     }),
     [],
   );
 
   const formattedData: CalendarData['formattedData'] = useMemo(() => {
-    const dates = helpers.getFurtherDays({
-      startDate: localState.firstColumnDate,
-      daysCount: constants.COLUMNS_COUNT,
-    });
-
-    const centralVisibleColumnDate = utils.addDays({
-      date: localState.firstColumnDate,
-      daysCount: 2,
-    });
+    const dates = [
+      ...helpers.getPriorDays({
+        startDate: localState.date,
+        daysCount: constants.SIDE_COLUMNS_COUNT,
+      }),
+      localState.date,
+      ...helpers.getFurtherDays({
+        startDate: localState.date,
+        daysCount: constants.SIDE_COLUMNS_COUNT,
+      }),
+    ];
 
     return {
-      centralVisibleColumnDate,
       dates,
     };
-  }, [localState.firstColumnDate]);
+  }, [localState.date]);
 
   return {
     refs,

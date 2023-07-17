@@ -1,10 +1,15 @@
 import type { FC } from 'react';
 import type { CalendarColumnsAnimationProps } from './CalendarColumnsAnimation.types.ts';
 
-import * as framerMotion from 'framer-motion';
 import * as elements from './elements';
+import * as framerMotion from 'framer-motion';
 
-import { useCalendarColumnsAnimationData } from './hooks';
+import { useAnimationControls } from 'framer-motion';
+import {
+  useCalendarColumnsAnimationData,
+  useCalendarColumnsAnimationHandlers,
+  useCalendarColumnsAnimationLifecycle,
+} from './hooks';
 
 export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
   dates,
@@ -14,19 +19,33 @@ export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
     dates,
   });
 
+  const animation = useAnimationControls();
+
+  const handlers = useCalendarColumnsAnimationHandlers({
+    props: {
+      dates,
+    },
+    animation,
+    formattedData,
+  });
+
+  useCalendarColumnsAnimationLifecycle({
+    onFadeAnimate: handlers.handleFadeAnimation,
+  });
+
   return (
-    <framerMotion.AnimatePresence initial={false}>
-      {dates.map((date, i, dates) => (
-        <elements.CalendarAnimatedColumn
-          key={date.toDateString()}
-          prevDates={formattedData.prevDates}
-          date={date}
-          index={i}
-          isFadeEnabled={formattedData.isFadeEnabled}
-        >
-          {children(date, i, dates)}
-        </elements.CalendarAnimatedColumn>
-      ))}
-    </framerMotion.AnimatePresence>
+    <framerMotion.motion.div animate={animation}>
+      <framerMotion.AnimatePresence initial={false}>
+        {dates.map((date, i, dates) => (
+          <elements.CalendarAnimatedColumn
+            key={`${date.toDateString()}`}
+            index={i}
+            isFadeEnabled={formattedData.isFadeEnabled}
+          >
+            {children(date, i, dates)}
+          </elements.CalendarAnimatedColumn>
+        ))}
+      </framerMotion.AnimatePresence>
+    </framerMotion.motion.div>
   );
 };

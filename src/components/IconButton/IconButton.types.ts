@@ -12,6 +12,7 @@ export type IconButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   type?: constants.ICON_BUTTON_TYPE;
   size?: constants.ICON_BUTTON_SIZE;
   Icon?: ComponentType;
+  element?: constants.ICON_BUTTON_ELEMENT;
   isDisabled?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   tooltip?: Pick<ComponentProps<typeof Tooltip>, 'title' | 'side'>;

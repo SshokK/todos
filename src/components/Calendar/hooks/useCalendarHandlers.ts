@@ -11,20 +11,27 @@ import { useCallback } from 'react';
 
 export const useCalendarHandlers = ({
   props,
+  localState,
   localActions,
 }: {
-  props: Pick<CalendarProps, 'items' | 'onItemOrderChange'>;
+  props: Pick<
+    CalendarProps,
+    'date' | 'items' | 'onItemOrderChange' | 'onDateChange'
+  >;
+  localState: CalendarData['localState'];
   localActions: CalendarData['localActions'];
 }): CalendarHandlers => {
+  const { onItemOrderChange, onDateChange } = props;
+
   const handlePrevPageChange: CalendarHandlers['handlePrevPageChange'] =
     // Suppressing because ESLint can't detect deps of lodash.throttle
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useCallback(
       lodash.throttle(
         () => {
-          localActions.setFirstColumnDate((firstColumnDate) =>
+          localActions.setDate((date) =>
             utils.subtractDays({
-              date: firstColumnDate,
+              date: date,
               daysCount: 1,
             }),
           );
@@ -43,9 +50,9 @@ export const useCalendarHandlers = ({
     useCallback(
       lodash.throttle(
         () => {
-          localActions.setFirstColumnDate((firstColumnDate) =>
+          localActions.setDate((date) =>
             utils.addDays({
-              date: firstColumnDate,
+              date: date,
               daysCount: 1,
             }),
           );
@@ -59,18 +66,11 @@ export const useCalendarHandlers = ({
     );
 
   const handlePageReset: CalendarHandlers['handlePageReset'] = () => {
-    localActions.setFirstColumnDate(constants.INITIAL_DATE);
+    localActions.setDate(constants.INITIAL_DATE);
   };
 
-  const handleDateChange: CalendarHandlers['handleDateChange'] = (date) => {
-    localActions.setFirstColumnDate(
-      date
-        ? utils.subtractDays({
-            date: date,
-            daysCount: 2,
-          })
-        : constants.INITIAL_DATE,
-    );
+  const handleJumpToDate: CalendarHandlers['handleJumpToDate'] = (date) => {
+    localActions.setDate(date ? date : constants.INITIAL_DATE);
   };
 
   const handleDragStart: CalendarHandlers['handleDragStart'] = () => {
@@ -96,7 +96,7 @@ export const useCalendarHandlers = ({
 
       sourceColumnItems.splice(source.index, 1);
 
-      return props.onItemOrderChange?.({
+      return onItemOrderChange?.({
         ...props.items,
         [source.droppableId]: sourceColumnItems,
       });
@@ -115,7 +115,7 @@ export const useCalendarHandlers = ({
 
       destColumnItems.splice(destination.index, 0, removed);
 
-      return props.onItemOrderChange?.({
+      return onItemOrderChange?.({
         ...props.items,
         [source.droppableId]: sourceColumnItems,
         [destination.droppableId]: destColumnItems,
@@ -134,18 +134,32 @@ export const useCalendarHandlers = ({
 
     copiedItems.splice(destination.index, 0, removed);
 
-    props.onItemOrderChange?.({
+    onItemOrderChange?.({
       ...props.items,
       [source.droppableId]: copiedItems,
     });
   };
 
+  const handleDateChange: CalendarHandlers['handleDateChange'] =
+    useCallback(() => {
+      onDateChange?.(localState.date);
+    }, [localState.date, onDateChange]);
+
+  const handleDatePropChange: CalendarHandlers['handleDatePropChange'] =
+    useCallback(() => {
+      if (props.date) {
+        localActions.setDate(props.date);
+      }
+    }, [localActions, props.date]);
+
   return {
     handlePrevPageChange,
     handleNextPageChange,
     handlePageReset,
-    handleDateChange,
+    handleJumpToDate,
     handleDragStart,
     handleItemDrop,
+    handleDateChange,
+    handleDatePropChange,
   };
 };

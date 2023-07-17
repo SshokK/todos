@@ -1,2 +1,3 @@
 export * from './useCalendarData';
-export * from './useCalendarHandlers.ts';
+export * from './useCalendarHandlers';
+export * from './useCalendarLifecycle';

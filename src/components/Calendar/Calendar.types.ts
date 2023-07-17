@@ -10,6 +10,8 @@ export type CalendarItem = ComponentProps<
 };
 
 export type CalendarProps = {
+  date?: Date;
+  onDateChange?: (date: Date) => void;
   items: Record<CalendarItemDate, CalendarItem[]>;
   toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
   ItemComponent?: ComponentProps<typeof elements.CalendarItem>['ItemComponent'];

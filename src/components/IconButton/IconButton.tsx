@@ -1,28 +1,42 @@
-import type * as types from './IconButton.types';
+import type { IconButtonProps } from './IconButton.types';
+import type { ElementType } from 'react';
 
 import * as react from 'react';
 import * as styles from './IconButton.styles';
 import * as constants from './IconButton.constants';
 
-import { Tooltip } from '../Tooltip';
-
 import classnames from 'classnames';
 
-export const IconButton = react.forwardRef<
-  HTMLButtonElement,
-  types.IconButtonProps
->(
+import { Tooltip } from '../Tooltip';
+
+import { useIconButtonHandlers } from './hooks';
+
+export const IconButton = react.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
-    { type, size, tooltip, onClick, isDisabled, Icon, className, ...restProps },
+    {
+      type,
+      size,
+      tooltip,
+      onClick,
+      isDisabled,
+      Icon,
+      element,
+      className,
+      ...restProps
+    },
     ref,
   ) => {
+    const handlers = useIconButtonHandlers();
+
+    const Element = `${element}` as ElementType;
+
     return (
       <Tooltip
         isOpen={!tooltip?.title ? false : undefined}
         title={tooltip?.title}
         side={tooltip?.side}
       >
-        <button
+        <Element
           {...restProps}
           ref={ref}
           onClick={onClick}
@@ -35,11 +49,15 @@ export const IconButton = react.forwardRef<
             [styles.SIZE_CLASSNAMES[size ?? constants.ICON_BUTTON_SIZE.MD]]:
               true,
           })}
-          onMouseDown={(e) => e.preventDefault()}
+          onMouseDown={handlers.handleMouseDown}
         >
           {Icon && <Icon />}
-        </button>
+        </Element>
       </Tooltip>
     );
   },
 );
+
+IconButton.defaultProps = {
+  element: constants.ICON_BUTTON_ELEMENT.BUTTON,
+};

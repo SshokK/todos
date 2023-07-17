@@ -8,3 +8,8 @@ export enum ICON_BUTTON_SIZE {
   MD = 'md',
   LG = 'lg',
 }
+
+export enum ICON_BUTTON_ELEMENT {
+  BUTTON = 'button',
+  SPAN = 'span',
+}

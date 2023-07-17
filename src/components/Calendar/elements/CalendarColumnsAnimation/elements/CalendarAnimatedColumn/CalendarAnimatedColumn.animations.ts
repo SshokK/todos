@@ -15,46 +15,35 @@ export const VARIANTS: Variants = {
   [ANIMATION_NAME.ENTER]: () => {
     return {
       opacity: 0,
-      scale: 1,
     };
   },
   [ANIMATION_NAME.ACTIVE]: ({
-    i,
+    index,
     isFadeEnabled,
-    isInPrevDatesList,
   }: {
-    i: number;
+    index: number;
     isFadeEnabled: boolean;
-    isInPrevDatesList: boolean;
   }) => {
     if (isFadeEnabled) {
       return {
-        x: `${i * 100}%`,
-        opacity: isInPrevDatesList ? [0, 1] : 1,
-        scale: [0.8, 1, 1],
+        x: `${index * 100}%`,
+        opacity: 1,
         transition: {
           x: {
             duration: 0,
-          },
-          scale: {
-            duration: 0.5,
-          },
-          opacity: {
-            duration: 0.5,
           },
         },
       };
     }
 
     return {
-      x: `${i * 100}%`,
-      opacity: i === 4 ? 0 : 1,
+      x: `${index * 100}%`,
+      opacity: index === 4 ? 0 : 1,
     };
   },
   [ANIMATION_NAME.EXIT]: () => {
     return {
       opacity: 0,
-      scale: 1,
     };
   },
 };

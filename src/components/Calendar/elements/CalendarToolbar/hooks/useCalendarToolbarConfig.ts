@@ -17,11 +17,7 @@ export const useCalendarToolbarConfig = ({
 }: {
   props: Pick<
     CalendarToolbarProps,
-    | 'centralVisibleColumnDate'
-    | 'config'
-    | 'onPrevPageClick'
-    | 'onNextPageClick'
-    | 'onDateChange'
+    'date' | 'config' | 'onPrevPageClick' | 'onNextPageClick' | 'onJumpToDate'
   >;
 }): ComponentProps<typeof Toolbar>['config'] => {
   return useMemo(
@@ -39,8 +35,8 @@ export const useCalendarToolbarConfig = ({
         key: 'jumpToDate',
         type: TOOLBAR_ELEMENT_TYPE.DATEPICKER,
         props: {
-          value: props.centralVisibleColumnDate,
-          onChange: props.onDateChange,
+          value: props.date,
+          onChange: props.onJumpToDate,
         },
       },
       {
@@ -74,8 +70,8 @@ export const useCalendarToolbarConfig = ({
     ],
     [
       props?.config,
-      props.centralVisibleColumnDate,
-      props.onDateChange,
+      props.date,
+      props.onJumpToDate,
       props.onNextPageClick,
       props.onPrevPageClick,
     ],

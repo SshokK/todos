@@ -1,4 +1,5 @@
 import type { AppHandlers } from './useAppHandlers.types.ts';
+import type { AppData } from './useAppData.types.ts';
 
 import { useSidebarsContext } from 'contexts';
 import { useCallback } from 'react';
@@ -6,7 +7,11 @@ import { useStore } from 'store';
 
 import * as utils from 'utils';
 
-export const useAppHandlers = (): AppHandlers => {
+export const useAppHandlers = ({
+  localActions,
+}: {
+  localActions: AppData['localActions'];
+}): AppHandlers => {
   const sidebarsContext = useSidebarsContext();
   const store = useStore();
 
@@ -46,6 +51,8 @@ export const useAppHandlers = (): AppHandlers => {
   };
 
   const handleTodoItemAdd: AppHandlers['handleTodoItemAdd'] = () => {
+    localActions.setCalendarDate(utils.getToday());
+
     store.addTodo({
       id: utils.getRandomId(),
       title: '',

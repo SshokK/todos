@@ -6,23 +6,39 @@ import * as styles from './Calendar.styles.ts';
 import * as helpers from './Calendar.helpers.ts';
 import * as elements from './elements';
 
-import { useCalendarData, useCalendarHandlers } from './hooks';
+import {
+  useCalendarData,
+  useCalendarHandlers,
+  useCalendarLifecycle,
+} from './hooks';
 
 export const Calendar: FC<CalendarProps> = ({
+  date,
+  onDateChange,
   items,
   toolbarConfig,
   onItemOrderChange,
   ItemComponent,
   itemComponentProps,
 }) => {
-  const { refs, localState, localActions, formattedData } = useCalendarData();
+  const { refs, localState, localActions, formattedData } = useCalendarData({
+    date,
+  });
 
   const handlers = useCalendarHandlers({
     props: {
+      date,
       items,
       onItemOrderChange,
+      onDateChange,
     },
+    localState,
     localActions,
+  });
+
+  useCalendarLifecycle({
+    onDateChange: handlers.handleDateChange,
+    onDatePropChange: handlers.handleDatePropChange,
   });
 
   return (
@@ -32,12 +48,12 @@ export const Calendar: FC<CalendarProps> = ({
     >
       <div className={styles.CLASSNAMES.container}>
         <elements.CalendarToolbar
-          centralVisibleColumnDate={formattedData.centralVisibleColumnDate}
+          date={localState.date}
           config={toolbarConfig}
           onPrevPageClick={handlers.handlePrevPageChange}
           onNextPageClick={handlers.handleNextPageChange}
           onPageReset={handlers.handlePageReset}
-          onDateChange={handlers.handleDateChange}
+          onJumpToDate={handlers.handleJumpToDate}
         />
         <main
           ref={refs.container}

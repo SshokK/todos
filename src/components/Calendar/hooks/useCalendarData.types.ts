@@ -5,19 +5,16 @@ export type CalendarRefs = {
 };
 
 export type CalendarLocalState = {
-  firstColumnDate: Date;
+  date: Date;
   isDragging: boolean;
 };
 
 export type CalendarLocalActions = {
-  setFirstColumnDate: Dispatch<
-    SetStateAction<CalendarLocalState['firstColumnDate']>
-  >;
+  setDate: Dispatch<SetStateAction<CalendarLocalState['date']>>;
   setIsDragging: Dispatch<SetStateAction<CalendarLocalState['isDragging']>>;
 };
 
 export type CalendarFormattedData = {
-  centralVisibleColumnDate: Date;
   dates: Date[];
 };
 

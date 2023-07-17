@@ -12,9 +12,11 @@ import {
 } from './hooks';
 
 export const App: FC = () => {
-  const { storeData } = useAppData();
+  const { localState, localActions, storeData } = useAppData();
 
-  const handlers = useAppHandlers();
+  const handlers = useAppHandlers({
+    localActions,
+  });
 
   const calendarToolbarConfig = useAppCalendarToolbarConfig({
     onTodoItemAdd: handlers.handleTodoItemAdd,
@@ -35,6 +37,8 @@ export const App: FC = () => {
       </components.Typography>
       <div className={styles.CLASSNAMES.calendarContainer}>
         <components.Calendar
+          date={localState.calendarDate}
+          onDateChange={localActions.setCalendarDate}
           toolbarConfig={calendarToolbarConfig}
           onItemOrderChange={handlers.handleTodoItemOrderChange}
           items={storeData.todos}
