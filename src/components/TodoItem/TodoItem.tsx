@@ -20,7 +20,6 @@ export const TodoItem: FC<TodoItemProps> = ({
   id,
   title,
   isDone,
-  order,
   date,
   onClick,
   onDateChange,
@@ -71,7 +70,6 @@ export const TodoItem: FC<TodoItemProps> = ({
         <elements.Strikethrough isDone={isDone} />
         <elements.Header
           title={title}
-          order={order}
           isDone={isDone}
           onTitleChange={handlers.handleTitleChange}
         />

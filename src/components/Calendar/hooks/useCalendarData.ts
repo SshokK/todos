@@ -4,17 +4,11 @@ import type { CalendarProps } from '../Calendar.types.ts';
 import * as constants from '../Calendar.constants.ts';
 import * as helpers from './useCalendarData.helpers.ts';
 
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export const useCalendarData = (
   props: Pick<CalendarProps, 'date'>,
 ): CalendarData => {
-  const containerRef = useRef(null);
-
-  const refs: CalendarData['refs'] = {
-    container: containerRef,
-  };
-
   const [date, setDate] = useState<CalendarData['localState']['date']>(
     props.date ?? constants.INITIAL_DATE,
   );
@@ -54,7 +48,6 @@ export const useCalendarData = (
   }, [localState.date]);
 
   return {
-    refs,
     localState,
     localActions,
     formattedData,

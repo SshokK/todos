@@ -13,12 +13,4 @@ export const CLASSNAMES = {
   ),
 
   contentContainer: classnames('flex', 'w-full', 'h-full', 'relative', 'z-10'),
-
-  columnsContainer: classnames(
-    'flex',
-    'flex-1',
-    'w-full',
-    'h-full',
-    'absolute',
-  ),
 };

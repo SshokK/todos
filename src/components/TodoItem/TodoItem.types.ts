@@ -3,7 +3,6 @@ export type TodoItemProps = {
   title: string;
   isDone: boolean;
   date: Date;
-  order?: number;
   onClick?: (id: TodoItemProps['id']) => void;
   onDateChange?: (id: TodoItemProps['id'], date: Date) => void;
   onTitleChange?: (id: TodoItemProps['id'], title: string) => void;

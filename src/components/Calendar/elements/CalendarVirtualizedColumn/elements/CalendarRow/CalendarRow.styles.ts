@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 export const CLASSNAMES = {
   container: classnames('flex', 'gap-4', 'p-2'),
-  dragButton: classnames(),
   dragZone: classnames('cursor-grab', 'relative'),
   dragZoneGrabHandle: classnames(
     'cursor-grab',

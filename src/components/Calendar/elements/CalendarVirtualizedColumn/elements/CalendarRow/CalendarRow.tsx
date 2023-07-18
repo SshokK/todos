@@ -1,43 +1,43 @@
-import type { CalendarItemContentProps } from './CalendarItemContent.types.ts';
+import type { CalendarRowProps } from './CalendarRow.types.ts';
 
 import * as react from 'react';
-import * as reactDOM from 'react-dom';
-import * as styles from './CalendarItemContent.styles.ts';
+import * as styles from './CalendarRow.styles.ts';
 import * as framerMotion from 'framer-motion';
 
-import { REMOVAL_ZONE_DROPPABLE_ID } from '../../../CalendarItemRemoval';
 import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE } from '../../../../../IconButton';
+import { REMOVAL_ZONE_DROPPABLE_ID } from '../../../CalendarItemRemoval';
 
 import { IconButton } from '../../../../../IconButton';
 import { IconDragHandle } from '../../../../../Icons';
 
-import { useCalendarItemContentData } from './hooks';
+import { useMemo } from 'react';
+import { useCalendarRowData } from './hooks';
 
-export const CalendarItemContent = react.forwardRef<
-  HTMLLIElement,
-  CalendarItemContentProps
->(
+export const CalendarRow = react.forwardRef<HTMLDivElement, CalendarRowProps>(
   (
     {
       draggableProps,
-      portalTarget,
       dragHandleProps,
+      date,
+      item,
+      ItemComponent,
+      itemComponentProps,
       isDropAnimating,
-      isDragging,
       dragTarget,
-      children,
     },
     ref,
   ) => {
-    const { refs, formattedData } = useCalendarItemContentData();
+    const { refs, formattedData } = useCalendarRowData();
 
-    const content = (
-      <framerMotion.motion.li
+    const Item = useMemo(() => ItemComponent ?? (() => <></>), [ItemComponent]);
+
+    return (
+      <framerMotion.motion.div
         ref={ref}
         {...draggableProps}
         className={styles.CLASSNAMES.container}
         style={{
-          ...draggableProps.style,
+          ...draggableProps?.style,
           ...(isDropAnimating && dragTarget === REMOVAL_ZONE_DROPPABLE_ID
             ? {
                 ...styles.REMOVAL_STYLES,
@@ -51,27 +51,20 @@ export const CalendarItemContent = react.forwardRef<
           ref={refs.childrenContainerRef}
           className={styles.CLASSNAMES.childrenContainer}
         >
-          {children}
+          <Item date={date} {...itemComponentProps} {...item} />
         </div>
         <div className={styles.CLASSNAMES.dragZone}>
           <IconButton
             Icon={IconDragHandle}
             size={ICON_BUTTON_SIZE.LG}
             type={ICON_BUTTON_TYPE.SECONDARY}
-            className={styles.CLASSNAMES.dragButton}
           />
           <div
             {...dragHandleProps}
             className={styles.CLASSNAMES.dragZoneGrabHandle}
           />
         </div>
-      </framerMotion.motion.li>
+      </framerMotion.motion.div>
     );
-
-    if (!isDragging || !portalTarget) {
-      return content;
-    }
-
-    return reactDOM.createPortal(content, portalTarget);
   },
 );

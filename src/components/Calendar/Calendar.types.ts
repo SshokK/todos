@@ -3,20 +3,19 @@ import type * as elements from './elements';
 
 export type CalendarItemDate = string;
 
-export type CalendarItem = ComponentProps<
-  typeof elements.CalendarItem
->['itemComponentProps'] & {
-  id: string | number;
-};
-
 export type CalendarProps = {
   date?: Date;
   onDateChange?: (date: Date) => void;
-  items: Record<CalendarItemDate, CalendarItem[]>;
+  items: Record<CalendarItemDate, elements.CalendarItem[]>;
   toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
-  ItemComponent?: ComponentProps<typeof elements.CalendarItem>['ItemComponent'];
+
+  ItemComponent?: ComponentProps<
+    typeof elements.CalendarVirtualizedColumn
+  >['ItemComponent'];
+
   itemComponentProps?: ComponentProps<
-    typeof elements.CalendarItem
+    typeof elements.CalendarVirtualizedColumn
   >['itemComponentProps'];
+
   onItemOrderChange?: (items: CalendarProps['items']) => void;
 };
