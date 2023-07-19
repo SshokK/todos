@@ -5,6 +5,7 @@ export * from './Checkbox';
 export * from './DatePicker';
 export * from './IconButton';
 export * from './Icons';
+export * from './List';
 export * from './Navbar';
 export * from './NoItemsMessage';
 export * from './Popover';

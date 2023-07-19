@@ -4,10 +4,14 @@ import * as dateConstants from '../../constants/date.constants.ts';
 export const isBefore = ({
   dateA,
   dateB,
+  isDateAIncluded,
 }: {
   dateA: Date;
   dateB: Date;
   granularity: dateConstants.DATE_GRANULARITY;
+  isDateAIncluded?: boolean;
 }): boolean => {
-  return dateFns.differenceInCalendarDays(dateA, dateB) < 0;
+  const diff = dateFns.differenceInCalendarDays(dateA, dateB);
+
+  return isDateAIncluded ? diff <= 0 : diff < 0;
 };

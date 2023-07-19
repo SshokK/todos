@@ -33,17 +33,10 @@ export const CalendarItemRemoval: FC<CalendarItemRemovalProps> = ({
               className={classnames({
                 [styles.CLASSNAMES.borders]: true,
                 [styles.CLASSNAMES.bordersActive]: isDragging,
+                [styles.CLASSNAMES.bordersActiveDragOver]:
+                  snapshot.isDraggingOver,
               })}
-            >
-              <framerMotion.motion.div
-                className={classnames({
-                  [styles.CLASSNAMES.bordersSpacer]: true,
-                  [styles.CLASSNAMES.bordersSpacerActive]: isDragging,
-                  [styles.CLASSNAMES.bordersSpacerActiveDragOver]:
-                    snapshot.isDraggingOver,
-                })}
-              />
-            </framerMotion.motion.div>
+            />
             <IconTrash2
               className={classnames({
                 [styles.CLASSNAMES.icon]: true,

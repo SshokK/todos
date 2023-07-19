@@ -1,4 +1,4 @@
-import * as utils from 'utils';
+import * as utils from '../index.ts';
 
 export const formatHumanizedDate = (date: Date): string => {
   switch (date.toDateString()) {

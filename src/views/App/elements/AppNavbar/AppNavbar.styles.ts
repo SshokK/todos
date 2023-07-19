@@ -5,12 +5,6 @@ export const CLASSNAMES = {
 
   searchInput: classnames('w-full'),
 
-  todoCard: classnames('w-full'),
-
-  todoTitle: classnames('text-secondary-900'),
-
-  todoDescription: classnames('text-secondary-500'),
-
   separator: classnames('w-full'),
 
   upcomingTodosContainer: classnames(
@@ -18,21 +12,8 @@ export const CLASSNAMES = {
     'flex',
     'flex-col',
     'items-center',
-    'gap-4',
+    'gap-8',
     'relative',
+    'w-full',
   ),
-
-  upcomingTodoGroupsContainer: classnames(
-    'flex',
-    'flex-1',
-    'flex-col',
-    'items-center',
-    'pt-12',
-  ),
-
-  upcomingTodosDate: classnames('text-secondary-800'),
-
-  upcomingTodosList: classnames('flex', 'flex-col', 'gap-1'),
-
-  upcomingTodosListItem: classnames('bg-secondary-100', 'p-4'),
 };

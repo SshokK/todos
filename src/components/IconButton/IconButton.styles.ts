@@ -38,7 +38,7 @@ export const TYPE_CLASSNAMES: Record<constants.ICON_BUTTON_TYPE, string> = {
 };
 
 export const SIZE_CLASSNAMES: Record<constants.ICON_BUTTON_SIZE, string> = {
-  [constants.ICON_BUTTON_SIZE.SM]: classnames('p-1', 'text-xs', 'w-6', 'h-8'),
+  [constants.ICON_BUTTON_SIZE.SM]: classnames('p-1', 'text-xs', 'w-6', 'h-6'),
 
   [constants.ICON_BUTTON_SIZE.MD]: classnames('p-1.5', 'text-l', 'w-8', 'h-8'),
 

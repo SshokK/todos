@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 import type * as elements from './elements';
 
-export type CalendarVirtualizedColumnProps = {
+export type CalendarColumnProps = {
   date: Date;
   items: elements.CalendarItem[];
   isDropDisabled?: boolean;

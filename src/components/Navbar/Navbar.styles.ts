@@ -25,8 +25,9 @@ export const CLASSNAMES = {
     'border-secondary-500',
     'p-4',
     'bg-secondary-400',
-    'truncate',
   ),
+
+  copyrightText: classnames('text-xs', 'text-center'),
 
   links: classnames('flex', 'gap-2', 'pl-4', 'text-lg'),
 };

@@ -9,6 +9,7 @@ import * as constants from './Navbar.constants.ts';
 import { IconGithub, IconLinkedIn } from '../Icons';
 
 import { useSidebarsContext } from 'contexts';
+import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 
 export const Navbar: FC<NavbarProps> = () => {
   const sidebarsContext = useSidebarsContext();
@@ -30,7 +31,13 @@ export const Navbar: FC<NavbarProps> = () => {
           {sidebarsContext.navbar.element}
         </div>
         <footer className={styles.CLASSNAMES.copyright}>
-          © Aleksandr Grudinskiy 2023
+          <Typography
+            type={TYPOGRAPHY_TYPE.BODY}
+            shouldTruncate
+            className={styles.CLASSNAMES.copyrightText}
+          >
+            © Aleksandr Grudinskiy 2023
+          </Typography>
           <span className={styles.CLASSNAMES.links}>
             <a target="_blank" href={import.meta.env.VITE_LINKEDIN_LINK}>
               <IconLinkedIn />

@@ -7,7 +7,11 @@ import * as framerMotion from 'framer-motion';
 
 import classnames from 'classnames';
 
-import { TYPOGRAPHY_SIZE, TYPOGRAPHY_TYPE } from '../Typography';
+import {
+  TYPOGRAPHY_SIZE,
+  TYPOGRAPHY_TEXT_ALIGNMENT,
+  TYPOGRAPHY_TYPE,
+} from '../Typography';
 
 import { Typography } from '../Typography';
 
@@ -30,7 +34,11 @@ export const NoItemsMessage: FC<NoItemsMessageProps> = ({
             styles.CLASSNAMES.noUpcomingTodosMessage,
           )}
         >
-          <Typography type={TYPOGRAPHY_TYPE.SUBTITLE} size={TYPOGRAPHY_SIZE.SM}>
+          <Typography
+            type={TYPOGRAPHY_TYPE.SUBTITLE}
+            size={TYPOGRAPHY_SIZE.SM}
+            textAlignment={TYPOGRAPHY_TEXT_ALIGNMENT.CENTER}
+          >
             {children}
           </Typography>
         </framerMotion.motion.div>

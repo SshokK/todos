@@ -23,6 +23,56 @@ export const getTodosList = (state: GlobalState) => {
   return Object.entries(state.todos).flatMap(([, todos]) => todos);
 };
 
+export const getUnfinishedTodosByDates = (
+  state: GlobalState,
+): Record<string, Todo[]> => {
+  return Object.fromEntries(
+    Object.entries(state.todos).map(([date, todos]) => {
+      const unfinishedTodos = todos.filter((todo) => !todo.isDone);
+
+      if (unfinishedTodos.length) {
+        return [date, unfinishedTodos];
+      }
+
+      return [];
+    }),
+  );
+};
+
+export const getUnfinishedFutureTodosByDates = (
+  state: GlobalState,
+  {
+    endDate,
+  }: {
+    endDate?: Date;
+  } = {},
+): Record<string, Todo[]> => {
+  return Object.fromEntries(
+    Object.entries(getUnfinishedTodosByDates(state)).filter(([date]) => {
+      const isAfter = utils.isAfter({
+        dateA: new Date(date),
+        dateB: new Date(),
+        granularity: dateConstants.DATE_GRANULARITY.DAY,
+        isDateAIncluded: true,
+      });
+
+      if (endDate) {
+        return (
+          isAfter &&
+          utils.isBefore({
+            dateA: new Date(date),
+            dateB: new Date(),
+            granularity: dateConstants.DATE_GRANULARITY.DAY,
+            isDateAIncluded: true,
+          })
+        );
+      }
+
+      return isAfter;
+    }),
+  );
+};
+
 export const getUnfinishedTodosForToday = (state: GlobalState) => {
   return (getTodos(state)[utils.getToday().toDateString()] ?? []).filter(
     (todo) => !todo.isDone,

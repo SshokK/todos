@@ -1,5 +1,7 @@
 import type * as react from 'react';
 
+import * as framerMotion from 'framer-motion';
+
 export enum TYPOGRAPHY_SIZE {
   XS = 'xs',
   SM = 'sm',
@@ -25,40 +27,22 @@ export enum TYPOGRAPHY_TEXT_ALIGNMENT {
 }
 
 export const TYPOGRAPHY_ELEMENTS: Record<TYPOGRAPHY_TYPE, react.FC> = {
-  [TYPOGRAPHY_TYPE.TITLE_1]: (
-    props: react.DetailedHTMLProps<
-      react.HTMLAttributes<HTMLHeadingElement>,
-      HTMLHeadingElement
-    >,
-  ) => <h1 {...props} />,
-  [TYPOGRAPHY_TYPE.TITLE_2]: (
-    props: react.DetailedHTMLProps<
-      react.HTMLAttributes<HTMLHeadingElement>,
-      HTMLHeadingElement
-    >,
-  ) => <h2 {...props} />,
-  [TYPOGRAPHY_TYPE.SUBTITLE]: (
-    props: react.DetailedHTMLProps<
-      react.HTMLAttributes<HTMLHeadingElement>,
-      HTMLHeadingElement
-    >,
-  ) => <h4 {...props} />,
-  [TYPOGRAPHY_TYPE.BODY]: (
-    props: react.DetailedHTMLProps<
-      react.HTMLAttributes<HTMLParagraphElement>,
-      HTMLParagraphElement
-    >,
-  ) => <p {...props} />,
-  [TYPOGRAPHY_TYPE.CAPTION]: (
-    props: react.DetailedHTMLProps<
-      react.HTMLAttributes<HTMLAnchorElement>,
-      HTMLAnchorElement
-    >,
-  ) => <span {...props} />,
-  [TYPOGRAPHY_TYPE.LINK]: (
-    props: react.DetailedHTMLProps<
-      react.HTMLAttributes<HTMLAnchorElement>,
-      HTMLAnchorElement
-    >,
-  ) => <a target="_blank" rel="noopener" {...props} />,
+  [TYPOGRAPHY_TYPE.TITLE_1]: (props: framerMotion.HTMLMotionProps<'h1'>) => (
+    <framerMotion.motion.h1 {...props} />
+  ),
+  [TYPOGRAPHY_TYPE.TITLE_2]: (props: framerMotion.HTMLMotionProps<'h2'>) => (
+    <framerMotion.motion.h2 {...props} />
+  ),
+  [TYPOGRAPHY_TYPE.SUBTITLE]: (props: framerMotion.HTMLMotionProps<'h4'>) => (
+    <framerMotion.motion.h4 {...props} />
+  ),
+  [TYPOGRAPHY_TYPE.BODY]: (props: framerMotion.HTMLMotionProps<'p'>) => (
+    <framerMotion.motion.p {...props} />
+  ),
+  [TYPOGRAPHY_TYPE.CAPTION]: (props: framerMotion.HTMLMotionProps<'span'>) => (
+    <framerMotion.motion.span {...props} />
+  ),
+  [TYPOGRAPHY_TYPE.LINK]: (props: framerMotion.HTMLMotionProps<'a'>) => (
+    <framerMotion.motion.a target="_blank" rel="noopener" {...props} />
+  ),
 };

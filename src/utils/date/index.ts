@@ -1,4 +1,5 @@
 export * from './add-days.ts';
+export * from './format-humanized-date.ts';
 export * from './get-diff';
 export * from './get-yesterday.ts';
 export * from './get-tomorrow.ts';

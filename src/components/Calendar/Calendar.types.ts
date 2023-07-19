@@ -10,11 +10,11 @@ export type CalendarProps = {
   toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
 
   ItemComponent?: ComponentProps<
-    typeof elements.CalendarVirtualizedColumn
+    typeof elements.CalendarColumn
   >['ItemComponent'];
 
   itemComponentProps?: ComponentProps<
-    typeof elements.CalendarVirtualizedColumn
+    typeof elements.CalendarColumn
   >['itemComponentProps'];
 
   onItemOrderChange?: (items: CalendarProps['items']) => void;

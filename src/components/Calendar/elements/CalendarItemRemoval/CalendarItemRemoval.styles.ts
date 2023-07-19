@@ -21,15 +21,14 @@ export const CLASSNAMES = {
     'flex',
     'justify-center',
     'relative',
+    'w-full',
+    'h-20',
+    'transition',
   ),
 
   bordersActive: classnames('w-full', '!border-error-300'),
 
-  bordersSpacer: classnames('w-20', 'h-20', 'rounded', 'transition'),
-
-  bordersSpacerActive: classnames('!w-full'),
-
-  bordersSpacerActiveDragOver: classnames('bg-error-500', 'bg-opacity-5'),
+  bordersActiveDragOver: classnames('bg-error-500', 'bg-opacity-5'),
 
   icon: classnames(
     'text-[3rem]',

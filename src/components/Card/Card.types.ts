@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
+import type { HTMLMotionProps } from 'framer-motion';
 
-export type CardProps = {
+export type CardProps = HTMLMotionProps<'div'> & {
   children?: ReactNode;
-  className?: string;
+  isClickable?: boolean;
 };

@@ -1,19 +1,19 @@
-import type { ComponentProps, FC } from 'react';
-import type { CalendarVirtualizedColumnProps } from './CalendarVirtualizedColumn.types.ts';
+import type { FC } from 'react';
+import type { CalendarColumnProps } from './CalendarColumn.types.ts';
 
 import { TYPOGRAPHY_TYPE } from '../../../Typography';
 
 import { StrictModeDroppable } from '../../../StrictModeDroppable';
 import { Typography } from '../../../Typography';
 import { NoItemsMessage } from '../../../NoItemsMessage';
+import { List } from '../../../List';
 
 import * as elements from './elements';
-import * as reactVirtuoso from 'react-virtuoso';
 import * as reactBeautifulDnd from 'react-beautiful-dnd';
-import * as styles from './CalendarVirtualizedColumn.styles.ts';
-import * as helpers from './CalendarVirtualizedColumn.helpers.ts';
+import * as styles from './CalendarColumn.styles.ts';
+import * as utils from 'utils';
 
-export const CalendarVirtualizedColumn: FC<CalendarVirtualizedColumnProps> = ({
+export const CalendarColumn: FC<CalendarColumnProps> = ({
   date,
   isDropDisabled,
   items,
@@ -45,7 +45,7 @@ export const CalendarVirtualizedColumn: FC<CalendarVirtualizedColumnProps> = ({
             type={TYPOGRAPHY_TYPE.SUBTITLE}
             className={styles.CLASSNAMES.columnTitle}
           >
-            {helpers.formatHumanizedDate(date)}
+            {utils.formatHumanizedDate(date)}
           </Typography>
           <NoItemsMessage
             isVisible={!items.length}
@@ -53,18 +53,10 @@ export const CalendarVirtualizedColumn: FC<CalendarVirtualizedColumnProps> = ({
           >
             No items
           </NoItemsMessage>
-          <reactVirtuoso.Virtuoso
-            scrollerRef={
-              provided.innerRef as ComponentProps<
-                typeof reactVirtuoso.Virtuoso
-              >['scrollerRef']
-            }
-            data={items}
-            style={styles.STYLES.virtualizedList}
-            components={{
-              Item: elements.CalendarHeightPreservingItem,
-            }}
-            itemContent={(index, item: elements.CalendarItem) => (
+          <List
+            ref={provided.innerRef}
+            items={items}
+            onItemRender={(item: elements.CalendarItem, index) => (
               <reactBeautifulDnd.Draggable
                 draggableId={String(item.id)}
                 index={index}

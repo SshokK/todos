@@ -13,6 +13,7 @@ import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE } from '../IconButton';
 import { IconButton } from '../IconButton';
 import { IconCheckCircled, IconCircle } from '../Icons';
 import { Toolbar } from '../Toolbar';
+import { Card } from '../Card';
 
 import { useTodoItemHandlers, useTodoItemToolbarConfig } from './hooks';
 
@@ -62,8 +63,9 @@ export const TodoItem: FC<TodoItemProps> = ({
             }),
         })}
       />
-      <div
+      <Card
         tabIndex={0}
+        isClickable
         className={styles.CLASSNAMES.content}
         onClick={handlers.handleSidebarOpen}
       >
@@ -73,7 +75,7 @@ export const TodoItem: FC<TodoItemProps> = ({
           isDone={isDone}
           onTitleChange={handlers.handleTitleChange}
         />
-      </div>
+      </Card>
       <Toolbar config={toolbarConfig} />
     </div>
   );
