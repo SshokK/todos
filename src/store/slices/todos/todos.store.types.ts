@@ -9,6 +9,7 @@ export type TodosState = {
   todos: Record<string, Todo[]>;
   addTodo: (todo: Todo) => void;
   deleteTodo: (todoId: Todo['id']) => void;
+  deleteEmptyTodos: () => void;
   toggleTodo: (todoId: Todo['id'], isDone: Todo['isDone']) => void;
   setTodos: (todos: TodosState['todos']) => void;
   setTodoTitle: (todoId: Todo['id'], title: Todo['title']) => void;

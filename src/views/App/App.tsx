@@ -5,8 +5,8 @@ import * as elements from './elements';
 import * as styles from './App.styles.ts';
 
 import {
-  useAppData,
   useAppCalendarToolbarConfig,
+  useAppData,
   useAppHandlers,
   useAppLifecycle,
 } from './hooks';
@@ -43,6 +43,7 @@ export const App: FC = () => {
           onItemOrderChange={handlers.handleTodoItemOrderChange}
           items={storeData.todos}
           ItemComponent={components.TodoItem}
+          additionalToolbar={<elements.AppCalendarAdditionalToolbar />}
           itemComponentProps={{
             onDateChange: handlers.handleTodoDateChange,
             onCompletionToggle: handlers.handleTodoCompletionToggle,

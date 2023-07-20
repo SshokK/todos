@@ -9,8 +9,11 @@ export const todosStore: Slice<TodosState> = (set) => ({
   todos: mocks.MOCK_TODOS,
 
   setTodos: (todos) => {
-    set(() => ({
-      todos,
+    set((state) => ({
+      todosState: {
+        ...state.todosState,
+        todos,
+      },
     }));
   },
 
@@ -19,66 +22,95 @@ export const todosStore: Slice<TodosState> = (set) => ({
       const today = utils.getToday().toDateString();
 
       return {
-        todos: {
-          ...state.todos,
-          [today]: [todo, ...(state.todos[today] ?? [])],
+        todosState: {
+          ...state.todosState,
+          todos: {
+            ...state.todosState.todos,
+            [today]: [todo, ...(state.todosState.todos[today] ?? [])],
+          },
         },
       };
     }),
 
   deleteTodo: (todoId) => {
     set((state) => ({
-      todos: Object.fromEntries(
-        Object.entries(state.todos).map(([date, todos]) => {
-          return [date, todos.filter((todo) => todo.id !== todoId)];
+      todosState: {
+        ...state.todosState,
+        todos: helpers.filterTodos({
+          todos: state.todosState.todos,
+          filter: (todo) => todo.id !== todoId,
         }),
-      ),
+      },
+    }));
+  },
+
+  deleteEmptyTodos: () => {
+    set((state) => ({
+      todosState: {
+        ...state.todosState,
+        todos: helpers.filterTodos({
+          todos: state.todosState.todos,
+          filter: (todo) => todo.title,
+        }),
+      },
     }));
   },
 
   toggleTodo: (todoId, isDone) => {
     set((state) => ({
-      todos: helpers.updateTodo({
-        todos: state.todos,
-        todoId: todoId,
-        patch: {
-          isDone,
-        },
-      }),
+      todosState: {
+        ...state.todosState,
+        todos: helpers.updateTodo({
+          todos: state.todosState.todos,
+          todoId: todoId,
+          patch: {
+            isDone,
+          },
+        }),
+      },
     }));
   },
 
   setTodoTitle: (todoId, title) => {
     set((state) => ({
-      todos: helpers.updateTodo({
-        todos: state.todos,
-        todoId: todoId,
-        patch: {
-          title,
-        },
-      }),
+      todosState: {
+        ...state.todosState,
+        todos: helpers.updateTodo({
+          todos: state.todosState.todos,
+          todoId: todoId,
+          patch: {
+            title,
+          },
+        }),
+      },
     }));
   },
 
   setTodoDate: (todoId, newDate) => {
     set((state) => ({
-      todos: helpers.moveTodo({
-        todos: state.todos,
-        todoId: todoId,
-        newDate: newDate,
-      }),
+      todosState: {
+        ...state.todosState,
+        todos: helpers.moveTodo({
+          todos: state.todosState.todos,
+          todoId: todoId,
+          newDate: newDate,
+        }),
+      },
     }));
   },
 
   setTodoContent: (todoId, content) => {
     set((state) => ({
-      todos: helpers.updateTodo({
-        todos: state.todos,
-        todoId: todoId,
-        patch: {
-          content,
-        },
-      }),
+      todosState: {
+        ...state.todosState,
+        todos: helpers.updateTodo({
+          todos: state.todosState.todos,
+          todoId: todoId,
+          patch: {
+            content,
+          },
+        }),
+      },
     }));
   },
 });

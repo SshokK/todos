@@ -1,5 +1,19 @@
 import type { Todo, TodosState } from './todos.store.types.ts';
 
+export const filterTodos = ({
+  todos,
+  filter,
+}: {
+  todos: TodosState['todos'];
+  filter: (todo: Todo, i: number, todos: Todo[]) => unknown;
+}) => {
+  return Object.fromEntries(
+    Object.entries(todos).map(([date, todos]) => {
+      return [date, todos.filter(filter)];
+    }),
+  );
+};
+
 export const updateTodo = ({
   todos,
   todoId,

@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import type { Toolbar } from '../../../Toolbar';
 
 export type CalendarToolbarProps = {
@@ -8,4 +8,5 @@ export type CalendarToolbarProps = {
   onNextPageClick?: () => void;
   onPageReset?: () => void;
   onJumpToDate?: (date: Date | null) => void;
+  children?: ReactNode;
 };

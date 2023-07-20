@@ -1,11 +1,12 @@
 import type { AppHandlers } from './useAppHandlers.types.ts';
 import type { AppData } from './useAppData.types.ts';
 
+import * as store from 'store';
+import * as utils from 'utils';
+
 import { useSidebarsContext } from 'contexts';
 import { useCallback } from 'react';
 import { useStore } from 'store';
-
-import * as utils from 'utils';
 
 export const useAppHandlers = ({
   localActions,
@@ -13,7 +14,7 @@ export const useAppHandlers = ({
   localActions: AppData['localActions'];
 }): AppHandlers => {
   const sidebarsContext = useSidebarsContext();
-  const store = useStore();
+  const todosState = useStore(store.getTodosState);
 
   const handleMount: AppHandlers['handleMount'] = useCallback(
     (navbarElement) => () => {
@@ -35,25 +36,25 @@ export const useAppHandlers = ({
     id,
     title,
   ) => {
-    store.setTodoTitle(id, title);
+    todosState.setTodoTitle(id, title);
   };
 
   const handleTodoCompletionToggle: AppHandlers['handleTodoCompletionToggle'] =
     (id, isDone) => {
-      store.toggleTodo(id, isDone);
+      todosState.toggleTodo(id, isDone);
     };
 
   const handleTodoDateChange: AppHandlers['handleTodoDateChange'] = (
     id,
     date,
   ) => {
-    store.setTodoDate(id, date);
+    todosState.setTodoDate(id, date);
   };
 
   const handleTodoItemAdd: AppHandlers['handleTodoItemAdd'] = () => {
     localActions.setCalendarDate(utils.getToday());
 
-    store.addTodo({
+    todosState.addTodo({
       id: utils.getRandomId(),
       title: '',
       content: '',
@@ -64,7 +65,7 @@ export const useAppHandlers = ({
   const handleTodoItemOrderChange: AppHandlers['handleTodoItemOrderChange'] = (
     todos,
   ) => {
-    store.setTodos(todos as Parameters<typeof store.setTodos>[0]);
+    todosState.setTodos(todos as Parameters<typeof todosState.setTodos>[0]);
   };
 
   return {

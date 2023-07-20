@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import type * as elements from './elements';
 
 export type CalendarItemDate = string;
@@ -8,6 +8,7 @@ export type CalendarProps = {
   onDateChange?: (date: Date) => void;
   items: Record<CalendarItemDate, elements.CalendarItem[]>;
   toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
+  additionalToolbar?: ReactNode;
 
   ItemComponent?: ComponentProps<
     typeof elements.CalendarColumn

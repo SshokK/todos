@@ -16,6 +16,7 @@ export const Calendar: FC<CalendarProps> = ({
   onDateChange,
   items,
   toolbarConfig,
+  additionalToolbar,
   onItemOrderChange,
   ItemComponent,
   itemComponentProps,
@@ -52,7 +53,9 @@ export const Calendar: FC<CalendarProps> = ({
         onNextPageClick={handlers.handleNextPageChange}
         onPageReset={handlers.handlePageReset}
         onJumpToDate={handlers.handleJumpToDate}
-      />
+      >
+        {additionalToolbar}
+      </elements.CalendarToolbar>
       <main className={styles.CLASSNAMES.contentContainer}>
         <elements.CalendarColumnsAnimation dates={formattedData.dates}>
           {(date, i, dates) => (

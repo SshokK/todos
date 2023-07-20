@@ -18,6 +18,7 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
   onNextPageClick,
   onPageReset,
   onJumpToDate,
+  children,
 }) => {
   const toolbarConfig = useCalendarToolbarConfig({
     props: {
@@ -32,6 +33,7 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
   return (
     <header className={styles.CLASSNAMES.container}>
       <Toolbar config={toolbarConfig} />
+      {children}
       <IconButton
         Icon={IconReload}
         type={ICON_BUTTON_TYPE.SECONDARY}

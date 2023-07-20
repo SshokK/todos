@@ -4,11 +4,13 @@ import type { Todo } from './todos.store.types.ts';
 import * as utils from 'utils';
 import * as dateConstants from '../../../constants/date.constants.ts';
 
-export const getTodos = (state: GlobalState) => state.todos;
+export const getTodosState = (state: GlobalState) => state.todosState;
+
+export const getTodos = (state: GlobalState) => getTodosState(state).todos;
 
 export const getTodosForCalendar = (state: GlobalState) =>
   Object.fromEntries(
-    Object.entries(state.todos).map(([date, todos]) => {
+    Object.entries(getTodos(state)).map(([date, todos]) => {
       return [
         date,
         todos.map((todo, i) => ({
@@ -20,14 +22,14 @@ export const getTodosForCalendar = (state: GlobalState) =>
   );
 
 export const getTodosList = (state: GlobalState) => {
-  return Object.entries(state.todos).flatMap(([, todos]) => todos);
+  return Object.entries(getTodos(state)).flatMap(([, todos]) => todos);
 };
 
 export const getUnfinishedTodosByDates = (
   state: GlobalState,
 ): Record<string, Todo[]> => {
   return Object.fromEntries(
-    Object.entries(state.todos).map(([date, todos]) => {
+    Object.entries(getTodos(state)).map(([date, todos]) => {
       const unfinishedTodos = todos.filter((todo) => !todo.isDone);
 
       if (unfinishedTodos.length) {
