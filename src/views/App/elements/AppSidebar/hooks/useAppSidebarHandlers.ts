@@ -1,6 +1,8 @@
 import type { AppSidebarHandlers } from './useAppSidebarHandlers.types.ts';
 import type { AppSidebarProps } from '../AppSidebar.types.ts';
 
+import * as store from 'store';
+
 import { useStore } from 'store';
 
 export const useAppSidebarHandlers = ({
@@ -8,11 +10,11 @@ export const useAppSidebarHandlers = ({
 }: {
   props: Pick<AppSidebarProps, 'todoId'>;
 }): AppSidebarHandlers => {
-  const store = useStore();
+  const todosState = useStore(store.getTodosState);
 
   const handleTodoContentChange: AppSidebarHandlers['handleTodoContentChange'] =
     (value) => {
-      store.setTodoContent(props.todoId, value);
+      todosState.setTodoContent(props.todoId, value);
     };
 
   return {
