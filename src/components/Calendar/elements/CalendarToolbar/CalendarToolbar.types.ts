@@ -3,7 +3,9 @@ import type { Toolbar } from '../../../Toolbar';
 
 export type CalendarToolbarProps = {
   date: Date;
-  config?: ComponentProps<typeof Toolbar>['config'];
+  onConfigRender?: (
+    config: Required<ComponentProps<typeof Toolbar>>['config'],
+  ) => Required<ComponentProps<typeof Toolbar>>['config'];
   onPrevPageClick?: () => void;
   onNextPageClick?: () => void;
   onPageReset?: () => void;

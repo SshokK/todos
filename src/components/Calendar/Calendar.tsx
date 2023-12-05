@@ -5,6 +5,8 @@ import * as reactBeautifulDnD from 'react-beautiful-dnd';
 import * as styles from './Calendar.styles.ts';
 import * as elements from './elements';
 
+import { NoItemsMessage } from '../NoItemsMessage';
+
 import {
   useCalendarData,
   useCalendarHandlers,
@@ -13,16 +15,18 @@ import {
 
 export const Calendar: FC<CalendarProps> = ({
   date,
+  whitelistedDates,
+  noDatesMessage,
   onDateChange,
+  onToolbarConfigRender,
   items,
-  toolbarConfig,
-  additionalToolbar,
   onItemOrderChange,
   ItemComponent,
   itemComponentProps,
 }) => {
   const { localState, localActions, formattedData } = useCalendarData({
     date,
+    whitelistedDates,
   });
 
   const handlers = useCalendarHandlers({
@@ -48,15 +52,19 @@ export const Calendar: FC<CalendarProps> = ({
     >
       <elements.CalendarToolbar
         date={localState.date}
-        config={toolbarConfig}
+        onConfigRender={onToolbarConfigRender}
         onPrevPageClick={handlers.handlePrevPageChange}
         onNextPageClick={handlers.handleNextPageChange}
         onPageReset={handlers.handlePageReset}
         onJumpToDate={handlers.handleJumpToDate}
-      >
-        {additionalToolbar}
-      </elements.CalendarToolbar>
+      />
       <main className={styles.CLASSNAMES.contentContainer}>
+        <NoItemsMessage
+          isVisible={!formattedData.dates.length}
+          className={styles.CLASSNAMES.noDatesMessage}
+        >
+          {noDatesMessage}
+        </NoItemsMessage>
         <elements.CalendarColumnsAnimation dates={formattedData.dates}>
           {(date, i, dates) => (
             <elements.CalendarColumn
@@ -73,4 +81,8 @@ export const Calendar: FC<CalendarProps> = ({
       <elements.CalendarItemRemoval isDragging={localState.isDragging} />
     </reactBeautifulDnD.DragDropContext>
   );
+};
+
+Calendar.defaultProps = {
+  noDatesMessage: 'No dates available',
 };

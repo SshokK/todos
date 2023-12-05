@@ -111,4 +111,5 @@ svg {
 html {
   @apply text-secondary-900;
   @apply font-primaryRegular;
+  font-size: 14px;
 }

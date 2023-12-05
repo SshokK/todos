@@ -1,5 +1,7 @@
 import type { GlobalState } from '../../store.types.ts';
 import type { Todo } from './todos.store.types.ts';
+import type { ComponentProps } from 'react';
+import type * as components from 'components';
 
 import * as utils from 'utils';
 import * as dateConstants from '../../../constants/date.constants.ts';
@@ -8,15 +10,29 @@ export const getTodosState = (state: GlobalState) => state.todosState;
 
 export const getTodos = (state: GlobalState) => getTodosState(state).todos;
 
-export const getTodosForCalendar = (state: GlobalState) =>
+export const getTodosForCalendar = (
+  state: GlobalState,
+  {
+    title,
+  }: {
+    title?: string;
+  },
+): ComponentProps<typeof components.Calendar>['items'] =>
   Object.fromEntries(
     Object.entries(getTodos(state)).map(([date, todos]) => {
       return [
         date,
-        todos.map((todo, i) => ({
-          ...todo,
-          order: i,
-        })),
+        todos.map((todo, i) => {
+          const hasMatchedTitle = title
+            ? todo.title.toLowerCase().includes(title.toLowerCase())
+            : true;
+
+          return {
+            ...todo,
+            isHidden: !hasMatchedTitle,
+            order: i,
+          };
+        }),
       ];
     }),
   );
@@ -25,59 +41,59 @@ export const getTodosList = (state: GlobalState) => {
   return Object.entries(getTodos(state)).flatMap(([, todos]) => todos);
 };
 
-export const getUnfinishedTodosByDates = (
+export const getTodosByDates = (
   state: GlobalState,
+  filters?: {
+    isDone?: boolean;
+    startDate?: Date | null;
+    endDate?: Date | null;
+    title?: Todo['title'];
+  },
 ): Record<string, Todo[]> => {
   return Object.fromEntries(
-    Object.entries(getTodos(state)).map(([date, todos]) => {
-      const unfinishedTodos = todos.filter((todo) => !todo.isDone);
+    Object.entries(getTodos(state)).flatMap(([date, todos]) => {
+      const filteredTodos = todos.filter((todo) => {
+        const hadMatchedTitle = filters?.title
+          ? todo.title.toLowerCase().includes(filters.title.toLowerCase())
+          : true;
 
-      if (unfinishedTodos.length) {
-        return [date, unfinishedTodos];
+        const hasMatchedStatus =
+          typeof filters?.isDone === 'boolean'
+            ? todo.isDone === filters.isDone
+            : true;
+
+        const hasMatchedStartDate = filters?.startDate
+          ? utils.isAfter({
+              dateA: new Date(date),
+              dateB: filters.startDate,
+              granularity: dateConstants.DATE_GRANULARITY.DAY,
+              isDateAIncluded: true,
+            })
+          : true;
+
+        const hasMatchedEndDate = filters?.endDate
+          ? utils.isBefore({
+              dateA: new Date(date),
+              dateB: filters?.endDate,
+              granularity: dateConstants.DATE_GRANULARITY.DAY,
+              isDateAIncluded: true,
+            })
+          : true;
+
+        return (
+          hadMatchedTitle &&
+          hasMatchedStatus &&
+          hasMatchedStartDate &&
+          hasMatchedEndDate
+        );
+      });
+
+      if (filteredTodos.length) {
+        return [[date, filteredTodos]];
       }
 
       return [];
     }),
-  );
-};
-
-export const getUnfinishedFutureTodosByDates = (
-  state: GlobalState,
-  {
-    endDate,
-  }: {
-    endDate?: Date;
-  } = {},
-): Record<string, Todo[]> => {
-  return Object.fromEntries(
-    Object.entries(getUnfinishedTodosByDates(state)).filter(([date]) => {
-      const isAfter = utils.isAfter({
-        dateA: new Date(date),
-        dateB: new Date(),
-        granularity: dateConstants.DATE_GRANULARITY.DAY,
-        isDateAIncluded: true,
-      });
-
-      if (endDate) {
-        return (
-          isAfter &&
-          utils.isBefore({
-            dateA: new Date(date),
-            dateB: new Date(),
-            granularity: dateConstants.DATE_GRANULARITY.DAY,
-            isDateAIncluded: true,
-          })
-        );
-      }
-
-      return isAfter;
-    }),
-  );
-};
-
-export const getUnfinishedTodosForToday = (state: GlobalState) => {
-  return (getTodos(state)[utils.getToday().toDateString()] ?? []).filter(
-    (todo) => !todo.isDone,
   );
 };
 

@@ -13,7 +13,7 @@ import { useCalendarToolbarConfig } from './hooks';
 
 export const CalendarToolbar: FC<CalendarToolbarProps> = ({
   date,
-  config,
+  onConfigRender,
   onPrevPageClick,
   onNextPageClick,
   onPageReset,
@@ -23,7 +23,7 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
   const toolbarConfig = useCalendarToolbarConfig({
     props: {
       date,
-      config,
+      onConfigRender,
       onPrevPageClick,
       onNextPageClick,
       onJumpToDate,

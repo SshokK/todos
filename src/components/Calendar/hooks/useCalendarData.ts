@@ -7,7 +7,7 @@ import * as helpers from './useCalendarData.helpers.ts';
 import { useMemo, useState } from 'react';
 
 export const useCalendarData = (
-  props: Pick<CalendarProps, 'date'>,
+  props: Pick<CalendarProps, 'date' | 'whitelistedDates'>,
 ): CalendarData => {
   const [date, setDate] = useState<CalendarData['localState']['date']>(
     props.date ?? constants.INITIAL_DATE,
@@ -30,22 +30,24 @@ export const useCalendarData = (
   );
 
   const formattedData: CalendarData['formattedData'] = useMemo(() => {
-    const dates = [
-      ...helpers.getPriorDays({
-        startDate: localState.date,
-        daysCount: constants.SIDE_COLUMNS_COUNT,
-      }),
-      localState.date,
-      ...helpers.getFurtherDays({
-        startDate: localState.date,
-        daysCount: constants.SIDE_COLUMNS_COUNT,
-      }),
-    ];
+    const dates = props.whitelistedDates
+      ? helpers.formatWhitelistedDates(props.whitelistedDates)
+      : [
+          ...helpers.getPriorDays({
+            startDate: localState.date,
+            daysCount: constants.SIDE_COLUMNS_COUNT,
+          }),
+          localState.date,
+          ...helpers.getFurtherDays({
+            startDate: localState.date,
+            daysCount: constants.SIDE_COLUMNS_COUNT,
+          }),
+        ];
 
     return {
       dates,
     };
-  }, [localState.date]);
+  }, [localState.date, props.whitelistedDates]);
 
   return {
     localState,

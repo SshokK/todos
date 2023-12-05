@@ -8,12 +8,14 @@ import * as elements from './elements';
 import { useAppNavbarData } from './hooks';
 
 export const AppNavbar: FC = () => {
-  const { storeData } = useAppNavbarData();
+  const { localState, localActions, storeData } = useAppNavbarData();
 
   return (
     <div className={styles.CLASSNAMES.container}>
       <components.TextField
-        placeholder="Search by title"
+        value={localState.searchString}
+        onChange={localActions.setSearchString}
+        placeholder="Search future todos"
         shouldRenderSearchButton
         classNames={{
           container: styles.CLASSNAMES.searchInput,
@@ -22,22 +24,20 @@ export const AppNavbar: FC = () => {
       <elements.TodosCounts />
       <div className={styles.CLASSNAMES.upcomingTodosContainer}>
         <framerMotion.AnimatePresence initial={false}>
-          {Object.entries(storeData.unfinishedFutureTodosByDates).flatMap(
-            ([date, todos]) => (
-              <elements.TodosGroup
-                key={date}
-                date={new Date(date)}
-                todos={todos}
-              />
-            ),
-          )}
+          {Object.entries(storeData.todosByDates).flatMap(([date, todos]) => (
+            <elements.TodosGroup
+              key={date}
+              date={new Date(date)}
+              todos={todos}
+            />
+          ))}
         </framerMotion.AnimatePresence>
         <components.NoItemsMessage
-          isVisible={
-            !Object.entries(storeData.unfinishedFutureTodosByDates).length
-          }
+          isVisible={!Object.entries(storeData.todosByDates).length}
         >
-          No unfinished todos for today
+          {localState.searchString
+            ? 'No todos matching search'
+            : 'No unfinished todos for today'}
         </components.NoItemsMessage>
       </div>
     </div>

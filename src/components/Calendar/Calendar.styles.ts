@@ -11,4 +11,6 @@ export const CLASSNAMES = {
     'z-10',
     'overflow-hidden',
   ),
+
+  noDatesMessage: classnames('w-full'),
 };

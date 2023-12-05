@@ -5,10 +5,12 @@ export type CalendarItemDate = string;
 
 export type CalendarProps = {
   date?: Date;
-  onDateChange?: (date: Date) => void;
+
+  whitelistedDates?: Date[] | null;
+
+  noDatesMessage?: ReactNode;
+
   items: Record<CalendarItemDate, elements.CalendarItem[]>;
-  toolbarConfig?: ComponentProps<typeof elements.CalendarToolbar>['config'];
-  additionalToolbar?: ReactNode;
 
   ItemComponent?: ComponentProps<
     typeof elements.CalendarColumn
@@ -19,4 +21,10 @@ export type CalendarProps = {
   >['itemComponentProps'];
 
   onItemOrderChange?: (items: CalendarProps['items']) => void;
+
+  onDateChange?: (date: Date) => void;
+
+  onToolbarConfigRender?: ComponentProps<
+    typeof elements.CalendarToolbar
+  >['onConfigRender'];
 };

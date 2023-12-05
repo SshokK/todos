@@ -1,11 +1,7 @@
 import type { ComponentProps } from 'react';
 import type { CalendarToolbarProps } from '../CalendarToolbar.types.ts';
 
-import {
-  TOOLBAR_ELEMENT_TYPE,
-  TOOLBAR_SPACING_SIZE,
-} from '../../../../Toolbar';
-import { TEXTFIELD_TYPE } from '../../../../TextField';
+import { TOOLBAR_ELEMENT_TYPE } from '../../../../Toolbar';
 
 import { Toolbar } from '../../../../Toolbar';
 import { IconChevronLeft, IconChevronRight } from '../../../../Icons';
@@ -17,18 +13,24 @@ export const useCalendarToolbarConfig = ({
 }: {
   props: Pick<
     CalendarToolbarProps,
-    'date' | 'config' | 'onPrevPageClick' | 'onNextPageClick' | 'onJumpToDate'
+    | 'date'
+    | 'onConfigRender'
+    | 'onPrevPageClick'
+    | 'onNextPageClick'
+    | 'onJumpToDate'
   >;
 }): ComponentProps<typeof Toolbar>['config'] => {
-  return useMemo(
-    () => [
-      ...[...(props?.config ?? [])],
+  const { onConfigRender, onPrevPageClick, onNextPageClick, onJumpToDate } =
+    props;
+
+  return useMemo(() => {
+    const calendarToolbarConfig: ComponentProps<typeof Toolbar>['config'] = [
       {
         key: 'prevPage',
         type: TOOLBAR_ELEMENT_TYPE.ACTION,
         props: {
           Icon: IconChevronLeft,
-          onClick: props.onPrevPageClick,
+          onClick: onPrevPageClick,
         },
       },
       {
@@ -36,7 +38,7 @@ export const useCalendarToolbarConfig = ({
         type: TOOLBAR_ELEMENT_TYPE.DATEPICKER,
         props: {
           value: props.date,
-          onChange: props.onJumpToDate,
+          onChange: onJumpToDate,
         },
       },
       {
@@ -44,36 +46,19 @@ export const useCalendarToolbarConfig = ({
         type: TOOLBAR_ELEMENT_TYPE.ACTION,
         props: {
           Icon: IconChevronRight,
-          onClick: props.onNextPageClick,
+          onClick: onNextPageClick,
         },
       },
-      {
-        key: 'separator2',
-        type: TOOLBAR_ELEMENT_TYPE.SEPARATOR,
-        props: {},
-      },
-      {
-        key: 'search',
-        type: TOOLBAR_ELEMENT_TYPE.TEXTFIELD,
-        props: {
-          type: TEXTFIELD_TYPE.SECONDARY,
-          placeholder: 'Search...',
-        },
-      },
-      {
-        key: 'spacing1',
-        type: TOOLBAR_ELEMENT_TYPE.SPACING,
-        props: {
-          size: TOOLBAR_SPACING_SIZE.XL,
-        },
-      },
-    ],
-    [
-      props?.config,
-      props.date,
-      props.onJumpToDate,
-      props.onNextPageClick,
-      props.onPrevPageClick,
-    ],
-  );
+    ];
+
+    return onConfigRender
+      ? onConfigRender(calendarToolbarConfig)
+      : calendarToolbarConfig;
+  }, [
+    onPrevPageClick,
+    props.date,
+    onJumpToDate,
+    onNextPageClick,
+    onConfigRender,
+  ]);
 };

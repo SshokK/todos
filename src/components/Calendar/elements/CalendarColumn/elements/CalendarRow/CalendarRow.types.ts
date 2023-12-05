@@ -6,6 +6,9 @@ import type { ComponentType } from 'react';
 
 export type CalendarItem = {
   id: string;
+  isHidden?: boolean;
+  isDisabled?: boolean;
+  isDragDisabled?: boolean;
   [key: string]: unknown;
 };
 
@@ -19,6 +22,7 @@ export type CalendarRowProps = {
 
   draggableProps?: DraggableProvidedDraggableProps | null;
   dragHandleProps?: DraggableProvidedDragHandleProps | null;
+  isDragging?: boolean;
   isDropAnimating?: boolean;
   dragTarget?: string | null;
 };

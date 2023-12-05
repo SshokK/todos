@@ -5,21 +5,22 @@ import * as elements from './elements';
 import * as styles from './App.styles.ts';
 
 import {
-  useAppCalendarToolbarConfig,
+  useAppCalendarToolbarConfigRenderer,
   useAppData,
   useAppHandlers,
   useAppLifecycle,
 } from './hooks';
 
 export const App: FC = () => {
-  const { localState, localActions, storeData } = useAppData();
+  const { localState, localActions, storeData, formattedData } = useAppData();
 
   const handlers = useAppHandlers({
     localActions,
   });
 
-  const calendarToolbarConfig = useAppCalendarToolbarConfig({
+  const calendarToolbarConfigRenderer = useAppCalendarToolbarConfigRenderer({
     onTodoItemAdd: handlers.handleTodoItemAdd,
+    onSearchChange: handlers.handleSearchChange,
   });
 
   useAppLifecycle({
@@ -38,12 +39,13 @@ export const App: FC = () => {
       <div className={styles.CLASSNAMES.calendarContainer}>
         <components.Calendar
           date={localState.calendarDate}
+          whitelistedDates={formattedData.whitelistedDates}
+          noDatesMessage="No todos found"
           onDateChange={localActions.setCalendarDate}
-          toolbarConfig={calendarToolbarConfig}
+          onToolbarConfigRender={calendarToolbarConfigRenderer}
           onItemOrderChange={handlers.handleTodoItemOrderChange}
           items={storeData.todos}
           ItemComponent={components.TodoItem}
-          additionalToolbar={<elements.AppCalendarAdditionalToolbar />}
           itemComponentProps={{
             onDateChange: handlers.handleTodoDateChange,
             onCompletionToggle: handlers.handleTodoCompletionToggle,

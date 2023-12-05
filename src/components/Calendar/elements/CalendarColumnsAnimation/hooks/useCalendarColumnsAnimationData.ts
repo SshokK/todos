@@ -15,13 +15,17 @@ export const useCalendarColumnsAnimationData = ({
   const prevDates = usePreviousValue(dates);
 
   const isFadeEnabled =
-    Math.abs(
-      utils.getDiff({
-        dateA: dates[0],
-        dateB: prevDates[0],
-        granularity: dateConstants.DATE_GRANULARITY.DAY,
-      }),
-    ) > 1;
+    (dates.length && !prevDates.length) ||
+    dates.some(
+      (date, i) =>
+        Math.abs(
+          utils.getDiff({
+            dateA: date,
+            dateB: prevDates[i],
+            granularity: dateConstants.DATE_GRANULARITY.DAY,
+          }),
+        ) > 1,
+    );
 
   const formattedData: CalendarColumnsAnimationData['formattedData'] = {
     prevDates,

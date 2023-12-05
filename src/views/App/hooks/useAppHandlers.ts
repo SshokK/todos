@@ -3,6 +3,8 @@ import type { AppData } from './useAppData.types.ts';
 
 import * as store from 'store';
 import * as utils from 'utils';
+import * as lodash from 'lodash';
+import * as constants from '../App.constants.ts';
 
 import { useSidebarsContext } from 'contexts';
 import { useCallback } from 'react';
@@ -68,6 +70,15 @@ export const useAppHandlers = ({
     todosState.setTodos(todos as Parameters<typeof todosState.setTodos>[0]);
   };
 
+  // Have to disable ESLint because it can't figure out deps of lodash.debounce
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSearchChange: AppHandlers['handleSearchChange'] = useCallback(
+    lodash.debounce((value) => {
+      localActions.setSearchString(value);
+    }, constants.SEARCH_DEBOUNCE_TIME),
+    [localActions],
+  );
+
   return {
     handleMount,
     handleTodoClick,
@@ -76,5 +87,6 @@ export const useAppHandlers = ({
     handleTodoDateChange,
     handleTodoItemAdd,
     handleTodoItemOrderChange,
+    handleSearchChange,
   };
 };
