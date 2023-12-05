@@ -7,7 +7,7 @@ export const MOCK_TODOS: TodosState['todos'] = {
     {
       id: utils.getRandomId(),
       title: 'Wash my car',
-      content: 'Because it looks like shit',
+      content: '',
       isDone: true,
     },
     {
@@ -21,7 +21,7 @@ export const MOCK_TODOS: TodosState['todos'] = {
     {
       id: utils.getRandomId(),
       title: 'Buy some coffee',
-      content: 'I could really get some cappuccino',
+      content: '',
       isDone: false,
     },
   ],
@@ -29,19 +29,19 @@ export const MOCK_TODOS: TodosState['todos'] = {
     {
       id: utils.getRandomId(),
       title: 'Clean up the house',
-      content: 'It looks more like a dumpster to me',
+      content: '',
       isDone: false,
     },
     {
       id: utils.getRandomId(),
       title: 'Get some groceries',
-      content: 'Starving AF',
+      content: '',
       isDone: false,
     },
     {
       id: utils.getRandomId(),
-      title: 'Jerk off a little bit',
-      content: 'I really need to get laid:(',
+      title: 'Pet the cat',
+      content: '',
       isDone: false,
     },
   ],
