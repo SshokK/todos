@@ -29,6 +29,11 @@ export const App: FC = () => {
 
   return (
     <>
+      <components.Alert
+        type={components.ALERT_TYPES.ERROR}
+        title={'Title'}
+        message={'Hello out there'}
+      />
       <components.Typography
         type={components.TYPOGRAPHY_TYPE.TITLE_2}
         size={components.TYPOGRAPHY_SIZE.XL}

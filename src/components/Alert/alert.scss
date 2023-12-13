@@ -1,0 +1,64 @@
+@use 'src/styles/variables';
+
+.BB-alert {
+  display: flex;
+  padding: variables.$spacing-xs variables.$spacing-m;
+  border-radius: variables.$border-radius-m;
+  justify-content: space-between;
+  color: variables.$primary-color-2;
+
+  &--info {
+    background-color: variables.$status-color-info;
+  }
+
+  &--error {
+    background-color: variables.$status-color-error;
+  }
+
+  &--warning {
+    background-color: variables.$status-color-warning;
+  }
+
+  &--success {
+    background-color: variables.$status-color-success;
+  }
+
+  &__content-wrapper {
+    display: flex;
+    align-items: flex-start;
+
+    &--is-centered {
+      align-items: center;
+    }
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: variables.$spacing-m;
+  }
+
+  &__icon.BB-alert__icon.BB-alert__icon {
+    color: variables.$primary-color-2;
+    font-size: variables.$font-size-l;
+  }
+
+  &__close-icon {
+    color: variables.$primary-color-2;
+    font-size: variables.$font-size-l;
+    cursor: pointer;
+  }
+
+  &__title.BB-alert__title {
+    margin-top: -0.4rem;
+  }
+
+  &__content {
+    margin: 0;
+    color: variables.$primary-color-2;
+  }
+
+  &__body {
+    padding-right: variables.$spacing-m;
+  }
+}

@@ -11,8 +11,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "start:dev": "vite --port 6005",
-    "start": "serve -s dist",
+    "start": "vite --port 6005",
     "build": "npm run clean && npm run lint && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix && npm run prettify",
     "prettify": "prettier --write \"src/**/*.{js,ts,tsx,jsx}\""
@@ -40,8 +39,8 @@
     "react-virtuoso": "4.4.1"
   },
   "devDependencies": {
-    "serve": "14.2.1",
     "@types/uuid": "9.0.2",
+    "@radix-ui/react-toast": "1.1.5",
     "@types/react-datepicker": "4.11.2",
     "@types/lodash.throttle": "4.1.7",
     "@types/lodash.debounce": "4.0.7",

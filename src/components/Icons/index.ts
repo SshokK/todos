@@ -3,6 +3,7 @@ export * from './IconCalendar';
 export * from './IconCaretDown';
 export * from './IconCaretUp';
 export * from './IconCheck';
+export * from './IconCross';
 export * from './IconCheckCircled';
 export * from './IconChevronDown';
 export * from './IconChevronLeft';
