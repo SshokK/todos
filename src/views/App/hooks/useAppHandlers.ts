@@ -70,7 +70,6 @@ export const useAppHandlers = ({
 
   const handleSearchChange: AppHandlers['handleSearchChange'] = useCallback(
     (value) => {
-      console.log('123');
       localActions.setSearchString(value);
     },
     [localActions],

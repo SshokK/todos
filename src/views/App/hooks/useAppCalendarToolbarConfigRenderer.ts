@@ -5,6 +5,7 @@ import * as components from 'components';
 import * as constants from '../App.constants.ts';
 
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const useAppCalendarToolbarConfigRenderer = ({
   onTodoItemAdd,
@@ -15,6 +16,8 @@ export const useAppCalendarToolbarConfigRenderer = ({
 }): Required<
   ComponentProps<typeof components.Calendar>
 >['onToolbarConfigRender'] => {
+  const { t } = useTranslation();
+
   return useCallback(
     (calendarToolbarConfig) => {
       return [
@@ -44,7 +47,7 @@ export const useAppCalendarToolbarConfigRenderer = ({
             type: components.TEXTFIELD_TYPE.SECONDARY,
             onChange: onSearchChange,
             changeCallbackThrottleTime: constants.SEARCH_DEBOUNCE_TIME,
-            placeholder: 'Search...',
+            placeholder: t('views.App.calendarSearchPlaceholder', 'Search...'),
           },
         },
         {
@@ -56,6 +59,6 @@ export const useAppCalendarToolbarConfigRenderer = ({
         },
       ];
     },
-    [onSearchChange, onTodoItemAdd],
+    [onSearchChange, onTodoItemAdd, t],
   );
 };

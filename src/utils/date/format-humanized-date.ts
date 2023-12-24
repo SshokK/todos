@@ -1,9 +1,14 @@
+import type * as i18Next from 'i18next';
+
 import * as utils from '../index.ts';
 
-export const formatHumanizedDate = (date: Date): string => {
+export const formatHumanizedDate = (
+  date: Date,
+  t: i18Next.TFunction,
+): string => {
   switch (date.toDateString()) {
     case new Date().toDateString(): {
-      return `Today`;
+      return t('utils.date.today', `Today`);
     }
 
     case utils
@@ -12,7 +17,7 @@ export const formatHumanizedDate = (date: Date): string => {
         daysCount: 1,
       })
       .toDateString(): {
-      return 'Yesterday';
+      return t('utils.date.yesterday', `Yesterday`);
     }
 
     case utils
@@ -21,7 +26,7 @@ export const formatHumanizedDate = (date: Date): string => {
         daysCount: 1,
       })
       .toDateString(): {
-      return 'Tomorrow';
+      return t('utils.date.tomorrow', `Tomorrow`);
     }
 
     default: {

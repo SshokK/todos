@@ -4,6 +4,7 @@ import * as components from 'components';
 import * as elements from './elements';
 import * as styles from './App.styles.ts';
 
+import { useTranslation } from 'react-i18next';
 import {
   useAppCalendarToolbarConfigRenderer,
   useAppData,
@@ -12,6 +13,8 @@ import {
 } from './hooks';
 
 export const App: FC = () => {
+  const { t } = useTranslation();
+
   const { localState, localActions, storeData, formattedData } = useAppData();
 
   const handlers = useAppHandlers({
@@ -29,18 +32,12 @@ export const App: FC = () => {
 
   return (
     <>
-      <components.Typography
-        type={components.TYPOGRAPHY_TYPE.TITLE_2}
-        size={components.TYPOGRAPHY_SIZE.XL}
-        className={styles.CLASSNAMES.heading}
-      >
-        To do items
-      </components.Typography>
+      <elements.AppHeader />
       <div className={styles.CLASSNAMES.calendarContainer}>
         <components.Calendar
           date={localState.calendarDate}
           whitelistedDates={formattedData.whitelistedDates}
-          noDatesMessage="No todos found"
+          noDatesMessage={t('views.App.calendarNoItemsMessage', 'To do items')}
           onDateChange={localActions.setCalendarDate}
           onToolbarConfigRender={calendarToolbarConfigRenderer}
           onItemOrderChange={handlers.handleTodoItemOrderChange}

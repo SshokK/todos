@@ -1,0 +1,35 @@
+{
+  "views": {
+    "App": {
+      "AppHeader": {
+        "title": "To do items"
+      },
+      "AppNavbar": {
+        "searchPlaceholder": "Search future todos",
+        "noSearchResults": "No todos matching search",
+        "noResultsForToday": "No unfinished todos for today"
+      },
+      "calendarSearchPlaceholder": "Search...",
+      "calendarNoItemsMessage": "No todos found"
+    }
+  },
+
+  "components": {
+    "Calendar": {
+      "CalendarItemRemoval": {
+        "tooltip": "Drag'n'drop here to delete"
+      },
+      "CalendarToolbar": {
+        "pageResetButtonTooltip": "Jump to today"
+      }
+    }
+  },
+
+  "utils": {
+    "date": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "tomorrow": "Tomorrow"
+    }
+  }
+}

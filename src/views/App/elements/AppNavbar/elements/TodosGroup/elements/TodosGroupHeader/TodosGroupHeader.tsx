@@ -6,10 +6,14 @@ import * as styles from './TodosGroupHeader.styles.ts';
 import * as utils from 'utils';
 import * as animations from './TodosGroupHeader.animations.ts';
 
+import { useTranslation } from 'react-i18next';
+
 export const TodosGroupHeader = react.forwardRef<
   HTMLParagraphElement,
   TodosGroupHeaderProps
 >(({ date }, ref) => {
+  const { t } = useTranslation();
+
   return (
     <components.Typography
       ref={ref}
@@ -22,7 +26,7 @@ export const TodosGroupHeader = react.forwardRef<
       animate={animations.ANIMATION_NAME.ACTIVE}
       exit={animations.ANIMATION_NAME.EXIT}
     >
-      {utils.formatHumanizedDate(new Date(date))}
+      {utils.formatHumanizedDate(new Date(date), t)}
     </components.Typography>
   );
 });

@@ -9,6 +9,7 @@ import { IconButton } from '../../../IconButton';
 import { Toolbar } from '../../../Toolbar';
 import { IconReload } from '../../../Icons';
 
+import { useTranslation } from 'react-i18next';
 import { useCalendarToolbarConfig } from './hooks';
 
 export const CalendarToolbar: FC<CalendarToolbarProps> = ({
@@ -20,6 +21,8 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
   onJumpToDate,
   children,
 }) => {
+  const { t } = useTranslation();
+
   const toolbarConfig = useCalendarToolbarConfig({
     props: {
       date,
@@ -40,7 +43,10 @@ export const CalendarToolbar: FC<CalendarToolbarProps> = ({
         size={ICON_BUTTON_SIZE.LG}
         onClick={onPageReset}
         tooltip={{
-          title: 'Jump to today',
+          title: t(
+            'components.Calendar.CalendarToolbar.pageResetButtonTooltip',
+            'Jump to today',
+          ),
         }}
       />
     </header>

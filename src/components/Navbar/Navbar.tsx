@@ -6,10 +6,10 @@ import * as framerMotion from 'framer-motion';
 import * as animations from './Navbar.animations.ts';
 import * as constants from './Navbar.constants.ts';
 
+import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 import { IconGithub, IconLinkedIn } from '../Icons';
 
 import { useSidebarsContext } from 'contexts';
-import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 
 export const Navbar: FC<NavbarProps> = () => {
   const sidebarsContext = useSidebarsContext();

@@ -11,15 +11,22 @@ import { IconTrash2 } from '../../../Icons';
 import { Tooltip } from '../../../Tooltip';
 import { StrictModeDroppable } from '../../../StrictModeDroppable';
 
+import { useTranslation } from 'react-i18next';
+
 export const CalendarItemRemoval: FC<CalendarItemRemovalProps> = ({
   isDragging,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <StrictModeDroppable droppableId={constants.REMOVAL_ZONE_DROPPABLE_ID}>
       {(provided, snapshot) => (
         <Tooltip
           isOpen={isDragging ? false : undefined}
-          title="Drag'n'drop here to delete"
+          title={t(
+            'components.Calendar.CalendarItemRemoval.tooltip',
+            "Drag'n'drop here to delete",
+          )}
         >
           <footer
             ref={provided.innerRef}

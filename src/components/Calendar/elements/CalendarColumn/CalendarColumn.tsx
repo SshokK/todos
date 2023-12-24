@@ -13,6 +13,8 @@ import * as reactBeautifulDnd from 'react-beautiful-dnd';
 import * as styles from './CalendarColumn.styles.ts';
 import * as utils from 'utils';
 
+import { useTranslation } from 'react-i18next';
+
 export const CalendarColumn: FC<CalendarColumnProps> = ({
   date,
   isDropDisabled,
@@ -20,6 +22,8 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
   ItemComponent,
   itemComponentProps,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <StrictModeDroppable
       droppableId={date.toDateString()}
@@ -46,7 +50,7 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
             type={TYPOGRAPHY_TYPE.SUBTITLE}
             className={styles.CLASSNAMES.columnTitle}
           >
-            {utils.formatHumanizedDate(date)}
+            {utils.formatHumanizedDate(date, t)}
           </Typography>
           <NoItemsMessage
             isVisible={!items.length}

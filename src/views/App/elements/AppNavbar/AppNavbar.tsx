@@ -7,8 +7,11 @@ import * as elements from './elements';
 import * as constants from './AppNavbar.constants.ts';
 
 import { useAppNavbarData } from './hooks';
+import { useTranslation } from 'react-i18next';
 
 export const AppNavbar: FC = () => {
+  const { t } = useTranslation();
+
   const { localState, localActions, storeData } = useAppNavbarData();
 
   return (
@@ -18,7 +21,10 @@ export const AppNavbar: FC = () => {
         onChange={localActions.setSearchString}
         changeCallbackThrottleTime={constants.SEARCH_THROTTLE_TIME}
         name={constants.SEARCH_FIELD_NAME}
-        placeholder="Search future todos"
+        placeholder={t(
+          'views.App.AppNavbar.searchPlaceholder',
+          'Search future todos',
+        )}
         shouldRenderSearchButton
         classNames={{
           container: styles.CLASSNAMES.searchInput,
@@ -35,8 +41,14 @@ export const AppNavbar: FC = () => {
           isVisible={!Object.entries(storeData.todosByDates).length}
         >
           {localState.searchString
-            ? 'No todos matching search'
-            : 'No unfinished todos for today'}
+            ? t(
+                'views.App.AppNavbar.noSearchResults',
+                'No todos matching search',
+              )
+            : t(
+                'views.App.AppNavbar.noResultsForToday',
+                'No unfinished todos for today',
+              )}
         </components.NoItemsMessage>
       </framerMotion.motion.div>
     </div>

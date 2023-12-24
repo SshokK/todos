@@ -10,4 +10,4 @@
 ### Running locally
 
 1. Run ```npm i``` to install Node modules *(Node v16.16.0 is required)*
-2. Run ```npm start:dev``` to start the project
+2. Run ```npm run start:dev``` to start the project

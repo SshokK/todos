@@ -4,6 +4,7 @@ import type { ElementType } from 'react';
 import * as react from 'react';
 import * as styles from './IconButton.styles';
 import * as constants from './IconButton.constants';
+import * as twMerge from 'tailwind-merge';
 
 import classnames from 'classnames';
 
@@ -16,6 +17,7 @@ export const IconButton = react.forwardRef<HTMLButtonElement, IconButtonProps>(
     {
       type,
       size,
+      badge,
       tooltip,
       onClick,
       isDisabled,
@@ -30,6 +32,9 @@ export const IconButton = react.forwardRef<HTMLButtonElement, IconButtonProps>(
 
     const Element = `${element}` as ElementType;
 
+    const iconButtonType = type ?? constants.ICON_BUTTON_TYPE.PRIMARY;
+    const iconButtonSize = size ?? constants.ICON_BUTTON_SIZE.MD;
+
     return (
       <Tooltip
         isOpen={!tooltip?.title ? false : undefined}
@@ -41,17 +46,33 @@ export const IconButton = react.forwardRef<HTMLButtonElement, IconButtonProps>(
           ref={ref}
           onClick={onClick}
           disabled={isDisabled}
-          className={classnames(className, {
-            [styles.CLASSNAMES]: true,
-            [styles.TYPE_CLASSNAMES[
-              type ?? constants.ICON_BUTTON_TYPE.PRIMARY
-            ]]: true,
-            [styles.SIZE_CLASSNAMES[size ?? constants.ICON_BUTTON_SIZE.MD]]:
-              true,
-          })}
+          className={twMerge.twMerge(
+            classnames(className, {
+              [styles.CLASSNAMES]: true,
+              [styles.SIZE_CLASSNAMES[iconButtonSize]]: true,
+              [styles.TYPE_CLASSNAMES[iconButtonType]]: true,
+            }),
+          )}
           onMouseDown={handlers.handleMouseDown}
         >
-          {Icon && <Icon />}
+          {Icon && (
+            <Icon
+              className={classnames({
+                [styles.ICON_CLASSNAMES.icon]: true,
+                [styles.ICON_CLASSNAMES.withBadge]: badge,
+              })}
+            />
+          )}
+          {badge && (
+            <div
+              className={classnames({
+                [styles.BADGE_CLASSNAMES.badge]: true,
+                [styles.BADGE_CLASSNAMES.badgeSize[iconButtonSize]]: true,
+              })}
+            >
+              {badge}
+            </div>
+          )}
         </Element>
       </Tooltip>
     );

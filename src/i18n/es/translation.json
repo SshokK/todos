@@ -1,0 +1,35 @@
+{
+  "views": {
+    "App": {
+      "AppHeader": {
+        "title": "Para hacer cosas"
+      },
+      "AppNavbar": {
+        "searchPlaceholder": "Buscar futuro todos",
+        "noSearchResults": "No todos coinciden con la búsqueda",
+        "noResultsForToday": "No hay tareas pendientes por hoy"
+      },
+      "calendarSearchPlaceholder": "Buscar...",
+      "calendarNoItemsMessage": "No se encontraron todos"
+    }
+  },
+
+  "components": {
+    "Calendar": {
+      "CalendarItemRemoval": {
+        "tooltip": "Arrastre y suelte aquí para eliminar"
+      },
+      "CalendarToolbar": {
+        "pageResetButtonTooltip": "Saltar a hoy"
+      }
+    }
+  },
+
+  "utils": {
+    "date": {
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "tomorrow": "Mañana"
+    }
+  }
+}
