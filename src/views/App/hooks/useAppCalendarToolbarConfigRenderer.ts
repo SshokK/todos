@@ -2,6 +2,7 @@ import type { ComponentProps } from 'react';
 import type { AppHandlers } from './useAppHandlers.types.ts';
 
 import * as components from 'components';
+import * as constants from '../App.constants.ts';
 
 import { useCallback } from 'react';
 
@@ -42,6 +43,7 @@ export const useAppCalendarToolbarConfigRenderer = ({
           props: {
             type: components.TEXTFIELD_TYPE.SECONDARY,
             onChange: onSearchChange,
+            changeCallbackThrottleTime: constants.SEARCH_DEBOUNCE_TIME,
             placeholder: 'Search...',
           },
         },

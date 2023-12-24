@@ -7,7 +7,7 @@ export enum ANIMATION_NAME {
 }
 
 export const VARIANTS: Variants = {
-  [ANIMATION_NAME.INITIAL]: { opacity: 0 },
-  [ANIMATION_NAME.ANIMATE]: { opacity: 1 },
-  [ANIMATION_NAME.EXIT]: { opacity: 0 },
+  [ANIMATION_NAME.INITIAL]: { opacity: 0, height: 0 },
+  [ANIMATION_NAME.ANIMATE]: { opacity: 1, height: '2.5rem' },
+  [ANIMATION_NAME.EXIT]: { opacity: 0, height: 0 },
 };

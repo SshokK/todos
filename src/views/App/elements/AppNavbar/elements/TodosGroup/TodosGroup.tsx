@@ -1,41 +1,38 @@
-import type { FC } from 'react';
 import type { TodosGroupProps } from './TodosGroup.types.ts';
 
-import * as styles from './TodosGroup.styles.ts';
-import * as animations from './TodosGroup.animations.ts';
-import * as constants from './TodosGroup.constants.ts';
+import * as react from 'react';
 import * as framerMotion from 'framer-motion';
+import * as styles from '../TodosGroup/TodosGroup.styles.ts';
+import * as constants from './TodosGroup.constants.ts';
 import * as elements from './elements';
-import * as components from 'components';
-import * as utils from 'utils';
+import * as animations from './TodosGroup.animations.ts';
 
-export const TodosGroup: FC<TodosGroupProps> = ({ date, todos }) => {
-  return (
-    <framerMotion.motion.div
-      layout="position"
-      variants={animations.VARIANTS}
-      initial={animations.ANIMATION_NAME.ENTER}
-      animate={animations.ANIMATION_NAME.ACTIVE}
-      exit={animations.ANIMATION_NAME.EXIT}
-      transition={animations.TRANSITION}
-      className={styles.CLASSNAMES.container}
-    >
-      <components.Typography
-        type={components.TYPOGRAPHY_TYPE.SUBTITLE}
-        className={styles.CLASSNAMES.date}
-        textAlignment={components.TYPOGRAPHY_TEXT_ALIGNMENT.LEFT}
+export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
+  ({ date, todos }, ref) => {
+    return (
+      <framerMotion.motion.div
+        ref={ref}
+        className={styles.CLASSNAMES.container}
+        initial={animations.ANIMATION_NAME.ENTER}
+        animate={animations.ANIMATION_NAME.ACTIVE}
+        exit={animations.ANIMATION_NAME.EXIT}
+        variants={animations.CONTAINER_VARIANTS}
       >
-        {utils.formatHumanizedDate(new Date(date))}
-      </components.Typography>
-      {todos.flatMap((todo, i) => {
-        if (i < constants.VISIBLE_TODOS_COUNT) {
-          return <elements.TodoCard key={todo.id} todo={todo} />;
-        }
-      })}
-      <elements.RemainingTodosCount
-        todosCount={todos.length}
-        visibleTodosCount={constants.VISIBLE_TODOS_COUNT}
-      />
-    </framerMotion.motion.div>
-  );
-};
+        <framerMotion.AnimatePresence initial={false} mode="popLayout">
+          <elements.TodosGroupHeader key={date.toDateString()} date={date} />
+          {todos.flatMap((todo, i) => {
+            if (i < constants.VISIBLE_TODOS_COUNT) {
+              return <elements.TodoCard key={todo.id} todo={todo} />;
+            }
+          })}
+          {todos.length > constants.VISIBLE_TODOS_COUNT && (
+            <elements.RemainingTodosCount
+              todosCount={todos.length}
+              visibleTodosCount={constants.VISIBLE_TODOS_COUNT}
+            />
+          )}
+        </framerMotion.AnimatePresence>
+      </framerMotion.motion.div>
+    );
+  },
+);

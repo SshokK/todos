@@ -1,12 +1,12 @@
-import type { Variants } from 'framer-motion';
+import type { Transition, Variants } from 'framer-motion';
 
 export enum ANIMATION_NAME {
-  ENTER = 'initial',
-  ACTIVE = 'animate',
+  ENTER = 'enter',
+  ACTIVE = 'active',
   EXIT = 'exit',
 }
 
-export const CONTAINER_VARIANTS: Variants = {
+export const VARIANTS: Variants = {
   [ANIMATION_NAME.ENTER]: {
     opacity: 0,
   },
@@ -16,4 +16,8 @@ export const CONTAINER_VARIANTS: Variants = {
   [ANIMATION_NAME.EXIT]: {
     opacity: 0,
   },
+};
+
+export const TRANSITION: Transition = {
+  duration: 0.2,
 };

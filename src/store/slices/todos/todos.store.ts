@@ -26,7 +26,7 @@ export const todosStore: Slice<TodosState> = (set) => ({
           ...state.todosState,
           todos: {
             ...state.todosState.todos,
-            [today]: [todo, ...(state.todosState.todos[today] ?? [])],
+            [today]: [...(state.todosState.todos[today] ?? []), todo],
           },
         },
       };

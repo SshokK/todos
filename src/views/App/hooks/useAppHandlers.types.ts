@@ -26,5 +26,7 @@ export type AppHandlers = {
     typeof components.TodoItem
   >['onCompletionToggle'];
 
-  handleSearchChange: ComponentProps<typeof components.TextField>['onChange'];
+  handleSearchChange: Required<
+    ComponentProps<typeof components.TextField>
+  >['onChange'];
 };

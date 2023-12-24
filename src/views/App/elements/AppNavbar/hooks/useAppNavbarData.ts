@@ -29,10 +29,12 @@ export const useAppNavbarData = (): AppNavbarData => {
 
   const storeData: AppNavbarData['storeData'] = useStore((state) => ({
     todosByDates: store.getTodosByDates(state, {
-      title: localState.searchString,
-      isDone: false,
-      startDate: utils.getToday(),
-      endDate: localState.searchString ? null : localState.todosEndDate,
+      filters: {
+        title: localState.searchString,
+        isDone: false,
+        startDate: utils.getToday(),
+        endDate: localState.searchString ? null : localState.todosEndDate,
+      },
     }),
   }));
 

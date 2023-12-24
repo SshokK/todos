@@ -43,38 +43,43 @@ export const getTodosList = (state: GlobalState) => {
 
 export const getTodosByDates = (
   state: GlobalState,
-  filters?: {
-    isDone?: boolean;
-    startDate?: Date | null;
-    endDate?: Date | null;
-    title?: Todo['title'];
+  options?: {
+    isAscSort?: boolean;
+    filters?: {
+      isDone?: boolean;
+      startDate?: Date | null;
+      endDate?: Date | null;
+      title?: Todo['title'];
+    };
   },
 ): Record<string, Todo[]> => {
   return Object.fromEntries(
     Object.entries(getTodos(state)).flatMap(([date, todos]) => {
       const filteredTodos = todos.filter((todo) => {
-        const hadMatchedTitle = filters?.title
-          ? todo.title.toLowerCase().includes(filters.title.toLowerCase())
+        const hadMatchedTitle = options?.filters?.title
+          ? todo.title
+              .toLowerCase()
+              .includes(options?.filters.title.toLowerCase())
           : true;
 
         const hasMatchedStatus =
-          typeof filters?.isDone === 'boolean'
-            ? todo.isDone === filters.isDone
+          typeof options?.filters?.isDone === 'boolean'
+            ? todo.isDone === options?.filters.isDone
             : true;
 
-        const hasMatchedStartDate = filters?.startDate
+        const hasMatchedStartDate = options?.filters?.startDate
           ? utils.isAfter({
               dateA: new Date(date),
-              dateB: filters.startDate,
+              dateB: options?.filters.startDate,
               granularity: dateConstants.DATE_GRANULARITY.DAY,
               isDateAIncluded: true,
             })
           : true;
 
-        const hasMatchedEndDate = filters?.endDate
+        const hasMatchedEndDate = options?.filters?.endDate
           ? utils.isBefore({
               dateA: new Date(date),
-              dateB: filters?.endDate,
+              dateB: options?.filters?.endDate,
               granularity: dateConstants.DATE_GRANULARITY.DAY,
               isDateAIncluded: true,
             })
@@ -89,7 +94,9 @@ export const getTodosByDates = (
       });
 
       if (filteredTodos.length) {
-        return [[date, filteredTodos]];
+        return [
+          [date, options?.isAscSort ? filteredTodos.reverse() : filteredTodos],
+        ];
       }
 
       return [];

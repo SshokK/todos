@@ -1,34 +1,36 @@
-import type { FC } from 'react';
 import type { TodoCardProps } from './TodoCard.types.ts';
 
+import * as react from 'react';
 import * as styles from './TodoCard.styles.ts';
-import * as animations from './TodoCard.animations.ts';
 import * as components from 'components';
+import * as animations from './TodoCard.animations.ts';
 
-export const TodoCard: FC<TodoCardProps> = ({ todo }) => {
-  return (
-    <components.Card
-      key={todo.id}
-      className={styles.CLASSNAMES.todoCard}
-      layout
-      variants={animations.VARIANTS}
-      initial={animations.ANIMATION_NAME.ENTER}
-      animate={animations.ANIMATION_NAME.ACTIVE}
-      exit={animations.ANIMATION_NAME.EXIT}
-      transition={animations.TRANSITION}
-    >
-      <components.Typography
-        type={components.TYPOGRAPHY_TYPE.TITLE_2}
-        className={styles.CLASSNAMES.todoTitle}
+export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
+  ({ todo, ...props }, ref) => {
+    return (
+      <components.Card
+        ref={ref}
+        layout
+        className={styles.CLASSNAMES.todoCard}
+        initial={animations.ANIMATION_NAME.ENTER}
+        animate={animations.ANIMATION_NAME.ACTIVE}
+        exit={animations.ANIMATION_NAME.EXIT}
+        variants={animations.VARIANTS}
+        {...props}
       >
-        {todo.title || 'No title'}
-      </components.Typography>
-      <components.Typography
-        type={components.TYPOGRAPHY_TYPE.SUBTITLE}
-        className={styles.CLASSNAMES.todoDescription}
-      >
-        {todo.content || 'No description'}
-      </components.Typography>
-    </components.Card>
-  );
-};
+        <components.Typography
+          type={components.TYPOGRAPHY_TYPE.TITLE_2}
+          className={styles.CLASSNAMES.todoTitle}
+        >
+          {todo.title || 'No title'}
+        </components.Typography>
+        <components.Typography
+          type={components.TYPOGRAPHY_TYPE.SUBTITLE}
+          className={styles.CLASSNAMES.todoDescription}
+        >
+          {todo.content || 'No description'}
+        </components.Typography>
+      </components.Card>
+    );
+  },
+);

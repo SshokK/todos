@@ -11,14 +11,22 @@ import { ICON_BUTTON_SIZE, ICON_BUTTON_TYPE } from '../IconButton';
 import { IconButton } from '../IconButton';
 import { IconSearch } from '../Icons';
 
+import {
+  useTextFieldData,
+  useTextFieldHandlers,
+  useTextFieldLifecycle,
+} from './hooks';
+
 export const TextField = react.forwardRef<HTMLDivElement, TextFieldProps>(
   (
     {
       value,
       type,
+      name,
       classNames,
       placeholder,
       shouldRenderSearchButton,
+      changeCallbackThrottleTime,
       isDisabled,
       onChange,
       onFocus,
@@ -27,6 +35,23 @@ export const TextField = react.forwardRef<HTMLDivElement, TextFieldProps>(
     },
     ref,
   ) => {
+    const { localState, localActions } = useTextFieldData({
+      value,
+    });
+
+    const handlers = useTextFieldHandlers({
+      props: {
+        value,
+        changeCallbackThrottleTime,
+        onChange,
+      },
+      localActions,
+    });
+
+    useTextFieldLifecycle({
+      onValuePropChange: handlers.handleValuePropChange,
+    });
+
     return (
       <div
         ref={ref}
@@ -37,10 +62,11 @@ export const TextField = react.forwardRef<HTMLDivElement, TextFieldProps>(
       >
         <input
           type="text"
-          value={value}
+          value={localState.value}
+          name={name}
           placeholder={placeholder}
           disabled={isDisabled}
-          onChange={(e) => onChange?.(e.target.value, e)}
+          onChange={handlers.handleValueChange}
           onFocus={onFocus}
           onBlur={onBlur}
           onClick={onClick}

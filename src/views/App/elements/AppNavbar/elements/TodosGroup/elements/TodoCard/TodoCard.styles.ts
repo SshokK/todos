@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 
 export const CLASSNAMES = {
-  todoCard: classnames('w-full'),
+  todoCard: classnames('w-full', 'overflow-hidden'),
 
   todoTitle: classnames('text-secondary-900'),
 
