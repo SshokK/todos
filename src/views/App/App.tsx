@@ -24,6 +24,7 @@ export const App: FC = () => {
   const calendarToolbarConfigRenderer = useAppCalendarToolbarConfigRenderer({
     onTodoItemAdd: handlers.handleTodoItemAdd,
     onSearchChange: handlers.handleSearchChange,
+    onSearchFocusToggle: handlers.handleSearchFocusToggle,
   });
 
   useAppLifecycle({
@@ -41,6 +42,7 @@ export const App: FC = () => {
           onDateChange={localActions.setCalendarDate}
           onToolbarConfigRender={calendarToolbarConfigRenderer}
           onItemOrderChange={handlers.handleTodoItemOrderChange}
+          shouldUseOnlyFadeAnimation={localState.isSearchFocused}
           items={storeData.todos}
           ItemComponent={components.TodoItem}
           itemComponentProps={{

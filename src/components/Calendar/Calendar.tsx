@@ -16,6 +16,7 @@ import {
 export const Calendar: FC<CalendarProps> = ({
   date,
   whitelistedDates,
+  shouldUseOnlyFadeAnimation,
   noDatesMessage,
   onDateChange,
   onToolbarConfigRender,
@@ -65,7 +66,10 @@ export const Calendar: FC<CalendarProps> = ({
         >
           {noDatesMessage}
         </NoItemsMessage>
-        <elements.CalendarColumnsAnimation dates={formattedData.dates}>
+        <elements.CalendarColumnsAnimation
+          dates={formattedData.dates}
+          shouldUseOnlyFadeAnimation={shouldUseOnlyFadeAnimation}
+        >
           {(date, i, dates) => (
             <elements.CalendarColumn
               key={date.toDateString()}

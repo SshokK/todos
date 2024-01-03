@@ -10,9 +10,11 @@ import { useTranslation } from 'react-i18next';
 export const useAppCalendarToolbarConfigRenderer = ({
   onTodoItemAdd,
   onSearchChange,
+  onSearchFocusToggle,
 }: {
   onTodoItemAdd: AppHandlers['handleTodoItemAdd'];
   onSearchChange: AppHandlers['handleSearchChange'];
+  onSearchFocusToggle: AppHandlers['handleSearchFocusToggle'];
 }): Required<
   ComponentProps<typeof components.Calendar>
 >['onToolbarConfigRender'] => {
@@ -46,6 +48,7 @@ export const useAppCalendarToolbarConfigRenderer = ({
           props: {
             type: components.TEXTFIELD_TYPE.SECONDARY,
             onChange: onSearchChange,
+            onBlur: onSearchFocusToggle(false),
             changeCallbackThrottleTime: constants.SEARCH_DEBOUNCE_TIME,
             placeholder: t('views.App.calendarSearchPlaceholder', 'Search...'),
           },
@@ -59,6 +62,6 @@ export const useAppCalendarToolbarConfigRenderer = ({
         },
       ];
     },
-    [onSearchChange, onTodoItemAdd, t],
+    [onSearchChange, onSearchFocusToggle, onTodoItemAdd, t],
   );
 };

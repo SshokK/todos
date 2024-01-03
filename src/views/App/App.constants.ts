@@ -1,1 +1,1 @@
-export const SEARCH_DEBOUNCE_TIME = 200;
+export const SEARCH_DEBOUNCE_TIME = 250;

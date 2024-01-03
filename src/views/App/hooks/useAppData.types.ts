@@ -5,11 +5,15 @@ import type * as store from 'store';
 export type AppLocalState = {
   calendarDate: Date;
   searchString: string;
+  isSearchFocused: boolean;
 };
 
 export type AppLocalActions = {
   setCalendarDate: Dispatch<SetStateAction<AppLocalState['calendarDate']>>;
   setSearchString: Dispatch<SetStateAction<AppLocalState['searchString']>>;
+  setIsSearchFocused: Dispatch<
+    SetStateAction<AppLocalState['isSearchFocused']>
+  >;
 };
 
 export type AppStoreData = {

@@ -14,7 +14,10 @@ export const useCalendarColumnsAnimationHandlers = ({
   formattedData,
   animation,
 }: {
-  props: Pick<CalendarColumnsAnimationProps, 'dates'>;
+  props: Pick<
+    CalendarColumnsAnimationProps,
+    'dates' | 'shouldUseOnlyFadeAnimation'
+  >;
   formattedData: CalendarColumnsAnimationData['formattedData'];
   animation: ReturnType<typeof useAnimationControls>;
 }): CalendarColumnsAnimationHandlers => {
@@ -27,12 +30,17 @@ export const useCalendarColumnsAnimationHandlers = ({
             dateB: formattedData.prevDates[0],
             granularity: dateConstants.DATE_GRANULARITY.DAY,
           }),
-        ) > 1;
+        ) > 1 || props.shouldUseOnlyFadeAnimation;
 
       if (isFadeEnabled) {
         animation.start(animations.FADE_IN);
       }
-    }, [animation, props.dates, formattedData.prevDates]);
+    }, [
+      props.dates,
+      props.shouldUseOnlyFadeAnimation,
+      formattedData.prevDates,
+      animation,
+    ]);
 
   return {
     handleFadeAnimation,

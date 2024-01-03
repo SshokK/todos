@@ -4,13 +4,17 @@ import type * as elements from './elements';
 export type CalendarItemDate = string;
 
 export type CalendarProps = {
+  items: Record<CalendarItemDate, elements.CalendarItem[]>;
+
   date?: Date;
 
   whitelistedDates?: Date[] | null;
 
   noDatesMessage?: ReactNode;
 
-  items: Record<CalendarItemDate, elements.CalendarItem[]>;
+  shouldUseOnlyFadeAnimation?: ComponentProps<
+    typeof elements.CalendarColumnsAnimation
+  >['shouldUseOnlyFadeAnimation'];
 
   ItemComponent?: ComponentProps<
     typeof elements.CalendarColumn

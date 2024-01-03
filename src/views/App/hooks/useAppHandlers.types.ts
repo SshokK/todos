@@ -29,4 +29,10 @@ export type AppHandlers = {
   handleSearchChange: Required<
     ComponentProps<typeof components.TextField>
   >['onChange'];
+
+  handleSearchFocusToggle: (
+    isFocused: boolean,
+  ) =>
+    | Required<ComponentProps<typeof components.TextField>>['onBlur']
+    | Required<ComponentProps<typeof components.TextField>>['onFocus'];
 };

@@ -9,16 +9,19 @@ import { useMemo, useState } from 'react';
 export const useAppData = (): AppData => {
   const [calendarDate, setCalendarDate] = useState(utils.getToday);
   const [searchString, setSearchString] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const localState: AppData['localState'] = {
     calendarDate,
     searchString,
+    isSearchFocused,
   };
 
   const localActions: AppData['localActions'] = useMemo(
     () => ({
       setCalendarDate,
       setSearchString,
+      setIsSearchFocused,
     }),
     [],
   );

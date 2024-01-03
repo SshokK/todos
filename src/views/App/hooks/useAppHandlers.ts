@@ -71,9 +71,18 @@ export const useAppHandlers = ({
   const handleSearchChange: AppHandlers['handleSearchChange'] = useCallback(
     (value) => {
       localActions.setSearchString(value);
+      localActions.setIsSearchFocused(true);
     },
     [localActions],
   );
+
+  const handleSearchFocusToggle: AppHandlers['handleSearchFocusToggle'] =
+    useCallback(
+      (isFocused) => () => {
+        localActions.setIsSearchFocused(isFocused);
+      },
+      [localActions],
+    );
 
   return {
     handleMount,
@@ -84,5 +93,6 @@ export const useAppHandlers = ({
     handleTodoItemAdd,
     handleTodoItemOrderChange,
     handleSearchChange,
+    handleSearchFocusToggle,
   };
 };

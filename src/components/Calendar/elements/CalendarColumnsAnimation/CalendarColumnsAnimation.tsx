@@ -13,10 +13,12 @@ import {
 
 export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
   dates,
+  shouldUseOnlyFadeAnimation,
   children,
 }) => {
   const { formattedData } = useCalendarColumnsAnimationData({
     dates,
+    shouldUseOnlyFadeAnimation,
   });
 
   const animation = useAnimationControls();
@@ -24,6 +26,7 @@ export const CalendarColumnsAnimation: FC<CalendarColumnsAnimationProps> = ({
   const handlers = useCalendarColumnsAnimationHandlers({
     props: {
       dates,
+      shouldUseOnlyFadeAnimation,
     },
     animation,
     formattedData,

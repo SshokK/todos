@@ -8,13 +8,15 @@ import { usePreviousValue } from 'utils';
 
 export const useCalendarColumnsAnimationData = ({
   dates,
+  shouldUseOnlyFadeAnimation,
 }: Pick<
   CalendarColumnsAnimationProps,
-  'dates'
+  'dates' | 'shouldUseOnlyFadeAnimation'
 >): CalendarColumnsAnimationData => {
   const prevDates = usePreviousValue(dates);
 
   const isFadeEnabled =
+    shouldUseOnlyFadeAnimation ||
     (dates.length && !prevDates.length) ||
     dates.some(
       (date, i) =>
