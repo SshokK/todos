@@ -15,6 +15,14 @@ export const useAppCalendarHandlers = ({
 }): AppCalendarHandlers => {
   const sidebarsContext = useSidebarsContext();
   const todosState = useStore(store.getTodosState);
+  const appCalendarState = useStore(store.getAppCalendarState);
+
+  const handleDateChange: AppCalendarHandlers['handleDateChange'] = useCallback(
+    (date) => {
+      appCalendarState.setDate(date);
+    },
+    [appCalendarState],
+  );
 
   const handleTodoClick: AppCalendarHandlers['handleTodoClick'] =
     (sidebarElement) => () => {
@@ -45,7 +53,7 @@ export const useAppCalendarHandlers = ({
   };
 
   const handleTodoItemAdd: AppCalendarHandlers['handleTodoItemAdd'] = () => {
-    localActions.setCalendarDate(utils.getToday());
+    appCalendarState.setDate(utils.getToday());
 
     todosState.addTodo({
       id: utils.getRandomId(),
@@ -78,6 +86,7 @@ export const useAppCalendarHandlers = ({
     );
 
   return {
+    handleDateChange,
     handleTodoClick,
     handleTodoTitleChange,
     handleTodoCompletionToggle,

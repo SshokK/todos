@@ -1,9 +1,14 @@
 import type { GlobalState } from '../store.types.ts';
 
-import { create } from 'zustand';
+import { createWithEqualityFn } from 'zustand/traditional';
+import { shallow } from 'zustand/shallow';
 
 import * as slices from '../slices';
 
-export const useStore = create<GlobalState>((set, get) => ({
-  todosState: slices.todosStore(set, get),
-}));
+export const useStore = createWithEqualityFn<GlobalState>(
+  (set, get) => ({
+    todosState: slices.todosStore(set, get),
+    appCalendarState: slices.appCalendarStore(set, get),
+  }),
+  shallow,
+);

@@ -29,13 +29,13 @@ export const AppCalendar: FC = () => {
   return (
     <div className={styles.CLASSNAMES.calendarContainer}>
       <components.Calendar
-        date={localState.calendarDate}
+        date={storeData.date}
         whitelistedDates={formattedData.whitelistedDates}
         noDatesMessage={t(
           'views.App.AppCalendar.noItemsMessage',
           'To do items',
         )}
-        onDateChange={localActions.setCalendarDate}
+        onDateChange={handlers.handleDateChange}
         onToolbarConfigRender={calendarToolbarConfigRenderer}
         onItemOrderChange={handlers.handleTodoItemOrderChange}
         shouldUseOnlyFadeAnimation={localState.isSearchFocused}

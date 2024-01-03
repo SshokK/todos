@@ -3,15 +3,11 @@ import type { Dispatch, SetStateAction } from 'react';
 import type * as store from 'store';
 
 export type AppCalendarLocalState = {
-  calendarDate: Date;
   searchString: string;
   isSearchFocused: boolean;
 };
 
 export type AppCalendarLocalActions = {
-  setCalendarDate: Dispatch<
-    SetStateAction<AppCalendarLocalState['calendarDate']>
-  >;
   setSearchString: Dispatch<
     SetStateAction<AppCalendarLocalState['searchString']>
   >;
@@ -22,6 +18,7 @@ export type AppCalendarLocalActions = {
 
 export type AppCalendarStoreData = {
   todos: ReturnType<typeof store.getTodosForCalendar>;
+  date: ReturnType<typeof store.getAppCalendarDate>;
 };
 
 export type AppCalendarFormattedData = {

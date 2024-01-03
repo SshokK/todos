@@ -1,25 +1,21 @@
 import type { AppCalendarData } from './useAppCalendarData.types.ts';
 
 import * as store from 'store';
-import * as utils from 'utils';
 
 import { useStore } from 'store';
 import { useMemo, useState } from 'react';
 
 export const useAppCalendarData = (): AppCalendarData => {
-  const [calendarDate, setCalendarDate] = useState(utils.getToday);
   const [searchString, setSearchString] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const localState: AppCalendarData['localState'] = {
-    calendarDate,
     searchString,
     isSearchFocused,
   };
 
   const localActions: AppCalendarData['localActions'] = useMemo(
     () => ({
-      setCalendarDate,
       setSearchString,
       setIsSearchFocused,
     }),
@@ -30,6 +26,7 @@ export const useAppCalendarData = (): AppCalendarData => {
     todos: store.getTodosForCalendar(state, {
       title: localState.searchString,
     }),
+    date: store.getAppCalendarDate(state),
   }));
 
   const formattedData: AppCalendarData['formattedData'] = {

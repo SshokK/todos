@@ -2,6 +2,10 @@ import type { ComponentProps, ReactNode } from 'react';
 import type * as components from 'components';
 
 export type AppCalendarHandlers = {
+  handleDateChange: Required<
+    ComponentProps<typeof components.Calendar>
+  >['onDateChange'];
+
   handleTodoClick: (
     sidebarElement: ReactNode,
   ) => ComponentProps<typeof components.TodoItem>['onClick'];
