@@ -9,8 +9,10 @@
         "noSearchResults": "No todos coinciden con la búsqueda",
         "noResultsForToday": "No hay tareas pendientes por hoy"
       },
-      "calendarSearchPlaceholder": "Buscar...",
-      "calendarNoItemsMessage": "No se encontraron todos"
+      "AppCalendar": {
+        "searchPlaceholder": "Buscar...",
+        "noItemsMessage": "No se encontraron todos"
+      }
     }
   },
 

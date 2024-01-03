@@ -1,8 +1,8 @@
 import type { ComponentProps } from 'react';
-import type { AppHandlers } from './useAppHandlers.types.ts';
+import type { AppCalendarHandlers } from './useAppCalendarHandlers.types.ts';
 
 import * as components from 'components';
-import * as constants from '../App.constants.ts';
+import * as constants from '../AppCalendar.constants.ts';
 
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,9 +12,9 @@ export const useAppCalendarToolbarConfigRenderer = ({
   onSearchChange,
   onSearchFocusToggle,
 }: {
-  onTodoItemAdd: AppHandlers['handleTodoItemAdd'];
-  onSearchChange: AppHandlers['handleSearchChange'];
-  onSearchFocusToggle: AppHandlers['handleSearchFocusToggle'];
+  onTodoItemAdd: AppCalendarHandlers['handleTodoItemAdd'];
+  onSearchChange: AppCalendarHandlers['handleSearchChange'];
+  onSearchFocusToggle: AppCalendarHandlers['handleSearchFocusToggle'];
 }): Required<
   ComponentProps<typeof components.Calendar>
 >['onToolbarConfigRender'] => {
@@ -50,7 +50,10 @@ export const useAppCalendarToolbarConfigRenderer = ({
             onChange: onSearchChange,
             onBlur: onSearchFocusToggle(false),
             changeCallbackThrottleTime: constants.SEARCH_DEBOUNCE_TIME,
-            placeholder: t('views.App.calendarSearchPlaceholder', 'Search...'),
+            placeholder: t(
+              'views.App.AppCalendar.searchPlaceholder',
+              'Search...',
+            ),
           },
         },
         {

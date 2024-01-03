@@ -9,8 +9,10 @@
         "noSearchResults": "No todos matching search",
         "noResultsForToday": "No unfinished todos for today"
       },
-      "calendarSearchPlaceholder": "Search...",
-      "calendarNoItemsMessage": "No todos found"
+      "AppCalendar": {
+        "searchPlaceholder": "Search...",
+        "noItemsMessage": "No todos found"
+      }
     }
   },
 

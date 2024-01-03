@@ -1,4 +1,4 @@
-import type { AppData } from './useAppData.types.ts';
+import type { AppCalendarData } from './useAppCalendarData.types.ts';
 
 import * as store from 'store';
 import * as utils from 'utils';
@@ -6,18 +6,18 @@ import * as utils from 'utils';
 import { useStore } from 'store';
 import { useMemo, useState } from 'react';
 
-export const useAppData = (): AppData => {
+export const useAppCalendarData = (): AppCalendarData => {
   const [calendarDate, setCalendarDate] = useState(utils.getToday);
   const [searchString, setSearchString] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
-  const localState: AppData['localState'] = {
+  const localState: AppCalendarData['localState'] = {
     calendarDate,
     searchString,
     isSearchFocused,
   };
 
-  const localActions: AppData['localActions'] = useMemo(
+  const localActions: AppCalendarData['localActions'] = useMemo(
     () => ({
       setCalendarDate,
       setSearchString,
@@ -26,13 +26,13 @@ export const useAppData = (): AppData => {
     [],
   );
 
-  const storeData: AppData['storeData'] = useStore((state) => ({
+  const storeData: AppCalendarData['storeData'] = useStore((state) => ({
     todos: store.getTodosForCalendar(state, {
       title: localState.searchString,
     }),
   }));
 
-  const formattedData: AppData['formattedData'] = {
+  const formattedData: AppCalendarData['formattedData'] = {
     whitelistedDates: localState.searchString
       ? Object.entries(storeData.todos).flatMap(([dateString, todos]) => {
           return todos.filter((todo) => !todo.isHidden).length
