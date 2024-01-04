@@ -17,9 +17,11 @@ export const Calendar: FC<CalendarProps> = ({
   date,
   whitelistedDates,
   shouldUseOnlyFadeAnimation,
+  highlightedItemId,
   noDatesMessage,
   onDateChange,
   onToolbarConfigRender,
+  onHighlightedElementRender,
   items,
   onItemOrderChange,
   ItemComponent,
@@ -74,6 +76,8 @@ export const Calendar: FC<CalendarProps> = ({
             <elements.CalendarColumn
               key={date.toDateString()}
               date={date}
+              highlightedItemId={highlightedItemId}
+              onHighlightedElementRender={onHighlightedElementRender}
               items={items[date.toDateString()] ?? []}
               ItemComponent={ItemComponent}
               itemComponentProps={itemComponentProps}

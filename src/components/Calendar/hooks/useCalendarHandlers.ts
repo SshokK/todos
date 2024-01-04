@@ -8,6 +8,7 @@ import * as constants from '../Calendar.constants.ts';
 import * as elements from '../elements';
 
 import { useCallback } from 'react';
+import { usePreviousValue } from 'utils';
 
 export const useCalendarHandlers = ({
   props,
@@ -22,6 +23,9 @@ export const useCalendarHandlers = ({
   localActions: CalendarData['localActions'];
 }): CalendarHandlers => {
   const { onItemOrderChange, onDateChange } = props;
+
+  const prevProps = usePreviousValue(props);
+  const prevLocalState = usePreviousValue(localState);
 
   const handlePrevPageChange: CalendarHandlers['handlePrevPageChange'] =
     // Suppressing because ESLint can't detect deps of lodash.throttle
@@ -142,15 +146,17 @@ export const useCalendarHandlers = ({
 
   const handleDateChange: CalendarHandlers['handleDateChange'] =
     useCallback(() => {
-      onDateChange?.(localState.date);
-    }, [localState.date, onDateChange]);
+      if (prevLocalState.date !== localState.date) {
+        onDateChange?.(localState.date);
+      }
+    }, [localState.date, onDateChange, prevLocalState.date]);
 
   const handleDatePropChange: CalendarHandlers['handleDatePropChange'] =
     useCallback(() => {
-      if (props.date) {
+      if (prevProps.date !== props.date && props.date) {
         localActions.setDate(props.date);
       }
-    }, [localActions, props.date]);
+    }, [localActions, prevProps.date, props.date]);
 
   return {
     handlePrevPageChange,

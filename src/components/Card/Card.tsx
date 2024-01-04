@@ -12,6 +12,7 @@ export const Card = react.forwardRef<HTMLDivElement, CardProps>(
     return (
       <framerMotion.motion.div
         ref={ref}
+        tabIndex={isClickable ? 0 : -1}
         className={twMerge.twMerge(
           classnames({
             [styles.CLASSNAMES.container]: true,

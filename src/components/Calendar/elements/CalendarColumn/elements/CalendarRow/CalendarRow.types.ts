@@ -15,6 +15,12 @@ export type CalendarItem = {
 export type CalendarRowProps = {
   date: Date;
   item: CalendarItem;
+  isHighlighted?: boolean;
+  onHighlightedElementRender?: (
+    item: CalendarItem,
+    element: HTMLElement,
+  ) => void;
+
   // Suppressing component props type in order to make Calendar generic
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ItemComponent?: ComponentType<any>;

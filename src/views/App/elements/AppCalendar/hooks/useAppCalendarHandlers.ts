@@ -4,7 +4,7 @@ import type { AppCalendarData } from './useAppCalendarData.types.ts';
 import * as store from 'store';
 import * as utils from 'utils';
 
-import { useSidebarsContext } from 'contexts';
+import { useHighlighter, useSidebars } from 'contexts';
 import { useCallback } from 'react';
 import { useStore } from 'store';
 
@@ -13,9 +13,13 @@ export const useAppCalendarHandlers = ({
 }: {
   localActions: AppCalendarData['localActions'];
 }): AppCalendarHandlers => {
-  const sidebarsContext = useSidebarsContext();
-  const todosState = useStore(store.getTodosState);
   const appCalendarState = useStore(store.getAppCalendarState);
+  const todosState = useStore(store.getTodosState);
+
+  const sidebars = useSidebars();
+  const highlighter = useHighlighter({
+    onHighlightEnd: () => appCalendarState.setHighlightedTodo(null),
+  });
 
   const handleDateChange: AppCalendarHandlers['handleDateChange'] = useCallback(
     (date) => {
@@ -26,11 +30,9 @@ export const useAppCalendarHandlers = ({
 
   const handleTodoClick: AppCalendarHandlers['handleTodoClick'] =
     (sidebarElement) => () => {
-      sidebarsContext.sidebar.setTitle('Details');
-      sidebarsContext.sidebar.setElement(sidebarElement);
-
-      sidebarsContext.sidebar.setIsOpen(true);
-      // sidebarsContext.navbar.setIsOpen(false);
+      sidebars.sidebar.setTitle('Details');
+      sidebars.sidebar.setElement(sidebarElement);
+      sidebars.sidebar.setIsOpen(true);
     };
 
   const handleTodoTitleChange: AppCalendarHandlers['handleTodoTitleChange'] = (
@@ -85,6 +87,14 @@ export const useAppCalendarHandlers = ({
       [localActions],
     );
 
+  const handleHighlightedElementRender: AppCalendarHandlers['handleHighlightedElementRender'] =
+    useCallback(
+      (_, element) => {
+        highlighter.setElement(element);
+      },
+      [highlighter],
+    );
+
   return {
     handleDateChange,
     handleTodoClick,
@@ -95,5 +105,6 @@ export const useAppCalendarHandlers = ({
     handleTodoItemOrderChange,
     handleSearchChange,
     handleSearchFocusToggle,
+    handleHighlightedElementRender,
   };
 };

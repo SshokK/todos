@@ -18,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 export const CalendarColumn: FC<CalendarColumnProps> = ({
   date,
   isDropDisabled,
+  highlightedItemId,
+  onHighlightedElementRender,
   items,
   ItemComponent,
   itemComponentProps,
@@ -70,6 +72,8 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
                 {(provided, snapshot) => (
                   <elements.CalendarRow
                     ref={provided.innerRef}
+                    isHighlighted={item.id === highlightedItemId}
+                    onHighlightedElementRender={onHighlightedElementRender}
                     draggableProps={provided.draggableProps}
                     dragHandleProps={provided.dragHandleProps}
                     isDropAnimating={snapshot.isDropAnimating}

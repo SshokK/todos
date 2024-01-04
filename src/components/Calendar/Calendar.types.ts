@@ -8,6 +8,14 @@ export type CalendarProps = {
 
   date?: Date;
 
+  highlightedItemId?: ComponentProps<
+    typeof elements.CalendarColumn
+  >['highlightedItemId'];
+
+  onHighlightedElementRender?: ComponentProps<
+    typeof elements.CalendarColumn
+  >['onHighlightedElementRender'];
+
   whitelistedDates?: Date[] | null;
 
   noDatesMessage?: ReactNode;

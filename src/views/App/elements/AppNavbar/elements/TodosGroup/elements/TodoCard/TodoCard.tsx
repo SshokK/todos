@@ -5,8 +5,17 @@ import * as styles from './TodoCard.styles.ts';
 import * as components from 'components';
 import * as animations from './TodoCard.animations.ts';
 
+import { useTodoCardHandlers } from './hooks';
+
 export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
-  ({ todo, ...props }, ref) => {
+  ({ todo, date, ...props }, ref) => {
+    const handlers = useTodoCardHandlers({
+      props: {
+        date,
+        todo,
+      },
+    });
+
     return (
       <components.Card
         ref={ref}
@@ -16,6 +25,8 @@ export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
         animate={animations.ANIMATION_NAME.ACTIVE}
         exit={animations.ANIMATION_NAME.EXIT}
         variants={animations.VARIANTS}
+        isClickable
+        onClick={handlers.handleTodoClick}
         {...props}
       >
         <components.Typography

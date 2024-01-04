@@ -2,6 +2,6 @@ import { SidebarsContext } from '../SidebarsContext';
 
 import { useContext } from 'react';
 
-export const useSidebarsContext = () => {
+export const useSidebars = () => {
   return useContext(SidebarsContext);
 };

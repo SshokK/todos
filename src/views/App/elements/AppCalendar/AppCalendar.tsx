@@ -39,6 +39,8 @@ export const AppCalendar: FC = () => {
         onToolbarConfigRender={calendarToolbarConfigRenderer}
         onItemOrderChange={handlers.handleTodoItemOrderChange}
         shouldUseOnlyFadeAnimation={localState.isSearchFocused}
+        highlightedItemId={storeData.highlightedTodoId}
+        onHighlightedElementRender={handlers.handleHighlightedElementRender}
         items={storeData.todos}
         ItemComponent={components.TodoItem}
         itemComponentProps={{

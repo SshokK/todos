@@ -1,1 +1,1 @@
-export * from './useSidebarsContext.ts';
+export * from './useSidebars.ts';

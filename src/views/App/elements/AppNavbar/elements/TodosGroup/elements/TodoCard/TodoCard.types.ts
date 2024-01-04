@@ -3,5 +3,6 @@ import type { ComponentProps } from 'react';
 import type * as components from 'components';
 
 export type TodoCardProps = ComponentProps<typeof components.Card> & {
+  date: Date;
   todo: Todo;
 };

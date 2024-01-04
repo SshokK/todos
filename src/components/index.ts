@@ -3,6 +3,7 @@ export * from './Calendar';
 export * from './Card';
 export * from './Checkbox';
 export * from './DatePicker';
+export * from './Highlighter';
 export * from './IconButton';
 export * from './Icons';
 export * from './List';

@@ -9,10 +9,10 @@ import * as constants from './Navbar.constants.ts';
 import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 import { IconGithub, IconLinkedIn } from '../Icons';
 
-import { useSidebarsContext } from 'contexts';
+import { useSidebars } from 'contexts';
 
 export const Navbar: FC<NavbarProps> = () => {
-  const sidebarsContext = useSidebarsContext();
+  const sidebarsContext = useSidebars();
 
   return (
     <framerMotion.AnimatePresence initial={false}>

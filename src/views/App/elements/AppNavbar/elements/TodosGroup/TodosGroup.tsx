@@ -22,7 +22,9 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
           <elements.TodosGroupHeader key={date.toDateString()} date={date} />
           {todos.flatMap((todo, i) => {
             if (i < constants.VISIBLE_TODOS_COUNT) {
-              return <elements.TodoCard key={todo.id} todo={todo} />;
+              return (
+                <elements.TodoCard key={todo.id} date={date} todo={todo} />
+              );
             }
           })}
           {todos.length > constants.VISIBLE_TODOS_COUNT && (

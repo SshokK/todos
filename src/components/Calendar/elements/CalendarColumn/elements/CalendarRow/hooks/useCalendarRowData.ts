@@ -1,13 +1,22 @@
 import type { CalendarRowData } from './useCalendarRowData.types.ts';
+import type { ForwardedRef } from 'react';
 
 import { useMemo, useRef } from 'react';
+import { useCombinedRefs } from 'utils';
 
-export const useCalendarRowData = (): CalendarRowData => {
+export const useCalendarRowData = (
+  forwardedRef: ForwardedRef<HTMLDivElement>,
+): CalendarRowData => {
+  const containerRef: CalendarRowData['refs']['containerRef'] = useRef(null);
+
   const childrenContainerRef: CalendarRowData['refs']['childrenContainerRef'] =
     useRef(null);
 
+  const finalContainerRef = useCombinedRefs(containerRef, forwardedRef);
+
   const refs: CalendarRowData['refs'] = {
-    childrenContainerRef,
+    containerRef: finalContainerRef,
+    childrenContainerRef: childrenContainerRef,
   };
 
   const elementClientX =

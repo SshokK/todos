@@ -37,4 +37,8 @@ export type AppCalendarHandlers = {
   ) =>
     | Required<ComponentProps<typeof components.TextField>>['onBlur']
     | Required<ComponentProps<typeof components.TextField>>['onFocus'];
+
+  handleHighlightedElementRender: Required<
+    ComponentProps<typeof components.Calendar>
+  >['onHighlightedElementRender'];
 };

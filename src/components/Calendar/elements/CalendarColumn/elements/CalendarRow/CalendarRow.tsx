@@ -12,13 +12,19 @@ import { IconButton } from '../../../../../IconButton';
 import { IconDragHandle } from '../../../../../Icons';
 
 import { useMemo } from 'react';
-import { useCalendarRowData } from './hooks';
+import {
+  useCalendarRowData,
+  useCalendarRowHandlers,
+  useCalendarRowLifecycle,
+} from './hooks';
 
 export const CalendarRow = react.forwardRef<HTMLDivElement, CalendarRowProps>(
   (
     {
       draggableProps,
       dragHandleProps,
+      isHighlighted,
+      onHighlightedElementRender,
       date,
       item,
       ItemComponent,
@@ -28,13 +34,27 @@ export const CalendarRow = react.forwardRef<HTMLDivElement, CalendarRowProps>(
     },
     ref,
   ) => {
-    const { refs, formattedData } = useCalendarRowData();
+    const { refs, formattedData } = useCalendarRowData(ref);
+
+    const handlers = useCalendarRowHandlers({
+      props: {
+        item,
+        isHighlighted,
+        onHighlightedElementRender,
+      },
+      refs,
+    });
+
+    useCalendarRowLifecycle({
+      onMount: handlers.handleMount,
+      onRowIsHighlighted: handlers.handleRowIsHighlighted,
+    });
 
     const Item = useMemo(() => ItemComponent ?? (() => <></>), [ItemComponent]);
 
     return (
       <framerMotion.motion.div
-        ref={ref}
+        ref={refs.containerRef}
         {...draggableProps}
         custom={item.isDisabled || item.isHidden}
         initial={animations.ANIMATION_NAME.INITIAL}

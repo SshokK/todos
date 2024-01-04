@@ -27,6 +27,7 @@ export const useAppCalendarData = (): AppCalendarData => {
       title: localState.searchString,
     }),
     date: store.getAppCalendarDate(state),
+    highlightedTodoId: store.getAppCalendarHighlightedTodoId(state),
   }));
 
   const formattedData: AppCalendarData['formattedData'] = {

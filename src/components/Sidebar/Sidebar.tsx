@@ -11,10 +11,10 @@ import { IconButton } from '../IconButton';
 import { IconClose } from '../Icons';
 import { Typography } from '../Typography';
 
-import { useSidebarsContext } from 'contexts';
+import { useSidebars } from 'contexts';
 
 export const Sidebar: FC<SidebarProps> = () => {
-  const sidebarsContext = useSidebarsContext();
+  const sidebarsContext = useSidebars();
 
   return (
     <framerMotion.motion.article
