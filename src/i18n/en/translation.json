@@ -7,7 +7,13 @@
       "AppNavbar": {
         "searchPlaceholder": "Search future todos",
         "noSearchResults": "No todos matching search",
-        "noResultsForToday": "No unfinished todos for today"
+        "noResultsForToday": "No unfinished todos for today",
+
+        "TodosCounts": {
+          "todo": "To be done",
+          "overdue": "Overdue",
+          "done": "Done"
+        }
       },
       "AppCalendar": {
         "searchPlaceholder": "Search...",
