@@ -10,10 +10,12 @@ import './index.css';
 
 ReactDOM.createRoot(utils.getRootElement()).render(
   <React.StrictMode>
-    <contexts.SidebarsContextProvider>
-      <contexts.HighlighterContextProvider>
-        <views.App />
-      </contexts.HighlighterContextProvider>
-    </contexts.SidebarsContextProvider>
+    <contexts.QueryClientProvider>
+      <contexts.SidebarsContextProvider>
+        <contexts.HighlighterContextProvider>
+          <views.App />
+        </contexts.HighlighterContextProvider>
+      </contexts.SidebarsContextProvider>
+    </contexts.QueryClientProvider>
   </React.StrictMode>,
 );

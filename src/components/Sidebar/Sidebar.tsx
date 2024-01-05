@@ -46,9 +46,7 @@ export const Sidebar: FC<SidebarProps> = () => {
           }}
         />
       </header>
-      <main className={styles.CLASSNAMES.main}>
-        {sidebarsContext.sidebar.element}
-      </main>
+      <main>{sidebarsContext.sidebar.element}</main>
     </framerMotion.motion.article>
   );
 };

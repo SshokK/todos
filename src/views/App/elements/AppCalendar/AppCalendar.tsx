@@ -1,16 +1,19 @@
 import type { FC } from 'react';
+import type { AppCalendarProps } from './AppCalendar.types.ts';
 
 import * as styles from './AppCalendar.styles.ts';
 import * as components from 'components';
+import * as elements from './elements';
 
 import { useTranslation } from 'react-i18next';
 import {
   useAppCalendarToolbarConfigRenderer,
   useAppCalendarData,
   useAppCalendarHandlers,
+  useAppCalendarQueries,
 } from './hooks';
 
-export const AppCalendar: FC = () => {
+export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
   const { t } = useTranslation();
 
   const { localState, localActions, storeData, formattedData } =
@@ -20,6 +23,8 @@ export const AppCalendar: FC = () => {
     localActions,
   });
 
+  const queries = useAppCalendarQueries();
+
   const calendarToolbarConfigRenderer = useAppCalendarToolbarConfigRenderer({
     onTodoItemAdd: handlers.handleTodoItemAdd,
     onSearchChange: handlers.handleSearchChange,
@@ -27,7 +32,13 @@ export const AppCalendar: FC = () => {
   });
 
   return (
-    <div className={styles.CLASSNAMES.calendarContainer}>
+    <components.Loader
+      isVisible={queries.fetchTodos.isFetching}
+      classNames={{
+        outerContainer: styles.CLASSNAMES.calendarContainer,
+      }}
+    >
+      <elements.AppCalendarHeader tools={headerTools} />
       <components.Calendar
         date={storeData.date}
         whitelistedDates={formattedData.whitelistedDates}
@@ -41,7 +52,7 @@ export const AppCalendar: FC = () => {
         shouldUseOnlyFadeAnimation={localState.isSearchFocused}
         highlightedItemId={storeData.highlightedTodoId}
         onHighlightedElementRender={handlers.handleHighlightedElementRender}
-        items={storeData.todos}
+        items={queries.fetchTodos.data}
         ItemComponent={components.TodoItem}
         itemComponentProps={{
           onDateChange: handlers.handleTodoDateChange,
@@ -49,6 +60,6 @@ export const AppCalendar: FC = () => {
           onTitleChange: handlers.handleTodoTitleChange,
         }}
       />
-    </div>
+    </components.Loader>
   );
 };

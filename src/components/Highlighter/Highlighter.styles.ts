@@ -6,7 +6,6 @@ export const CLASSNAMES = {
     'fixed',
     'w-full',
     'h-full',
-    'bg-clip-content',
     'z-50',
   ),
 };

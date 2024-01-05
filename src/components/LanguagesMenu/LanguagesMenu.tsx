@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import * as components from 'components';
+import * as components from '../index.ts';
 
 import { useTranslation } from 'react-i18next';
 import { useLanguagesMenuHandlers } from './hooks';

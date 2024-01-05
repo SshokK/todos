@@ -11,6 +11,4 @@ export const CLASSNAMES = {
   header: classnames('p-6', 'flex', 'justify-end', 'gap-6'),
 
   title: classnames('w-full', 'truncate'),
-
-  main: classnames('px-6'),
 };
