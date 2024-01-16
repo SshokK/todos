@@ -2,11 +2,13 @@ import type { AppCalendarHandlers } from './useAppCalendarHandlers.types.ts';
 import type { AppCalendarData } from './useAppCalendarData.types.ts';
 
 import * as store from 'store';
+import * as dateConstants from '../../../../../constants/date.constants.ts';
 import * as utils from 'utils';
 
+import { useStore } from 'store';
+import { useTodoCreate, useTodoDelete, useTodoUpdate } from 'utils';
 import { useHighlighter, useSidebars } from 'contexts';
 import { useCallback } from 'react';
-import { useStore } from 'store';
 
 export const useAppCalendarHandlers = ({
   localActions,
@@ -14,7 +16,10 @@ export const useAppCalendarHandlers = ({
   localActions: AppCalendarData['localActions'];
 }): AppCalendarHandlers => {
   const appCalendarState = useStore(store.getAppCalendarState);
-  const todosState = useStore(store.getTodosState);
+
+  const createTodo = useTodoCreate();
+  const updateTodo = useTodoUpdate();
+  const deleteTodo = useTodoDelete();
 
   const sidebars = useSidebars();
   const highlighter = useHighlighter({
@@ -39,35 +44,70 @@ export const useAppCalendarHandlers = ({
     id,
     title,
   ) => {
-    todosState.setTodoTitle(id, title);
+    updateTodo.mutate([
+      id,
+      {
+        title,
+      },
+    ]);
   };
 
   const handleTodoCompletionToggle: AppCalendarHandlers['handleTodoCompletionToggle'] =
     (id, isDone) => {
-      todosState.toggleTodo(id, isDone);
+      updateTodo.mutate([
+        id,
+        {
+          isDone,
+        },
+      ]);
     };
 
   const handleTodoDateChange: AppCalendarHandlers['handleTodoDateChange'] = (
     id,
     date,
   ) => {
-    todosState.setTodoDate(id, date);
+    updateTodo.mutate([
+      id,
+      {
+        date: utils.formatDate(date, {
+          format: dateConstants.DATE_FORMATS.API_DATE,
+        }),
+      },
+    ]);
   };
 
   const handleTodoItemAdd: AppCalendarHandlers['handleTodoItemAdd'] = () => {
     appCalendarState.setDate(utils.getToday());
 
-    todosState.addTodo({
-      id: utils.getRandomId(),
-      title: '',
-      content: '',
-      isDone: false,
-    });
+    createTodo.mutate([
+      {
+        id: utils.getRandomId(),
+        title: '',
+        content: '',
+        date: utils.formatDate(utils.getToday(), {
+          format: dateConstants.DATE_FORMATS.API_DATE,
+        }),
+      },
+    ]);
+  };
+
+  const handleTodoItemDelete: AppCalendarHandlers['handleTodoItemDelete'] = (
+    item,
+  ) => {
+    deleteTodo.mutate([item.id]);
   };
 
   const handleTodoItemOrderChange: AppCalendarHandlers['handleTodoItemOrderChange'] =
-    (todos) => {
-      todosState.setTodos(todos as Parameters<typeof todosState.setTodos>[0]);
+    (todo, todoIndex, date) => {
+      updateTodo.mutate([
+        todo.id,
+        {
+          order: todoIndex,
+          date: utils.formatDate(date, {
+            format: dateConstants.DATE_FORMATS.API_DATE,
+          }),
+        },
+      ]);
     };
 
   const handleSearchChange: AppCalendarHandlers['handleSearchChange'] =
@@ -103,6 +143,7 @@ export const useAppCalendarHandlers = ({
     handleTodoDateChange,
     handleTodoItemAdd,
     handleTodoItemOrderChange,
+    handleTodoItemDelete,
     handleSearchChange,
     handleSearchFocusToggle,
     handleHighlightedElementRender,

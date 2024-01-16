@@ -5,12 +5,12 @@ import * as styles from './TodosCounts.styles.ts';
 import * as constants from './TodosCounts.constants.ts';
 
 import { useTranslation } from 'react-i18next';
-import { useTodosCountsData } from './hooks';
+import { useTodosCountsQueries } from './hooks';
 
 export const TodosCounts: FC = () => {
   const { t } = useTranslation();
 
-  const { storeData } = useTodosCountsData();
+  const queries = useTodosCountsQueries();
 
   return (
     <components.Separator>
@@ -31,7 +31,7 @@ export const TodosCounts: FC = () => {
                   }
                 />
                 <div className={styles.CLASSNAMES.countBadge}>
-                  {storeData.todosCounts[config.storeKey]}
+                  {queries.todosCounts.data[config.dataKey]}
                 </div>
               </div>
             </components.Tooltip>

@@ -1,3 +1,4 @@
+export * from './IconArchive.tsx';
 export * from './IconBorderDotted';
 export * from './IconCalendar';
 export * from './IconCaretDown';

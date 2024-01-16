@@ -17,12 +17,12 @@ export const useCalendarHandlers = ({
 }: {
   props: Pick<
     CalendarProps,
-    'date' | 'items' | 'onItemOrderChange' | 'onDateChange'
+    'date' | 'items' | 'onItemOrderChange' | 'onDateChange' | 'onItemDelete'
   >;
   localState: CalendarData['localState'];
   localActions: CalendarData['localActions'];
 }): CalendarHandlers => {
-  const { onItemOrderChange, onDateChange } = props;
+  const { onItemOrderChange, onDateChange, onItemDelete } = props;
 
   const prevProps = usePreviousValue(props);
   const prevLocalState = usePreviousValue(localState);
@@ -98,12 +98,9 @@ export const useCalendarHandlers = ({
     if (destination?.droppableId === elements.REMOVAL_ZONE_DROPPABLE_ID) {
       const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
 
-      sourceColumnItems.splice(source.index, 1);
+      const [removedItem] = sourceColumnItems.splice(source.index, 1);
 
-      return onItemOrderChange?.({
-        ...props.items,
-        [source.droppableId]: sourceColumnItems,
-      });
+      return onItemDelete?.(removedItem);
     }
 
     /**
@@ -115,15 +112,15 @@ export const useCalendarHandlers = ({
       const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
       const destColumnItems = [...(props.items[destination.droppableId] ?? [])];
 
-      const [removed] = sourceColumnItems.splice(source.index, 1);
+      const [removedItem] = sourceColumnItems.splice(source.index, 1);
 
-      destColumnItems.splice(destination.index, 0, removed);
+      destColumnItems.splice(destination.index, 0, removedItem);
 
-      return onItemOrderChange?.({
-        ...props.items,
-        [source.droppableId]: sourceColumnItems,
-        [destination.droppableId]: destColumnItems,
-      });
+      return onItemOrderChange?.(
+        removedItem,
+        destination?.index,
+        new Date(destination?.droppableId),
+      );
     }
 
     /**
@@ -131,17 +128,17 @@ export const useCalendarHandlers = ({
      * Item was moved within the same column
      *
      */
-
     const copiedItems = [...props.items[source.droppableId]];
 
-    const [removed] = copiedItems.splice(source.index, 1);
+    const [removedItem] = copiedItems.splice(source.index, 1);
 
-    copiedItems.splice(destination.index, 0, removed);
+    copiedItems.splice(destination.index, 0, removedItem);
 
-    onItemOrderChange?.({
-      ...props.items,
-      [source.droppableId]: copiedItems,
-    });
+    onItemOrderChange?.(
+      removedItem,
+      destination.index,
+      new Date(destination?.droppableId),
+    );
   };
 
   const handleDateChange: CalendarHandlers['handleDateChange'] =

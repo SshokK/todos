@@ -19,6 +19,7 @@ export type SelectProps = {
   value: SelectOption['key'] | null;
   options: SelectOptionGroup[];
   placeholder?: string;
+  isOpen?: boolean;
   width?: constants.SELECT_WIDTH;
   onChange?: (optionKey: SelectOption['key'], option: SelectOption) => void;
 };

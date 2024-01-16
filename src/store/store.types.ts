@@ -1,8 +1,7 @@
-import type { AppCalendarState, TodosState } from './slices';
+import type { AppCalendarState } from './slices';
 import type { StoreApi } from 'zustand';
 
 export type GlobalState = {
-  todosState: TodosState;
   appCalendarState: AppCalendarState;
 };
 

@@ -21,6 +21,7 @@ export default defineConfig({
       contexts: path.resolve(__dirname, './src/contexts'),
       utils: path.resolve(__dirname, './src/utils'),
       store: path.resolve(__dirname, './src/store'),
+      types: path.resolve(__dirname, './src/types'),
     },
   },
 });

@@ -17,7 +17,6 @@ export type AppCalendarLocalActions = {
 };
 
 export type AppCalendarStoreData = {
-  todos: ReturnType<typeof store.getTodosForCalendar>;
   date: ReturnType<typeof store.getAppCalendarDate>;
   highlightedTodoId: ReturnType<typeof store.getAppCalendarHighlightedTodoId>;
 };

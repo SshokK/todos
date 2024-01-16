@@ -1,4 +1,4 @@
-import type { Todo } from '../todos';
+import type { Todo } from 'utils';
 
 export type AppCalendarState = {
   date: Date;

@@ -7,10 +7,10 @@ import * as elements from './elements';
 
 import { useTranslation } from 'react-i18next';
 import {
-  useAppCalendarToolbarConfigRenderer,
   useAppCalendarData,
   useAppCalendarHandlers,
   useAppCalendarQueries,
+  useAppCalendarToolbarConfigRenderer,
 } from './hooks';
 
 export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
@@ -33,7 +33,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
 
   return (
     <components.Loader
-      isVisible={queries.fetchTodos.isFetching}
+      isVisible={queries.todosList.isLoading}
       classNames={{
         outerContainer: styles.CLASSNAMES.calendarContainer,
       }}
@@ -50,15 +50,17 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
         onToolbarConfigRender={calendarToolbarConfigRenderer}
         onItemOrderChange={handlers.handleTodoItemOrderChange}
         shouldUseOnlyFadeAnimation={localState.isSearchFocused}
+        onItemDelete={handlers.handleTodoItemDelete}
         highlightedItemId={storeData.highlightedTodoId}
         onHighlightedElementRender={handlers.handleHighlightedElementRender}
-        items={queries.fetchTodos.data}
+        items={queries.todosList.data}
         ItemComponent={components.TodoItem}
         itemComponentProps={{
           onDateChange: handlers.handleTodoDateChange,
           onCompletionToggle: handlers.handleTodoCompletionToggle,
           onTitleChange: handlers.handleTodoTitleChange,
         }}
+        extraTools={<components.ClearButton />}
       />
     </components.Loader>
   );

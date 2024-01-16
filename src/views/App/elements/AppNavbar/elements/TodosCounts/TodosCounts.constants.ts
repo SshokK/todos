@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import type * as store from 'store';
+import type { useTodosCounts } from 'utils';
 
 import * as components from 'components';
 
@@ -15,25 +15,25 @@ export const TODOS_COUNT_CONFIG: Record<
     Icon: ComponentType<Record<string, unknown>>;
     tooltipTitleTranslation: string;
     tooltipTitleFallback: string;
-    storeKey: keyof ReturnType<typeof store.getTodosCounts>;
+    dataKey: keyof ReturnType<typeof useTodosCounts>['data'];
   }
 > = {
   [TODOS_COUNT_TYPE.OVERDUE]: {
     Icon: components.IconCrossCircled,
     tooltipTitleTranslation: 'views.App.AppNavbar.TodosCounts.overdue',
     tooltipTitleFallback: 'Overdue',
-    storeKey: 'unfinishedOverdueTodos',
+    dataKey: 'overdueCount',
   },
   [TODOS_COUNT_TYPE.TO_DO]: {
     Icon: components.IconCircle,
     tooltipTitleTranslation: 'views.App.AppNavbar.TodosCounts.todo',
     tooltipTitleFallback: 'To be done',
-    storeKey: 'unfinishedFutureTodos',
+    dataKey: 'undoneCount',
   },
   [TODOS_COUNT_TYPE.DONE]: {
     Icon: components.IconCheckCircled,
     tooltipTitleTranslation: 'views.App.AppNavbar.TodosCounts.done',
     tooltipTitleFallback: 'Done',
-    storeKey: 'finishedTodos',
+    dataKey: 'doneCount',
   },
 };

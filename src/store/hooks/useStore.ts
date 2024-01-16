@@ -7,7 +7,6 @@ import * as slices from '../slices';
 
 export const useStore = createWithEqualityFn<GlobalState>(
   (set, get) => ({
-    todosState: slices.todosStore(set, get),
     appCalendarState: slices.appCalendarStore(set, get),
   }),
   shallow,

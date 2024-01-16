@@ -23,6 +23,12 @@
   },
 
   "components": {
+    "ClearButton": {
+      "optionsLabel": "Seleccione un tipo",
+      "fullClearOption": "Borrar todos los artículos",
+      "overdueClearOption": "Borrar sólo artículos vencidos"
+    },
+
     "Calendar": {
       "CalendarItemRemoval": {
         "tooltip": "Arrastre y suelte aquí para eliminar"

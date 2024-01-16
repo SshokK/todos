@@ -1,4 +1,3 @@
-import type * as store from 'store';
 import type { Dispatch, SetStateAction } from 'react';
 
 export type AppNavbarLocalState = {
@@ -15,12 +14,7 @@ export type AppNavbarLocalActions = {
   >;
 };
 
-export type AppNavbarStoreData = {
-  todosByDates: ReturnType<typeof store.getTodosByDates>;
-};
-
 export type AppNavbarData = {
   localState: AppNavbarLocalState;
   localActions: AppNavbarLocalActions;
-  storeData: AppNavbarStoreData;
 };

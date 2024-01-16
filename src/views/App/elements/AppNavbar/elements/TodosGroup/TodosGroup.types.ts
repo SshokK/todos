@@ -1,4 +1,4 @@
-import type { Todo } from 'store';
+import type { Todo } from 'utils';
 
 export type TodosGroupProps = {
   date: Date;

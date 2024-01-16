@@ -32,11 +32,19 @@ export type CalendarProps = {
     typeof elements.CalendarColumn
   >['itemComponentProps'];
 
-  onItemOrderChange?: (items: CalendarProps['items']) => void;
+  onItemOrderChange?: (
+    item: elements.CalendarItem,
+    itemIndex: number,
+    date: Date,
+  ) => void;
+
+  onItemDelete?: (item: elements.CalendarItem) => void;
 
   onDateChange?: (date: Date) => void;
 
   onToolbarConfigRender?: ComponentProps<
     typeof elements.CalendarToolbar
   >['onConfigRender'];
+
+  extraTools?: ReactNode;
 };

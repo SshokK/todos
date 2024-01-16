@@ -6,13 +6,17 @@ import * as framerMotion from 'framer-motion';
 import * as elements from './elements';
 import * as constants from './AppNavbar.constants.ts';
 
-import { useAppNavbarData } from './hooks';
+import { useAppNavbarData, useAppNavbarQueries } from './hooks';
 import { useTranslation } from 'react-i18next';
 
 export const AppNavbar: FC = () => {
   const { t } = useTranslation();
 
-  const { localState, localActions, storeData } = useAppNavbarData();
+  const { localState, localActions } = useAppNavbarData();
+
+  const queries = useAppNavbarQueries({
+    localState,
+  });
 
   return (
     <div className={styles.CLASSNAMES.container}>
@@ -34,11 +38,17 @@ export const AppNavbar: FC = () => {
       <framerMotion.motion.div
         className={styles.CLASSNAMES.upcomingTodosContainer}
       >
-        {Object.entries(storeData.todosByDates).flatMap(([date, todos]) => (
-          <elements.TodosGroup key={date} date={new Date(date)} todos={todos} />
-        ))}
+        {Object.entries(queries.todosList.data ?? {}).flatMap(
+          ([date, todos]) => (
+            <elements.TodosGroup
+              key={date}
+              date={new Date(date)}
+              todos={todos}
+            />
+          ),
+        )}
         <components.NoItemsMessage
-          isVisible={!Object.entries(storeData.todosByDates).length}
+          isVisible={!Object.entries(queries.todosList.data ?? {}).length}
         >
           {localState.searchString
             ? t(

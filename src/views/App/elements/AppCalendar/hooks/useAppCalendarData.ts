@@ -23,21 +23,12 @@ export const useAppCalendarData = (): AppCalendarData => {
   );
 
   const storeData: AppCalendarData['storeData'] = useStore((state) => ({
-    todos: store.getTodosForCalendar(state, {
-      title: localState.searchString,
-    }),
     date: store.getAppCalendarDate(state),
     highlightedTodoId: store.getAppCalendarHighlightedTodoId(state),
   }));
 
   const formattedData: AppCalendarData['formattedData'] = {
-    whitelistedDates: localState.searchString
-      ? Object.entries(storeData.todos).flatMap(([dateString, todos]) => {
-          return todos.filter((todo) => !todo.isHidden).length
-            ? [new Date(dateString)]
-            : [];
-        })
-      : null,
+    whitelistedDates: localState.searchString ? [] : null,
   };
 
   return {

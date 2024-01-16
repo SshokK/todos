@@ -1,0 +1,22 @@
+export enum HTTP_METHODS {
+  CONNECT = 'CONNECT',
+  DELETE = 'DELETE',
+  GET = 'GET',
+  HEAD = 'HEAD',
+  OPTIONS = 'OPTIONS',
+  PATCH = 'PATCH',
+  POST = 'POST',
+  PUT = 'PUT',
+  TRACE = 'TRACE',
+}
+
+export const REQUESTS_WITH_BODY = [
+  HTTP_METHODS.PATCH,
+  HTTP_METHODS.PUT,
+  HTTP_METHODS.POST,
+  HTTP_METHODS.DELETE,
+];
+
+export const DEFAULT_HEADERS_FOR_REQUESTS_WITH_BODY = {
+  'Content-Type': 'application/json',
+};

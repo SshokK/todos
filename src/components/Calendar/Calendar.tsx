@@ -20,12 +20,14 @@ export const Calendar: FC<CalendarProps> = ({
   highlightedItemId,
   noDatesMessage,
   onDateChange,
+  onItemDelete,
   onToolbarConfigRender,
   onHighlightedElementRender,
   items,
   onItemOrderChange,
   ItemComponent,
   itemComponentProps,
+  extraTools,
 }) => {
   const { localState, localActions, formattedData } = useCalendarData({
     date,
@@ -38,6 +40,7 @@ export const Calendar: FC<CalendarProps> = ({
       items,
       onItemOrderChange,
       onDateChange,
+      onItemDelete,
     },
     localState,
     localActions,
@@ -60,7 +63,9 @@ export const Calendar: FC<CalendarProps> = ({
         onNextPageClick={handlers.handleNextPageChange}
         onPageReset={handlers.handlePageReset}
         onJumpToDate={handlers.handleJumpToDate}
-      />
+      >
+        {extraTools}
+      </elements.CalendarToolbar>
       <main className={styles.CLASSNAMES.contentContainer}>
         <NoItemsMessage
           isVisible={!formattedData.dates.length}

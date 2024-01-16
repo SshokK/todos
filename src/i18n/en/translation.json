@@ -23,6 +23,13 @@
   },
 
   "components": {
+    "ClearButton": {
+      "tooltip": "Clear todos",
+      "optionsLabel": "Select a type",
+      "fullClearOption": "Clear all todos",
+      "overdueClearOption": "Clear only overdue todos"
+    },
+
     "Calendar": {
       "CalendarItemRemoval": {
         "tooltip": "Drag'n'drop here to delete"

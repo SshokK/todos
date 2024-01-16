@@ -2,6 +2,7 @@ export * from './Button';
 export * from './Calendar';
 export * from './Card';
 export * from './Checkbox';
+export * from './ClearButton';
 export * from './DatePicker';
 export * from './Highlighter';
 export * from './IconButton';

@@ -10,7 +10,7 @@ import * as hooks from './hooks';
 import classnames from 'classnames';
 
 export const Select = react.forwardRef<HTMLDivElement, SelectProps>(
-  ({ value, options, onChange, placeholder, width }, ref) => {
+  ({ value, options, onChange, placeholder, isOpen, width }, ref) => {
     const handlers = hooks.useSelectHandlers({
       props: {
         options,
@@ -31,6 +31,7 @@ export const Select = react.forwardRef<HTMLDivElement, SelectProps>(
         <reactSelect.Root
           value={value || undefined}
           onValueChange={handlers.handleChange}
+          open={isOpen}
         >
           <elements.SelectTrigger placeholder={placeholder} />
           <reactSelect.Portal>

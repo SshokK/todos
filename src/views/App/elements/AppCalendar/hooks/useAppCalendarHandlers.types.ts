@@ -24,6 +24,10 @@ export type AppCalendarHandlers = {
     typeof components.Calendar
   >['onItemOrderChange'];
 
+  handleTodoItemDelete: ComponentProps<
+    typeof components.Calendar
+  >['onItemDelete'];
+
   handleTodoCompletionToggle: ComponentProps<
     typeof components.TodoItem
   >['onCompletionToggle'];
