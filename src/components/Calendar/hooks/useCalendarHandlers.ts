@@ -3,13 +3,13 @@ import type { CalendarData } from './useCalendarData.types.ts';
 import type { CalendarProps } from '../Calendar.types.ts';
 
 import * as utils from 'utils';
-import { getDiff, subtractDays, usePreviousValue } from 'utils';
 import * as lodash from 'lodash';
 import * as constants from '../Calendar.constants.ts';
 import * as elements from '../elements';
+import * as dateConstants from '../../../constants/date.constants.ts';
 
 import { useCallback } from 'react';
-import { DATE_GRANULARITY } from '../../../constants/date.constants.ts';
+import { usePreviousValue } from 'utils';
 
 export const useCalendarHandlers = ({
   props,
@@ -107,16 +107,16 @@ export const useCalendarHandlers = ({
      * Item was moved within the same or different column
      *
      */
-    const daysDiff = getDiff({
+    const daysDiff = utils.getDiff({
       dateA: new Date(source.droppableId),
       dateB: new Date(destination.droppableId),
-      granularity: DATE_GRANULARITY.DAY,
+      granularity: dateConstants.DATE_GRANULARITY.DAY,
     });
 
     onItemOrderChange?.(
       changedItem,
       destination.index,
-      subtractDays({
+      utils.subtractDays({
         date: changedItem.date,
         daysCount: daysDiff,
       }),
