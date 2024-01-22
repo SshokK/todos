@@ -2,6 +2,8 @@ import * as requestConstants from '../../constants/request.constants.ts';
 
 import queryString from 'query-string';
 
+import * as errorUtils from '../errors';
+
 export const fetch = async <T = unknown>(args: {
   url: string;
   method: requestConstants.HTTP_METHODS;
@@ -31,6 +33,13 @@ export const fetch = async <T = unknown>(args: {
       body: args.body ? JSON.stringify(args.body) : null,
     },
   );
+
+  if (!response.ok) {
+    throw new errorUtils.FetchError({
+      data: await response.json(),
+      status: response.status,
+    });
+  }
 
   return {
     data: (await response.json()) as T,

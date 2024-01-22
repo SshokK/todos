@@ -4,9 +4,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
 import * as api from '../../todos.api.ts';
-import * as stringUtils from '../../../../string';
 import * as dateUtils from '../../../../date';
 import * as dateConstants from '../../../../../constants/date.constants.ts';
+import * as helpers from '../../todos.api.helpers.ts';
 
 export const useTodoCreate = () => {
   const queryClient = useQueryClient();
@@ -31,9 +31,9 @@ export const useTodoCreate = () => {
 
       queryClient.setQueryData<Awaited<ReturnType<typeof api.fetchTodos>>>(
         [queryKeys.QUERY_KEY.TODOS],
-        (todosResponse) => {
+        (todos) => {
           const sameDateTodos =
-            todosResponse?.filter?.((existingTodo) =>
+            todos?.filter?.((existingTodo) =>
               dateUtils.isSame({
                 dateA: new Date(existingTodo.date),
                 dateB: new Date(variables[0].date),
@@ -41,15 +41,16 @@ export const useTodoCreate = () => {
               }),
             ) ?? [];
 
-          const createdTodo = {
-            ...variables[0],
-            id: stringUtils.getRandomId(),
-            isDone: false,
-            order: sameDateTodos.length,
-          };
+          const createdTodo = helpers.normalizeTodos([
+            {
+              ...variables[0],
+              isDone: false,
+              order: sameDateTodos.length + 1,
+            },
+          ])[0];
 
-          if (todosResponse) {
-            return [...todosResponse, createdTodo];
+          if (todos) {
+            return [...todos, createdTodo];
           }
 
           return [createdTodo];
@@ -62,10 +63,14 @@ export const useTodoCreate = () => {
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.QUERY_KEY.TODOS] });
-      queryClient.invalidateQueries({
-        queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
-      });
+      return Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
+        }),
+      ]);
     },
   });
 };

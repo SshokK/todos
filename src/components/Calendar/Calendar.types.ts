@@ -1,10 +1,8 @@
 import type { ComponentProps, ReactNode } from 'react';
 import type * as elements from './elements';
 
-export type CalendarItemDate = string;
-
 export type CalendarProps = {
-  items: Record<CalendarItemDate, elements.CalendarItem[]>;
+  items: elements.CalendarItem[];
 
   date?: Date;
 

@@ -14,6 +14,7 @@ import * as styles from './CalendarColumn.styles.ts';
 import * as utils from 'utils';
 
 import { useTranslation } from 'react-i18next';
+import { useCalendarColumnData } from './hooks';
 
 export const CalendarColumn: FC<CalendarColumnProps> = ({
   date,
@@ -26,9 +27,14 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const { formattedData } = useCalendarColumnData({
+    date,
+    items,
+  });
+
   return (
     <StrictModeDroppable
-      droppableId={date.toDateString()}
+      droppableId={date.toISOString()}
       mode="virtual"
       isDropDisabled={isDropDisabled}
       renderClone={(provided, snapshot, rubric) => (
@@ -39,8 +45,7 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
           isDragging={snapshot.isDragging}
           isDropAnimating={snapshot.isDropAnimating}
           dragTarget={snapshot.draggingOver}
-          date={date}
-          item={items[rubric.source.index]}
+          item={formattedData.items[rubric.source.index]}
           ItemComponent={ItemComponent}
           itemComponentProps={itemComponentProps}
         />
@@ -55,14 +60,14 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
             {utils.formatHumanizedDate(date, t)}
           </Typography>
           <NoItemsMessage
-            isVisible={!items.length}
+            isVisible={!formattedData.items.length}
             className={styles.CLASSNAMES.noItemsMessage}
           >
             No items
           </NoItemsMessage>
           <List
             ref={provided.innerRef}
-            items={items}
+            items={formattedData.items}
             onItemRender={(item: elements.CalendarItem, index) => (
               <reactBeautifulDnd.Draggable
                 draggableId={String(item.id)}
@@ -79,7 +84,6 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
                     isDropAnimating={snapshot.isDropAnimating}
                     isDragging={snapshot.isDragging}
                     dragTarget={snapshot.draggingOver}
-                    date={date}
                     item={item}
                     ItemComponent={ItemComponent}
                     itemComponentProps={itemComponentProps}

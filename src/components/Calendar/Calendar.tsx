@@ -83,7 +83,7 @@ export const Calendar: FC<CalendarProps> = ({
               date={date}
               highlightedItemId={highlightedItemId}
               onHighlightedElementRender={onHighlightedElementRender}
-              items={items[date.toDateString()] ?? []}
+              items={items}
               ItemComponent={ItemComponent}
               itemComponentProps={itemComponentProps}
               isDropDisabled={i === 0 || i === dates.length - 1}

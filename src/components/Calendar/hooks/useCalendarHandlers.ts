@@ -3,12 +3,13 @@ import type { CalendarData } from './useCalendarData.types.ts';
 import type { CalendarProps } from '../Calendar.types.ts';
 
 import * as utils from 'utils';
+import { getDiff, subtractDays, usePreviousValue } from 'utils';
 import * as lodash from 'lodash';
 import * as constants from '../Calendar.constants.ts';
 import * as elements from '../elements';
 
 import { useCallback } from 'react';
-import { usePreviousValue } from 'utils';
+import { DATE_GRANULARITY } from '../../../constants/date.constants.ts';
 
 export const useCalendarHandlers = ({
   props,
@@ -84,60 +85,41 @@ export const useCalendarHandlers = ({
   const handleItemDrop: CalendarHandlers['handleItemDrop'] = (result) => {
     localActions.setIsDragging(false);
 
-    if (!result.destination) {
+    const { source, destination, draggableId } = result;
+
+    const changedItem = props.items.find((item) => item.id === draggableId);
+
+    if (!destination || !changedItem) {
       return;
     }
-
-    const { source, destination } = result;
 
     /**
      *
      * Item was moved to the removal zone
      *
      */
-    if (destination?.droppableId === elements.REMOVAL_ZONE_DROPPABLE_ID) {
-      const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
-
-      const [removedItem] = sourceColumnItems.splice(source.index, 1);
-
-      return onItemDelete?.(removedItem);
+    if (destination.droppableId === elements.REMOVAL_ZONE_DROPPABLE_ID) {
+      return onItemDelete?.(changedItem);
     }
 
     /**
      *
-     * Item was moved to a different column
+     * Item was moved within the same or different column
      *
      */
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColumnItems = [...(props.items[source.droppableId] ?? [])];
-      const destColumnItems = [...(props.items[destination.droppableId] ?? [])];
-
-      const [removedItem] = sourceColumnItems.splice(source.index, 1);
-
-      destColumnItems.splice(destination.index, 0, removedItem);
-
-      return onItemOrderChange?.(
-        removedItem,
-        destination?.index,
-        new Date(destination?.droppableId),
-      );
-    }
-
-    /**
-     *
-     * Item was moved within the same column
-     *
-     */
-    const copiedItems = [...props.items[source.droppableId]];
-
-    const [removedItem] = copiedItems.splice(source.index, 1);
-
-    copiedItems.splice(destination.index, 0, removedItem);
+    const daysDiff = getDiff({
+      dateA: new Date(source.droppableId),
+      dateB: new Date(destination.droppableId),
+      granularity: DATE_GRANULARITY.DAY,
+    });
 
     onItemOrderChange?.(
-      removedItem,
+      changedItem,
       destination.index,
-      new Date(destination?.droppableId),
+      subtractDays({
+        date: changedItem.date,
+        daysCount: daysDiff,
+      }),
     );
   };
 

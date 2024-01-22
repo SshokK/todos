@@ -49,10 +49,14 @@ export const useTodoDelete = () => {
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.QUERY_KEY.TODOS] });
-      queryClient.invalidateQueries({
-        queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
-      });
+      return Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
+        }),
+      ]);
     },
   });
 };

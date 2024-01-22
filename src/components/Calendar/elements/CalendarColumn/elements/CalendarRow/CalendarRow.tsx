@@ -25,7 +25,6 @@ export const CalendarRow = react.forwardRef<HTMLDivElement, CalendarRowProps>(
       dragHandleProps,
       isHighlighted,
       onHighlightedElementRender,
-      date,
       item,
       ItemComponent,
       itemComponentProps,
@@ -79,7 +78,7 @@ export const CalendarRow = react.forwardRef<HTMLDivElement, CalendarRowProps>(
           ref={refs.childrenContainerRef}
           className={styles.CLASSNAMES.childrenContainer}
         >
-          <Item date={date} {...itemComponentProps} {...item} />
+          <Item {...itemComponentProps} {...item} />
         </div>
         <div className={styles.CLASSNAMES.dragZone}>
           <IconButton

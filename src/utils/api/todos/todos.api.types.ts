@@ -1,4 +1,4 @@
-export type Todo = {
+export type TodoFromResponse = {
   id: string;
   title: string;
   content: string;
@@ -7,11 +7,16 @@ export type Todo = {
   date: string;
 };
 
+export type Todo = Omit<TodoFromResponse, 'date'> & {
+  date: Date;
+};
+
 export type FetchTodosPayload = void[];
-export type FetchTodosResponse = Todo[];
+export type FetchTodosResponse = TodoFromResponse[];
+export type FetchTodosReturn = Todo[];
 export type FetchTodos = (
   ...args: FetchTodosPayload
-) => Promise<FetchTodosResponse>;
+) => Promise<FetchTodosReturn>;
 
 export type FetchTodosCountsPayload = void[];
 export type FetchTodosCountsResponse = {
@@ -24,22 +29,26 @@ export type FetchTodosCounts = (
   ...args: FetchTodosCountsPayload
 ) => Promise<FetchTodosCountsResponse>;
 
-export type CreateTodoPayload = [todo: Omit<Todo, 'isDone' | 'order'>];
-export type CreateTodoResponse = Todo;
+export type CreateTodoPayload = [
+  todo: Omit<TodoFromResponse, 'isDone' | 'order'>,
+];
+export type CreateTodoResponse = TodoFromResponse;
+export type CreateTodoReturn = Todo;
 export type CreateTodo = (
   ...args: CreateTodoPayload
-) => Promise<CreateTodoResponse>;
+) => Promise<CreateTodoReturn>;
 
 export type UpdateTodoPayload = [
-  id: Todo['id'],
-  todo: Partial<Omit<Todo, 'id'>>,
+  id: TodoFromResponse['id'],
+  todo: Partial<Omit<TodoFromResponse, 'id'>>,
 ];
-export type UpdateTodoResponse = Todo;
+export type UpdateTodoResponse = TodoFromResponse;
+export type UpdateTodoReturn = Todo;
 export type UpdateTodo = (
   ...args: UpdateTodoPayload
-) => Promise<UpdateTodoResponse>;
+) => Promise<UpdateTodoReturn>;
 
-export type DeleteTodoPayload = [id: Todo['id']];
+export type DeleteTodoPayload = [id: TodoFromResponse['id']];
 export type DeleteTodoResponse = void;
 export type DeleteTodo = (
   ...args: DeleteTodoPayload
@@ -48,11 +57,11 @@ export type DeleteTodo = (
 export type BulkDeleteTodosPayload = [
   body: {
     filters: {
-      ids?: Todo['id'][];
-      isDone?: Todo['isDone'];
+      ids?: TodoFromResponse['id'][];
+      isDone?: TodoFromResponse['isDone'];
       date?: {
-        rangeStart?: Todo['date'];
-        rangeEnd?: Todo['date'];
+        rangeStart?: TodoFromResponse['date'];
+        rangeEnd?: TodoFromResponse['date'];
       };
     };
   },

@@ -37,7 +37,7 @@ export const useTodoUpdate = () => {
           const todoToUpdate = todos.find((todo) => todo.id === variables[0]);
 
           if (!todoToUpdate) {
-            return [];
+            return todos;
           }
 
           return updateTodos({
@@ -50,14 +50,18 @@ export const useTodoUpdate = () => {
 
       return previousTodos;
     },
-    onError: (_, __, context) => {
-      queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
+    onError: (_, __, previousTodos) => {
+      queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], previousTodos);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [queryKeys.QUERY_KEY.TODOS] });
-      queryClient.invalidateQueries({
-        queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
-      });
+      return Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
+        }),
+      ]);
     },
   });
 };

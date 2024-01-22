@@ -6,20 +6,6 @@ import * as lodash from 'lodash';
 import * as dateUtils from '../../date';
 import * as dateConstants from '../../../constants/date.constants.ts';
 
-export const formatTodosForCalendar =
-  () => (response: Awaited<ReturnType<typeof api.fetchTodos>>) => {
-    const groupesByDates = lodash.groupBy(response, 'date');
-
-    return Object.fromEntries(
-      Object.entries(groupesByDates).map(([date, todos]) => {
-        return [
-          new Date(date).toDateString(),
-          todos.sort((todoA, todoB) => todoA.order - todoB.order),
-        ];
-      }),
-    );
-  };
-
 export const formatTodosByDates =
   (options?: {
     isAscSort?: boolean;
@@ -69,9 +55,18 @@ export const formatTodosByDates =
       );
     });
 
-    const filteredAndSortedTodos = options?.isAscSort
-      ? filteredTodos.reverse()
-      : filteredTodos;
+    const filteredAndSortedTodos = filteredTodos.sort((todoA, todoB) => {
+      return options?.isAscSort
+        ? todoB.order - todoA.order
+        : todoA.order - todoB.order;
+    });
 
-    return lodash.groupBy(filteredAndSortedTodos, 'date');
+    const filteredAndSortedTodosWithGroupDates = filteredAndSortedTodos.map(
+      (todo) => ({
+        ...todo,
+        groupDate: new Date(todo.date).toDateString(),
+      }),
+    );
+
+    return lodash.groupBy(filteredAndSortedTodosWithGroupDates, 'groupDate');
   };

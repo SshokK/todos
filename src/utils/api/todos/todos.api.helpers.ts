@@ -1,59 +1,24 @@
-import type { Todo } from './todos.api.types.ts';
+import type { Todo, TodoFromResponse } from './todos.api.types.ts';
 
+import * as stringUtils from '../../string';
 import * as dateUtils from '../../date';
-import * as dateConstants from '../../../constants/date.constants.ts';
 
-export const getTodosCounts = (todos: Todo[]) => {
-  return todos.reduce(
-    (counts, todo) => {
-      switch (true) {
-        case dateUtils.isBefore({
-          dateA: new Date(todo.date),
-          dateB: new Date(),
-          granularity: dateConstants.DATE_GRANULARITY.DAY,
-        }): {
-          if (!todo.isDone) {
-            return {
-              ...counts,
-              unfinishedOverdueTodos: counts.unfinishedOverdueTodos + 1,
-            };
-          }
+export const normalizeTodos = (
+  todosFromResponse: Partial<TodoFromResponse>[],
+): Todo[] => {
+  if (!Array.isArray(todosFromResponse)) {
+    return [];
+  }
 
-          return counts;
-        }
-
-        case dateUtils.isAfter({
-          dateA: new Date(todo.date),
-          dateB: new Date(),
-          granularity: dateConstants.DATE_GRANULARITY.DAY,
-        }):
-        case dateUtils.isSame({
-          dateA: new Date(todo.date),
-          dateB: new Date(),
-          granularity: dateConstants.DATE_GRANULARITY.DAY,
-        }): {
-          return {
-            ...counts,
-            unfinishedFutureTodos: todo.isDone
-              ? counts.unfinishedFutureTodos
-              : counts.unfinishedFutureTodos + 1,
-            finishedTodos: todo.isDone
-              ? counts.finishedTodos + 1
-              : counts.finishedTodos,
-          };
-        }
-
-        default: {
-          return counts;
-        }
-      }
-    },
-    {
-      finishedTodos: 0,
-      unfinishedFutureTodos: 0,
-      unfinishedOverdueTodos: 0,
-    },
-  );
+  return todosFromResponse.map((todo) => ({
+    ...todo,
+    id: todo.id || stringUtils.getRandomId(),
+    title: todo.title || '',
+    content: todo.content || '',
+    order: todo.order || 1,
+    isDone: todo.isDone || false,
+    date: todo.date ? new Date(todo.date) : dateUtils.getToday(),
+  }));
 };
 
 export const updateTodos = ({
@@ -63,7 +28,7 @@ export const updateTodos = ({
 }: {
   todos: Todo[];
   todoToUpdate: Todo;
-  payload: Partial<Omit<Todo, 'id'>>;
+  payload: Partial<Omit<TodoFromResponse, 'id'>>;
 }): Todo[] => {
   const newTodoOrder = payload.order ?? todoToUpdate.order;
   const wasMoved = newTodoOrder !== todoToUpdate.order;
@@ -75,6 +40,7 @@ export const updateTodos = ({
         {
           ...todoToUpdate,
           ...payload,
+          date: payload.date ? new Date(payload.date) : todoToUpdate.date,
         },
       ];
     }

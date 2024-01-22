@@ -70,7 +70,7 @@ export const useAppCalendarHandlers = ({
       id,
       {
         date: utils.formatDate(date, {
-          format: dateConstants.DATE_FORMATS.API_DATE,
+          format: dateConstants.DATE_FORMATS.API_DATE_TIME_WITH_Z,
         }),
       },
     ]);
@@ -85,7 +85,7 @@ export const useAppCalendarHandlers = ({
         title: '',
         content: '',
         date: utils.formatDate(utils.getToday(), {
-          format: dateConstants.DATE_FORMATS.API_DATE,
+          format: dateConstants.DATE_FORMATS.API_DATE_TIME_WITH_Z,
         }),
       },
     ]);
@@ -102,9 +102,9 @@ export const useAppCalendarHandlers = ({
       updateTodo.mutate([
         todo.id,
         {
-          order: todoIndex,
+          order: todoIndex + 1,
           date: utils.formatDate(date, {
-            format: dateConstants.DATE_FORMATS.API_DATE,
+            format: dateConstants.DATE_FORMATS.API_DATE_TIME_WITH_Z,
           }),
         },
       ]);

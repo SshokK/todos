@@ -22,7 +22,7 @@ export const useTodoItemToolbarConfig = ({
       key: 'changeDate',
       type: TOOLBAR_ELEMENT_TYPE.DATEPICKER,
       props: {
-        value: props.date,
+        value: new Date(props.date),
         onChange: onDateChange,
       },
     });

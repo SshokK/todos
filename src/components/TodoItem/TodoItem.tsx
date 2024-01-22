@@ -57,7 +57,7 @@ export const TodoItem: FC<TodoItemProps> = ({
           [styles.CLASSNAMES.stateToggleButtonOverdue]:
             !isDone &&
             utils.isBefore({
-              dateA: date,
+              dateA: new Date(date),
               dateB: utils.getToday(),
               granularity: dateConstants.DATE_GRANULARITY.DAY,
             }),

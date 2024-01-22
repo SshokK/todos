@@ -6,6 +6,8 @@ import type { ComponentType } from 'react';
 
 export type CalendarItem = {
   id: string;
+  date: Date;
+  order?: number;
   isHidden?: boolean;
   isDisabled?: boolean;
   isDragDisabled?: boolean;
@@ -13,7 +15,6 @@ export type CalendarItem = {
 };
 
 export type CalendarRowProps = {
-  date: Date;
   item: CalendarItem;
   isHighlighted?: boolean;
   onHighlightedElementRender?: (

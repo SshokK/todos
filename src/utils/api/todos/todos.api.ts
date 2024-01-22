@@ -3,26 +3,43 @@ import type * as apiTypes from './todos.api.types.ts';
 import * as requestConstants from '../../../constants/request.constants.ts';
 import * as fetch from '../../fetch';
 import * as dateUtils from '../../date';
+import * as dateConstants from '../../../constants/date.constants.ts';
+import * as apiHelpers from './todos.api.helpers.ts';
 
 export const fetchTodos: apiTypes.FetchTodos = async () => {
-  const response = await fetch.fetch<apiTypes.FetchTodosResponse>({
-    url: `${import.meta.env.VITE_API_URL}/v1/todos`,
-    method: requestConstants.HTTP_METHODS.GET,
-  });
+  try {
+    const response = await fetch.fetch<apiTypes.FetchTodosResponse>({
+      url: `${import.meta.env.VITE_API_URL}/v1/todos`,
+      method: requestConstants.HTTP_METHODS.GET,
+    });
 
-  return response.data;
+    return apiHelpers.normalizeTodos(response.data);
+  } catch (e) {
+    return [];
+  }
 };
 
 export const fetchTodosCounts: apiTypes.FetchTodosCounts = async () => {
-  const response = await fetch.fetch<apiTypes.FetchTodosCountsResponse>({
-    url: `${import.meta.env.VITE_API_URL}/v1/todos/count`,
-    method: requestConstants.HTTP_METHODS.GET,
-    queryParams: {
-      currentDate: dateUtils.getToday().toISOString(),
-    },
-  });
+  try {
+    const response = await fetch.fetch<apiTypes.FetchTodosCountsResponse>({
+      url: `${import.meta.env.VITE_API_URL}/v1/todos/count`,
+      method: requestConstants.HTTP_METHODS.GET,
+      queryParams: {
+        currentDate: dateUtils.formatDate(dateUtils.getToday(), {
+          format: dateConstants.DATE_FORMATS.API_DATE_TIME_WITH_Z,
+        }),
+      },
+    });
 
-  return response.data;
+    return response.data;
+  } catch (e) {
+    return {
+      doneCount: 0,
+      overdueCount: 0,
+      undoneCount: 0,
+      totalCount: 0,
+    };
+  }
 };
 
 export const createTodo: apiTypes.CreateTodo = async (todo) => {
@@ -32,7 +49,7 @@ export const createTodo: apiTypes.CreateTodo = async (todo) => {
     body: todo,
   });
 
-  return response.data;
+  return apiHelpers.normalizeTodos([response.data])[0];
 };
 
 export const updateTodo: apiTypes.UpdateTodo = async (id, payload) => {
@@ -42,7 +59,7 @@ export const updateTodo: apiTypes.UpdateTodo = async (id, payload) => {
     body: payload,
   });
 
-  return response.data;
+  return apiHelpers.normalizeTodos([response.data])[0];
 };
 
 export const deleteTodo: apiTypes.DeleteTodo = async (id) => {
