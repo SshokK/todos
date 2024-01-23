@@ -17,6 +17,7 @@ export const useTodosBulkDelete = () => {
     mutationFn: (variables) => {
       return api.bulkDeleteTodos(...variables);
     },
+    onError: console.error,
     onSuccess: () => {
       return Promise.all([
         queryClient.invalidateQueries({

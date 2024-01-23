@@ -2,9 +2,9 @@ import type { TodoUpdateArgs } from './useTodoUpdate.types.ts';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import * as helpers from './useTodoUpdate.helpers.ts';
 import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
 import * as api from '../../todos.api.ts';
-import { updateTodos } from '../../todos.api.helpers.ts';
 
 export const useTodoUpdate = () => {
   const queryClient = useQueryClient();
@@ -40,7 +40,7 @@ export const useTodoUpdate = () => {
             return todos;
           }
 
-          return updateTodos({
+          return helpers.updateTodos({
             todos: todos,
             todoToUpdate: todoToUpdate,
             payload: variables[1],
@@ -50,7 +50,8 @@ export const useTodoUpdate = () => {
 
       return previousTodos;
     },
-    onError: (_, __, previousTodos) => {
+    onError: (e, _, previousTodos) => {
+      console.error(e);
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], previousTodos);
     },
     onSettled: () => {

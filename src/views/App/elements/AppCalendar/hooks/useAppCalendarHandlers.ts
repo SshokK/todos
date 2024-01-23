@@ -69,6 +69,7 @@ export const useAppCalendarHandlers = ({
     updateTodo.mutate([
       id,
       {
+        order: 0,
         date: utils.formatDate(date, {
           format: dateConstants.DATE_FORMATS.API_DATE_TIME_WITH_Z,
         }),

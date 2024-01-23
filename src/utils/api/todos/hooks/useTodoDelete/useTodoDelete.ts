@@ -33,19 +33,14 @@ export const useTodoDelete = () => {
             return [];
           }
 
-          return todos.flatMap((todo) => {
-            if (todo.id === variables[0]) {
-              return [];
-            }
-
-            return [todo];
-          });
+          return todos.filter((todo) => todo.id !== variables[0]);
         },
       );
 
       return previousTodos;
     },
-    onError: (_, __, context) => {
+    onError: (e, _, context) => {
+      console.error(e);
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
     },
     onSettled: () => {

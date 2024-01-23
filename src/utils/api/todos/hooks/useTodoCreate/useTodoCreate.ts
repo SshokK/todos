@@ -59,7 +59,8 @@ export const useTodoCreate = () => {
 
       return previousTodos;
     },
-    onError: (_, __, context) => {
+    onError: (e, _, context) => {
+      console.error(e);
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
     },
     onSettled: () => {

@@ -3,6 +3,7 @@ import * as requestConstants from '../../constants/request.constants.ts';
 import queryString from 'query-string';
 
 import * as errorUtils from '../errors';
+import * as helpers from './fetch.helpers.ts';
 
 export const fetch = async <T = unknown>(args: {
   url: string;
@@ -34,15 +35,17 @@ export const fetch = async <T = unknown>(args: {
     },
   );
 
+  const data = (await helpers.getJSON(response)) as T;
+
   if (!response.ok) {
     throw new errorUtils.FetchError({
-      data: await response.json(),
+      data: data,
       status: response.status,
     });
   }
 
   return {
-    data: (await response.json()) as T,
+    data: data,
     status: response.status,
   };
 };
