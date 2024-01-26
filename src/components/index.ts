@@ -20,6 +20,7 @@ export * from './Sidebar';
 export * from './Status';
 export * from './StrictModeDroppable';
 export * from './TextField';
+export * from './Toast';
 export * from './TodoItem';
 export * from './Toolbar';
 export * from './Tooltip';

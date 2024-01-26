@@ -1,13 +1,15 @@
 import type { TodoUpdateArgs } from './useTodoUpdate.types.ts';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
 import * as helpers from './useTodoUpdate.helpers.ts';
 import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
 import * as api from '../../todos.api.ts';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryErrorToast } from '../../../../hooks';
+
 export const useTodoUpdate = () => {
   const queryClient = useQueryClient();
+  const errorToast = useQueryErrorToast();
 
   return useMutation<
     Awaited<ReturnType<typeof api.updateTodo>>,
@@ -51,7 +53,7 @@ export const useTodoUpdate = () => {
       return previousTodos;
     },
     onError: (e, _, previousTodos) => {
-      console.error(e);
+      errorToast.show(e);
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], previousTodos);
     },
     onSettled: () => {

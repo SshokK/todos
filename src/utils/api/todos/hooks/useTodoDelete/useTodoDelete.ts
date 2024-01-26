@@ -1,12 +1,14 @@
 import type { TodoDeleteArgs } from './useTodoDelete.types.ts';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
 import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
 import * as api from '../../todos.api.ts';
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryErrorToast } from '../../../../hooks';
+
 export const useTodoDelete = () => {
   const queryClient = useQueryClient();
+  const errorToast = useQueryErrorToast();
 
   return useMutation<
     Awaited<ReturnType<typeof api.deleteTodo>>,
@@ -40,7 +42,7 @@ export const useTodoDelete = () => {
       return previousTodos;
     },
     onError: (e, _, context) => {
-      console.error(e);
+      errorToast.show(e);
       queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
     },
     onSettled: () => {
