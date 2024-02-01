@@ -11,7 +11,14 @@ export type Todo = Omit<TodoFromResponse, 'date'> & {
   date: Date;
 };
 
-export type FetchTodosPayload = void[];
+export type FetchTodosPayload = [
+  params?: {
+    id?: TodoFromResponse['id'][];
+    dateRangeStart?: TodoFromResponse['date'];
+    dateRangeEnd?: TodoFromResponse['date'];
+    isDone?: TodoFromResponse['isDone'];
+  },
+];
 export type FetchTodosResponse = TodoFromResponse[];
 export type FetchTodosReturn = Todo[];
 export type FetchTodos = (

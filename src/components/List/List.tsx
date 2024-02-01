@@ -7,7 +7,7 @@ import * as styles from './List.styles.ts';
 import * as elements from './elements';
 
 export const List = react.forwardRef<HTMLElement, ListProps>(
-  ({ items, onItemRender }, ref) => {
+  ({ items, onItemRender, overscan, onEndReach, components }, ref) => {
     return (
       <reactVirtuoso.Virtuoso
         {...(Boolean(ref) && {
@@ -18,10 +18,17 @@ export const List = react.forwardRef<HTMLElement, ListProps>(
         data={items}
         style={styles.STYLES.virtualizedList}
         components={{
+          ...components,
           Item: elements.ListHeightPreservingItem,
         }}
+        overscan={overscan}
         itemContent={(index, item) => onItemRender(item, index)}
+        endReached={onEndReach}
       />
     );
   },
 );
+
+List.defaultProps = {
+  overscan: 0,
+};

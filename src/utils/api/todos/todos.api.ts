@@ -6,10 +6,11 @@ import * as dateUtils from '../../date';
 import * as dateConstants from '../../../constants/date.constants.ts';
 import * as apiHelpers from './todos.api.helpers.ts';
 
-export const fetchTodos: apiTypes.FetchTodos = async () => {
+export const fetchTodos: apiTypes.FetchTodos = async (queryParams) => {
   const response = await fetch.fetch<apiTypes.FetchTodosResponse>({
     url: `${import.meta.env.VITE_API_URL}/v1/todos`,
     method: requestConstants.HTTP_METHODS.GET,
+    queryParams: queryParams,
   });
 
   return apiHelpers.normalizeTodos(response.data);

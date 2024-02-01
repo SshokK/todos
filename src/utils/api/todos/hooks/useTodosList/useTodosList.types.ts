@@ -7,6 +7,7 @@ export type TodosListSelector = QuerySelector<
 >;
 
 export type TodosListArgs<S extends TodosListSelector> = {
+  queryParams?: Parameters<typeof api.fetchTodos>[0];
   options?: {
     selector?: S;
   };

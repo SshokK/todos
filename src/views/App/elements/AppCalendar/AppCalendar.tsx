@@ -6,6 +6,7 @@ import * as components from 'components';
 import * as elements from './elements';
 
 import { useTranslation } from 'react-i18next';
+import { useAppCalendar } from 'contexts';
 import {
   useAppCalendarData,
   useAppCalendarHandlers,
@@ -16,8 +17,9 @@ import {
 export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
   const { t } = useTranslation();
 
-  const { localState, localActions, storeData, formattedData } =
-    useAppCalendarData();
+  const appCalendar = useAppCalendar();
+
+  const { localState, localActions, formattedData } = useAppCalendarData();
 
   const handlers = useAppCalendarHandlers({
     localActions,
@@ -40,7 +42,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
     >
       <elements.AppCalendarHeader tools={headerTools} />
       <components.Calendar
-        date={storeData.date}
+        date={appCalendar.date}
         whitelistedDates={formattedData.whitelistedDates}
         noDatesMessage={t(
           'views.App.AppCalendar.noItemsMessage',
@@ -51,7 +53,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
         onItemOrderChange={handlers.handleTodoItemOrderChange}
         shouldUseOnlyFadeAnimation={localState.isSearchFocused}
         onItemDelete={handlers.handleTodoItemDelete}
-        highlightedItemId={storeData.highlightedTodoId}
+        highlightedItemId={appCalendar.highlightedTodoId}
         onHighlightedElementRender={handlers.handleHighlightedElementRender}
         items={queries.todosList.data}
         ItemComponent={components.TodoItem}

@@ -38,6 +38,7 @@ export const NoItemsMessage: FC<NoItemsMessageProps> = ({
             type={TYPOGRAPHY_TYPE.SUBTITLE}
             size={TYPOGRAPHY_SIZE.SM}
             textAlignment={TYPOGRAPHY_TEXT_ALIGNMENT.CENTER}
+            shouldTruncate
           >
             {children}
           </Typography>

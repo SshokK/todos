@@ -20,10 +20,10 @@ export const useTodosList = <S extends TodosListSelector>(
       ? ReturnType<S>
       : Awaited<ReturnType<typeof api.fetchTodos>>
   >({
-    queryKey: [queryKeys.QUERY_KEY.TODOS],
+    queryKey: [queryKeys.QUERY_KEY.TODOS, args.queryParams],
     queryFn: async () => {
       try {
-        return await api.fetchTodos();
+        return await api.fetchTodos(args.queryParams);
       } catch (e) {
         errorToast.show(e);
 

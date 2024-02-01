@@ -1,23 +1,21 @@
 import type { Variants, Transition } from 'framer-motion';
 
 export enum ANIMATION_NAME {
-  OPEN = 'open',
-  CLOSED = 'closed',
+  INITIAL = 'initial',
+  ACTIVE = 'active',
+  EXIT = 'exit',
 }
 
-export const INITIAL = {
-  opacity: 0,
-  x: '100%',
-  width: 0,
-};
-
 export const VARIANTS: Variants = {
-  [ANIMATION_NAME.OPEN]: {
-    opacity: 1,
-    x: 0,
-    width: '30rem',
+  [ANIMATION_NAME.INITIAL]: {
+    opacity: 0,
   },
-  [ANIMATION_NAME.CLOSED]: INITIAL,
+  [ANIMATION_NAME.ACTIVE]: {
+    opacity: 1,
+  },
+  [ANIMATION_NAME.EXIT]: {
+    opacity: 0,
+  },
 };
 
 export const TRANSITION: Transition = {

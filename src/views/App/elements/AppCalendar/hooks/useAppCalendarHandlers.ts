@@ -1,13 +1,11 @@
 import type { AppCalendarHandlers } from './useAppCalendarHandlers.types.ts';
 import type { AppCalendarData } from './useAppCalendarData.types.ts';
 
-import * as store from 'store';
 import * as dateConstants from '../../../../../constants/date.constants.ts';
 import * as utils from 'utils';
 
-import { useStore } from 'store';
 import { useTodoCreate, useTodoDelete, useTodoUpdate } from 'utils';
-import { useHighlighter, useSidebars } from 'contexts';
+import { useAppCalendar, useHighlighter, useSidebars } from 'contexts';
 import { useCallback } from 'react';
 
 export const useAppCalendarHandlers = ({
@@ -15,22 +13,23 @@ export const useAppCalendarHandlers = ({
 }: {
   localActions: AppCalendarData['localActions'];
 }): AppCalendarHandlers => {
-  const appCalendarState = useStore(store.getAppCalendarState);
+  const appCalendar = useAppCalendar();
 
   const createTodo = useTodoCreate();
   const updateTodo = useTodoUpdate();
   const deleteTodo = useTodoDelete();
 
   const sidebars = useSidebars();
+
   const highlighter = useHighlighter({
-    onHighlightEnd: () => appCalendarState.setHighlightedTodo(null),
+    onHighlightEnd: () => appCalendar.setHighlightedTodoId(null),
   });
 
   const handleDateChange: AppCalendarHandlers['handleDateChange'] = useCallback(
     (date) => {
-      appCalendarState.setDate(date);
+      appCalendar.setDate(date);
     },
-    [appCalendarState],
+    [appCalendar],
   );
 
   const handleTodoClick: AppCalendarHandlers['handleTodoClick'] =
@@ -78,7 +77,7 @@ export const useAppCalendarHandlers = ({
   };
 
   const handleTodoItemAdd: AppCalendarHandlers['handleTodoItemAdd'] = () => {
-    appCalendarState.setDate(utils.getToday());
+    appCalendar.setDate(utils.getToday());
 
     createTodo.mutate([
       {

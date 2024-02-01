@@ -14,7 +14,14 @@ export const App: FC = () => {
 
   return (
     <>
-      <elements.AppCalendar headerTools={<components.LanguagesMenu />} />
+      <elements.AppCalendar
+        headerTools={
+          <>
+            <components.LanguagesMenu />
+            <elements.AppHelp />
+          </>
+        }
+      />
     </>
   );
 };
