@@ -1,4 +1,5 @@
 import type { CalendarColumnProps } from '../CalendarColumn.types.ts';
+import type { CalendarColumnData } from './useCalendarColumnData.types.ts';
 
 import * as utils from 'utils';
 import * as dateConstants from '../../../../../constants/date.constants.ts';
@@ -8,7 +9,7 @@ export const getColumnItems = ({
   items,
 }: {
   date: CalendarColumnProps['date'];
-  items: CalendarColumnProps['items'];
+  items: CalendarColumnData['localState']['items'];
 }) => {
   return items
     .filter((item) =>

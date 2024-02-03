@@ -5,6 +5,7 @@ export * from './Checkbox';
 export * from './ClearButton';
 export * from './DatePicker';
 export * from './Highlighter';
+export * from './IconLoader';
 export * from './IconButton';
 export * from './Icons';
 export * from './LanguagesMenu';

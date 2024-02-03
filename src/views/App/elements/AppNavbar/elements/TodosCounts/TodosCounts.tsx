@@ -25,10 +25,15 @@ export const TodosCounts: FC = () => {
               )}
             >
               <div className={styles.CLASSNAMES.countContainer}>
-                <config.Icon
-                  className={
-                    styles.CLASSNAMES[countType as constants.TODOS_COUNT_TYPE]
-                  }
+                <components.IconLoader
+                  isLoading={queries.todosCounts.isFetching}
+                  Icon={config.Icon}
+                  classNames={{
+                    container:
+                      styles.CLASSNAMES[
+                        countType as constants.TODOS_COUNT_TYPE
+                      ],
+                  }}
                 />
                 <div className={styles.CLASSNAMES.countBadge}>
                   {queries.todosCounts.data[config.dataKey]}

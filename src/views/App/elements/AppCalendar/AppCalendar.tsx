@@ -4,13 +4,13 @@ import type { AppCalendarProps } from './AppCalendar.types.ts';
 import * as styles from './AppCalendar.styles.ts';
 import * as components from 'components';
 import * as elements from './elements';
+import * as queryKeys from '../../../../constants/query-keys.constants.ts';
 
 import { useTranslation } from 'react-i18next';
 import { useAppCalendar } from 'contexts';
 import {
   useAppCalendarData,
   useAppCalendarHandlers,
-  useAppCalendarQueries,
   useAppCalendarToolbarConfigRenderer,
 } from './hooks';
 
@@ -25,8 +25,6 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
     localActions,
   });
 
-  const queries = useAppCalendarQueries();
-
   const calendarToolbarConfigRenderer = useAppCalendarToolbarConfigRenderer({
     onTodoItemAdd: handlers.handleTodoItemAdd,
     onSearchChange: handlers.handleSearchChange,
@@ -35,7 +33,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
 
   return (
     <components.Loader
-      isVisible={queries.todosList.isLoading}
+      isVisible={false}
       classNames={{
         outerContainer: styles.CLASSNAMES.calendarContainer,
       }}
@@ -43,6 +41,10 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
       <elements.AppCalendarHeader tools={headerTools} />
       <components.Calendar
         date={appCalendar.date}
+        queryOptions={{
+          queryFn: handlers.handleItemsFetch,
+          queryKey: [queryKeys.QUERY_KEY.TODOS],
+        }}
         whitelistedDates={formattedData.whitelistedDates}
         noDatesMessage={t(
           'views.App.AppCalendar.noItemsMessage',
@@ -55,7 +57,6 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
         onItemDelete={handlers.handleTodoItemDelete}
         highlightedItemId={appCalendar.highlightedTodoId}
         onHighlightedElementRender={handlers.handleHighlightedElementRender}
-        items={queries.todosList.data}
         ItemComponent={components.TodoItem}
         itemComponentProps={{
           onDateChange: handlers.handleTodoDateChange,

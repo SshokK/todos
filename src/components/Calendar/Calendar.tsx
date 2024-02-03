@@ -15,6 +15,7 @@ import {
 
 export const Calendar: FC<CalendarProps> = ({
   date,
+  queryOptions,
   whitelistedDates,
   shouldUseOnlyFadeAnimation,
   highlightedItemId,
@@ -81,6 +82,7 @@ export const Calendar: FC<CalendarProps> = ({
             <elements.CalendarColumn
               key={date.toDateString()}
               date={date}
+              queryOptions={queryOptions}
               highlightedItemId={highlightedItemId}
               onHighlightedElementRender={onHighlightedElementRender}
               items={items}

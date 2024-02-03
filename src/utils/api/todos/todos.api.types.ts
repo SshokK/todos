@@ -1,3 +1,5 @@
+import type * as sortConstants from '../../../constants/sort-constants.ts';
+
 export type TodoFromResponse = {
   id: string;
   title: string;
@@ -13,7 +15,11 @@ export type Todo = Omit<TodoFromResponse, 'date'> & {
 
 export type FetchTodosPayload = [
   params?: {
+    limit: number;
+    offset: number;
     id?: TodoFromResponse['id'][];
+    sortField?: keyof Todo;
+    sortOrder?: sortConstants.SORT_ORDER;
     dateRangeStart?: TodoFromResponse['date'];
     dateRangeEnd?: TodoFromResponse['date'];
     isDone?: TodoFromResponse['isDone'];
@@ -25,16 +31,23 @@ export type FetchTodos = (
   ...args: FetchTodosPayload
 ) => Promise<FetchTodosReturn>;
 
-export type FetchTodosCountsPayload = void[];
-export type FetchTodosCountsResponse = {
+export type FetchTodosCountsAggregationsPayload = void[];
+export type FetchTodosCountsAggregationsResponse = {
   doneCount: number;
   undoneCount: number;
   overdueCount: number;
-  totalCount: number;
 };
-export type FetchTodosCounts = (
-  ...args: FetchTodosCountsPayload
-) => Promise<FetchTodosCountsResponse>;
+export type FetchTodosCountAggregations = (
+  ...args: FetchTodosCountsAggregationsPayload
+) => Promise<FetchTodosCountsAggregationsResponse>;
+
+export type FetchTodosTotalCountPayload = [
+  params: Omit<FetchTodosPayload[0], 'limit' | 'offset'>,
+];
+export type FetchTodosTotalCountResponse = number;
+export type FetchTodosTotalCount = (
+  ...args: FetchTodosTotalCountPayload
+) => Promise<FetchTodosTotalCountResponse>;
 
 export type CreateTodoPayload = [
   todo: Omit<TodoFromResponse, 'isDone' | 'order'>,

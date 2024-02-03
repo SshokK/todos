@@ -1,31 +1,31 @@
 import type {
-  TodosCountsArgs,
-  TodosCountsSelector,
-} from './useTodosCounts.types.ts';
+  TodosTotalCountSelector,
+  TodosTotalCountArgs,
+} from './useTodosTotalCount.types.ts';
 
 import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
 import * as api from '../../todos.api.ts';
-import * as constants from './useTodosCounts.constants.ts';
+import * as constants from './useTodosTotalCount.constants.ts';
 
 import { useQuery } from '@tanstack/react-query';
 import { useQueryErrorToast } from '../../../../hooks';
 
-export const useTodosCounts = <S extends TodosCountsSelector>(
-  args: TodosCountsArgs<S> = {},
+export const useTodosTotalCount = <S extends TodosTotalCountSelector>(
+  args: TodosTotalCountArgs<S> = {},
 ) => {
   const errorToast = useQueryErrorToast();
 
   return useQuery<
-    Awaited<ReturnType<typeof api.fetchTodosCounts>>,
+    Awaited<ReturnType<typeof api.fetchTodosTotalCount>>,
     Error,
-    S extends TodosCountsSelector
+    S extends TodosTotalCountSelector
       ? ReturnType<S>
-      : Awaited<ReturnType<typeof api.fetchTodosCounts>>
+      : Awaited<ReturnType<typeof api.fetchTodosTotalCount>>
   >({
-    queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
+    queryKey: [queryKeys.QUERY_KEY.TODOS_TOTAL_COUNT, args.queryParams],
     queryFn: async () => {
       try {
-        return await api.fetchTodosCounts();
+        return await api.fetchTodosTotalCount(args.queryParams ?? {});
       } catch (e) {
         errorToast.show(e);
 

@@ -2,6 +2,10 @@ import type { ComponentProps, ReactNode } from 'react';
 import type * as components from 'components';
 
 export type AppCalendarHandlers = {
+  handleItemsFetch: Required<
+    Required<ComponentProps<typeof components.Calendar>>['queryOptions']
+  >['queryFn'];
+
   handleDateChange: Required<
     ComponentProps<typeof components.Calendar>
   >['onDateChange'];

@@ -1,9 +1,19 @@
 import type { ComponentProps, ComponentType } from 'react';
 import type * as elements from './elements';
+import type * as reactQuery from '@tanstack/react-query';
 
 export type CalendarColumnProps = {
   date: Date;
-  items: elements.CalendarItem[];
+
+  queryOptions?: {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (queryParams: {
+      limit: number;
+      offset: number;
+      date: Date;
+    }) => Promise<elements.CalendarItem[]>;
+  };
+  items?: elements.CalendarItem[];
   highlightedItemId?: elements.CalendarItem['id'] | null;
   onHighlightedElementRender?: ComponentProps<
     typeof elements.CalendarRow

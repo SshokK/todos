@@ -15,9 +15,11 @@ import * as utils from 'utils';
 
 import { useTranslation } from 'react-i18next';
 import { useCalendarColumnData } from './hooks';
+import { useCalendarColumnQueries } from './hooks/useCalendarColumnQueries.ts';
 
 export const CalendarColumn: FC<CalendarColumnProps> = ({
   date,
+  queryOptions,
   isDropDisabled,
   highlightedItemId,
   onHighlightedElementRender,
@@ -27,9 +29,18 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { formattedData } = useCalendarColumnData({
+  const { localState, localActions, formattedData } = useCalendarColumnData({
     date,
     items,
+  });
+
+  useCalendarColumnQueries({
+    props: {
+      date,
+      queryOptions,
+    },
+    localState,
+    localActions,
   });
 
   return (

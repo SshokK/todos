@@ -48,7 +48,10 @@ export const AppNavbar: FC = () => {
           ),
         )}
         <components.NoItemsMessage
-          isVisible={!Object.entries(queries.todosList.data ?? {}).length}
+          isVisible={
+            queries.todosTotalCount.data === 0 &&
+            !queries.todosTotalCount.isFetching
+          }
         >
           {localState.searchString
             ? t(

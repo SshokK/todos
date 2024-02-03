@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import * as constants from './TodosCounts.constants.ts';
 
 export const CLASSNAMES = {
-  iconsContainer: classnames('flex', 'items-center', 'gap-6', 'text-lg'),
+  iconsContainer: classnames('flex', 'items-center', 'gap-1', 'text-lg'),
 
   countContainer: classnames('relative', 'flex', 'flex-col', 'gap-1'),
 

@@ -87,7 +87,7 @@ export const useCalendarHandlers = ({
 
     const { source, destination, draggableId } = result;
 
-    const changedItem = props.items.find((item) => item.id === draggableId);
+    const changedItem = props.items?.find((item) => item.id === draggableId);
 
     if (!destination || !changedItem) {
       return;

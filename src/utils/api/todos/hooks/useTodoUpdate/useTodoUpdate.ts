@@ -62,7 +62,10 @@ export const useTodoUpdate = () => {
           queryKey: [queryKeys.QUERY_KEY.TODOS],
         }),
         queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNTS],
+          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNT_AGGREGATIONS],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.QUERY_KEY.TODOS_TOTAL_COUNT],
         }),
       ]);
     },

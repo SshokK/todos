@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import type { useTodosCounts } from 'utils';
+import type { useTodosCountAggregations } from 'utils';
 
 import * as components from 'components';
 
@@ -15,7 +15,7 @@ export const TODOS_COUNT_CONFIG: Record<
     Icon: ComponentType<Record<string, unknown>>;
     tooltipTitleTranslation: string;
     tooltipTitleFallback: string;
-    dataKey: keyof ReturnType<typeof useTodosCounts>['data'];
+    dataKey: keyof ReturnType<typeof useTodosCountAggregations>['data'];
   }
 > = {
   [TODOS_COUNT_TYPE.OVERDUE]: {

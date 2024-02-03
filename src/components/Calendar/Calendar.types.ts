@@ -2,9 +2,11 @@ import type { ComponentProps, ReactNode } from 'react';
 import type * as elements from './elements';
 
 export type CalendarProps = {
-  items: elements.CalendarItem[];
+  items?: elements.CalendarItem[];
 
   date?: Date;
+
+  queryOptions?: ComponentProps<typeof elements.CalendarColumn>['queryOptions'];
 
   highlightedItemId?: ComponentProps<
     typeof elements.CalendarColumn

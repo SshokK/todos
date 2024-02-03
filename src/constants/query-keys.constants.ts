@@ -1,4 +1,5 @@
 export enum QUERY_KEY {
   TODOS = 'todos',
-  TODOS_COUNTS = 'todosCounts',
+  TODOS_COUNT_AGGREGATIONS = 'todosCountAggregations',
+  TODOS_TOTAL_COUNT = 'todosTotalCount',
 }

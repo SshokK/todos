@@ -25,6 +25,18 @@ export const useAppCalendarHandlers = ({
     onHighlightEnd: () => appCalendar.setHighlightedTodoId(null),
   });
 
+  const handleItemsFetch: AppCalendarHandlers['handleItemsFetch'] = useCallback(
+    ({ limit, offset, date }) => {
+      return utils.fetchTodos({
+        limit: limit,
+        offset: offset,
+        dateRangeStart: utils.getStartOfDay(date).toISOString(),
+        dateRangeEnd: utils.getEndOfDay(date).toISOString(),
+      });
+    },
+    [],
+  );
+
   const handleDateChange: AppCalendarHandlers['handleDateChange'] = useCallback(
     (date) => {
       appCalendar.setDate(date);
@@ -136,6 +148,7 @@ export const useAppCalendarHandlers = ({
     );
 
   return {
+    handleItemsFetch,
     handleDateChange,
     handleTodoClick,
     handleTodoTitleChange,
