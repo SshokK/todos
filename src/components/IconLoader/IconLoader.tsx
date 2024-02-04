@@ -1,14 +1,14 @@
 import type { IconLoaderProps } from './IconLoader.types.ts';
 
 import * as react from 'react';
-import * as elements from './elements';
 import * as styles from './IconLoader.styles.ts';
-import * as framerMotion from 'framer-motion';
+
+import { Spinner } from '../Spinner';
 
 import classnames from 'classnames';
 
 export const IconLoader = react.forwardRef<HTMLDivElement, IconLoaderProps>(
-  ({ isLoading, Icon, classNames }) => {
+  ({ isLoading, Icon, spinnerWidth, classNames }) => {
     return (
       <div
         className={classnames(
@@ -16,16 +16,11 @@ export const IconLoader = react.forwardRef<HTMLDivElement, IconLoaderProps>(
           classNames?.container,
         )}
       >
-        <framerMotion.AnimatePresence>
-          {isLoading && (
-            <elements.Spinner
-              className={classnames(
-                styles.CLASSNAMES.spinner,
-                classNames?.spinner,
-              )}
-            />
-          )}
-        </framerMotion.AnimatePresence>
+        <Spinner
+          isVisible={isLoading}
+          width={spinnerWidth}
+          className={classnames(styles.CLASSNAMES.spinner, classNames?.spinner)}
+        />
         <Icon className={classNames?.icon} />
       </div>
     );

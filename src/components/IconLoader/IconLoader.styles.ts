@@ -9,5 +9,5 @@ export const CLASSNAMES = {
     'items-center',
   ),
 
-  spinner: classnames('absolute'),
+  spinner: classnames('absolute', 'w-[2em]', 'h-[2em]'),
 };

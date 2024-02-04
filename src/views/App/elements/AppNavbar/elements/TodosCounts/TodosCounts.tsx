@@ -28,6 +28,7 @@ export const TodosCounts: FC = () => {
                 <components.IconLoader
                   isLoading={queries.todosCounts.isFetching}
                   Icon={config.Icon}
+                  spinnerWidth={components.SPINNER_WIDTH.SM}
                   classNames={{
                     container:
                       styles.CLASSNAMES[

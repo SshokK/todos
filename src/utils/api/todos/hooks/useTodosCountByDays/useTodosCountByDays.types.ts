@@ -2,11 +2,11 @@ import type { QuerySelector } from '../../../../../types';
 
 import type * as api from '../../todos.api.ts';
 
-export type TodosTotalCountArgs<D> = {
-  queryParams?: Parameters<typeof api.fetchTodosTotalCount>[0];
+export type TodosCountByDaysArgs<D> = {
+  queryParams: Parameters<typeof api.fetchTodosCountByDays>[0];
   options?: {
     selector?: QuerySelector<
-      Awaited<ReturnType<typeof api.fetchTodosTotalCount>>,
+      Awaited<ReturnType<typeof api.fetchTodosCountByDays>>,
       D
     >;
   };

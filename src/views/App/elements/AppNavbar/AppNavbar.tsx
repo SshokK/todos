@@ -2,7 +2,6 @@ import type { FC } from 'react';
 
 import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
-import * as framerMotion from 'framer-motion';
 import * as elements from './elements';
 import * as constants from './AppNavbar.constants.ts';
 
@@ -35,22 +34,19 @@ export const AppNavbar: FC = () => {
         }}
       />
       <elements.TodosCounts />
-      <framerMotion.motion.div
-        className={styles.CLASSNAMES.upcomingTodosContainer}
-      >
-        {Object.entries(queries.todosList.data ?? {}).flatMap(
-          ([date, todos]) => (
-            <elements.TodosGroup
-              key={date}
-              date={new Date(date)}
-              todos={todos}
-            />
-          ),
-        )}
+      <div className={styles.CLASSNAMES.upcomingTodosContainer}>
+        {queries.todosCountByDays.data.map((todosCountByDay) => (
+          <elements.TodosGroup
+            key={todosCountByDay.dateRangeStart.toDateString()}
+            dateRangeStart={todosCountByDay.dateRangeStart}
+            dateRangeEnd={todosCountByDay.dateRangeEnd}
+            searchString={localState.searchString}
+          />
+        ))}
         <components.NoItemsMessage
           isVisible={
-            queries.todosTotalCount.data === 0 &&
-            !queries.todosTotalCount.isFetching
+            !queries.todosCountByDays.data.length &&
+            !queries.todosCountByDays.isFetching
           }
         >
           {localState.searchString
@@ -63,7 +59,7 @@ export const AppNavbar: FC = () => {
                 'No unfinished todos for today',
               )}
         </components.NoItemsMessage>
-      </framerMotion.motion.div>
+      </div>
     </div>
   );
 };

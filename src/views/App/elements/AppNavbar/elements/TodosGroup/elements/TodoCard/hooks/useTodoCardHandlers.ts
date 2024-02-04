@@ -9,7 +9,7 @@ import { useAppCalendar } from 'contexts';
 export const useTodoCardHandlers = ({
   props,
 }: {
-  props: Pick<TodoCardProps, 'todo' | 'date'>;
+  props: Pick<TodoCardProps, 'todo'>;
 }): TodoCardHandlers => {
   const appCalendar = useAppCalendar();
 
@@ -18,12 +18,12 @@ export const useTodoCardHandlers = ({
       Math.abs(
         utils.getDiff({
           dateA: appCalendar.date,
-          dateB: props.date,
+          dateB: props.todo.date,
           granularity: dateConstants.DATE_GRANULARITY.DAY,
         }),
       ) > 1
     ) {
-      appCalendar.setDate(props.date);
+      appCalendar.setDate(props.todo.date);
     }
 
     appCalendar.setHighlightedTodoId(props.todo.id);

@@ -1,7 +1,7 @@
-import { useTodosCountAggregations } from 'utils';
+import { useTodosCountByStatus } from 'utils';
 
 export const useTodosCountsQueries = () => {
-  const todosCounts = useTodosCountAggregations();
+  const todosCounts = useTodosCountByStatus();
 
   return {
     todosCounts,

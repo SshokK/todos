@@ -26,19 +26,11 @@ export const CLEAR_REQUEST_BODY_GETTERS: Record<
   CLEAR_TYPE,
   () => Parameters<typeof utils.bulkDeleteTodos>
 > = {
-  [CLEAR_TYPE.FULL]: () => [
-    {
-      filters: {},
-    },
-  ],
+  [CLEAR_TYPE.FULL]: () => [{}],
   [CLEAR_TYPE.OVERDUE_ONLY]: () => [
     {
-      filters: {
-        isDone: false,
-        date: {
-          rangeEnd: utils.getToday().toISOString(),
-        },
-      },
+      isDone: false,
+      dateRangeEnd: utils.getToday().toISOString(),
     },
   ],
 };

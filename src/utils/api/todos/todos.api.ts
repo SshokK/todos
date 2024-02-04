@@ -15,11 +15,11 @@ export const fetchTodos: apiTypes.FetchTodos = async (queryParams) => {
   return apiHelpers.normalizeTodos(response.data);
 };
 
-export const fetchTodosCountAggregations: apiTypes.FetchTodosCountAggregations =
+export const fetchTodosCountByStatus: apiTypes.FetchTodosCountByStatus =
   async () => {
     const response =
-      await fetch.fetch<apiTypes.FetchTodosCountsAggregationsResponse>({
-        url: `${import.meta.env.VITE_API_URL}/v1/todos/count-aggregations`,
+      await fetch.fetch<apiTypes.FetchTodosCountByStatusResponse>({
+        url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-status`,
         method: requestConstants.HTTP_METHODS.GET,
         queryParams: {
           currentDate: dateUtils.getToday().toISOString(),
@@ -28,6 +28,18 @@ export const fetchTodosCountAggregations: apiTypes.FetchTodosCountAggregations =
 
     return response.data;
   };
+
+export const fetchTodosCountByDays: apiTypes.FetchTodosCountByDays = async (
+  queryParams,
+) => {
+  const response = await fetch.fetch<apiTypes.FetchTodosCountByDaysResponse>({
+    url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-days`,
+    method: requestConstants.HTTP_METHODS.GET,
+    queryParams: queryParams,
+  });
+
+  return apiHelpers.normalizeTodosCountByDays(response.data);
+};
 
 export const fetchTodosTotalCount: apiTypes.FetchTodosTotalCount = async (
   params,
@@ -70,11 +82,13 @@ export const deleteTodo: apiTypes.DeleteTodo = async (id) => {
   return response.data;
 };
 
-export const bulkDeleteTodos: apiTypes.BulkDeleteTodos = async (payload) => {
+export const bulkDeleteTodos: apiTypes.BulkDeleteTodos = async (
+  queryParams,
+) => {
   const response = await fetch.fetch<apiTypes.BulkDeleteTodosResponse>({
     url: `${import.meta.env.VITE_API_URL}/v1/todos`,
     method: requestConstants.HTTP_METHODS.DELETE,
-    body: payload,
+    queryParams: queryParams,
   });
 
   return response.data;

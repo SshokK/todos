@@ -5,36 +5,42 @@ import * as framerMotion from 'framer-motion';
 import * as styles from '../TodosGroup/TodosGroup.styles.ts';
 import * as constants from './TodosGroup.constants.ts';
 import * as elements from './elements';
-import * as animations from './TodosGroup.animations.ts';
+
+import { useTodosGroupQueries } from './hooks';
 
 export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
-  ({ date, todos }, ref) => {
+  ({ dateRangeStart, dateRangeEnd, searchString }, ref) => {
+    const queries = useTodosGroupQueries({
+      props: {
+        dateRangeStart,
+        dateRangeEnd,
+        searchString,
+      },
+    });
+
     return (
-      <framerMotion.motion.div
-        ref={ref}
-        className={styles.CLASSNAMES.container}
-        initial={animations.ANIMATION_NAME.ENTER}
-        animate={animations.ANIMATION_NAME.ACTIVE}
-        exit={animations.ANIMATION_NAME.EXIT}
-        variants={animations.CONTAINER_VARIANTS}
-      >
+      <div ref={ref} className={styles.CLASSNAMES.container}>
         <framerMotion.AnimatePresence initial={false} mode="popLayout">
-          <elements.TodosGroupHeader key={date.toDateString()} date={date} />
-          {todos.flatMap((todo, i) => {
+          <elements.TodosGroupHeader
+            key={dateRangeStart.toDateString()}
+            date={dateRangeStart}
+            isLoading={
+              queries.todosTotalCount.isFetching && queries.todos.isFetching
+            }
+          />
+          {queries.todos.data.flatMap((todo, i) => {
             if (i < constants.VISIBLE_TODOS_COUNT) {
-              return (
-                <elements.TodoCard key={todo.id} date={date} todo={todo} />
-              );
+              return <elements.TodoCard key={todo.id} todo={todo} />;
             }
           })}
-          {todos.length > constants.VISIBLE_TODOS_COUNT && (
+          {queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT > 0 && (
             <elements.RemainingTodosCount
-              todosCount={todos.length}
+              todosCount={queries.todosTotalCount.data}
               visibleTodosCount={constants.VISIBLE_TODOS_COUNT}
             />
           )}
         </framerMotion.AnimatePresence>
-      </framerMotion.motion.div>
+      </div>
     );
   },
 );

@@ -1,6 +1,5 @@
-import type { Todo } from 'utils';
-
 export type TodosGroupProps = {
-  date: Date;
-  todos: Todo[];
+  searchString?: string;
+  dateRangeStart: Date;
+  dateRangeEnd: Date;
 };

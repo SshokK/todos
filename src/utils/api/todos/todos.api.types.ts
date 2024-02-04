@@ -1,4 +1,4 @@
-import type * as sortConstants from '../../../constants/sort-constants.ts';
+import type { ListQueryParams, SortQueryParams } from 'types';
 
 export type TodoFromResponse = {
   id: string;
@@ -13,17 +13,33 @@ export type Todo = Omit<TodoFromResponse, 'date'> & {
   date: Date;
 };
 
+export type TodosQueryParamsFilters = {
+  id?: TodoFromResponse['id'][];
+  title?: TodoFromResponse['title'];
+  dateRangeStart?: TodoFromResponse['date'];
+  dateRangeEnd?: TodoFromResponse['date'];
+  isDone?: TodoFromResponse['isDone'];
+};
+
+export type TodoCountByDayFromResponse = {
+  dateRangeStart: string;
+  dateRangeEnd: string;
+  count: number;
+};
+
+export type TodoCountByDay = Omit<
+  TodoCountByDayFromResponse,
+  'dateRangeStart' | 'dateRangeEnd'
+> & {
+  dateRangeStart: Date;
+  dateRangeEnd: Date;
+  count: number;
+};
+
 export type FetchTodosPayload = [
-  params?: {
-    limit: number;
-    offset: number;
-    id?: TodoFromResponse['id'][];
-    sortField?: keyof Todo;
-    sortOrder?: sortConstants.SORT_ORDER;
-    dateRangeStart?: TodoFromResponse['date'];
-    dateRangeEnd?: TodoFromResponse['date'];
-    isDone?: TodoFromResponse['isDone'];
-  },
+  queryParams?: ListQueryParams &
+    SortQueryParams<keyof Todo> &
+    TodosQueryParamsFilters,
 ];
 export type FetchTodosResponse = TodoFromResponse[];
 export type FetchTodosReturn = Todo[];
@@ -31,18 +47,27 @@ export type FetchTodos = (
   ...args: FetchTodosPayload
 ) => Promise<FetchTodosReturn>;
 
-export type FetchTodosCountsAggregationsPayload = void[];
-export type FetchTodosCountsAggregationsResponse = {
+export type FetchTodosCountByStatusPayload = void[];
+export type FetchTodosCountByStatusResponse = {
   doneCount: number;
   undoneCount: number;
   overdueCount: number;
 };
-export type FetchTodosCountAggregations = (
-  ...args: FetchTodosCountsAggregationsPayload
-) => Promise<FetchTodosCountsAggregationsResponse>;
+export type FetchTodosCountByStatus = (
+  ...args: FetchTodosCountByStatusPayload
+) => Promise<FetchTodosCountByStatusResponse>;
+
+export type FetchTodosCountByDaysPayload = [
+  queryParams: ListQueryParams & TodosQueryParamsFilters,
+];
+export type FetchTodosCountByDaysResponse = TodoCountByDayFromResponse[];
+export type FetchTodosCountByDaysReturn = TodoCountByDay[];
+export type FetchTodosCountByDays = (
+  ...args: FetchTodosCountByDaysPayload
+) => Promise<FetchTodosCountByDaysReturn>;
 
 export type FetchTodosTotalCountPayload = [
-  params: Omit<FetchTodosPayload[0], 'limit' | 'offset'>,
+  queryParams: Omit<FetchTodosPayload[0], 'limit' | 'offset'>,
 ];
 export type FetchTodosTotalCountResponse = number;
 export type FetchTodosTotalCount = (
@@ -75,15 +100,11 @@ export type DeleteTodo = (
 ) => Promise<DeleteTodoResponse>;
 
 export type BulkDeleteTodosPayload = [
-  body: {
-    filters: {
-      ids?: TodoFromResponse['id'][];
-      isDone?: TodoFromResponse['isDone'];
-      date?: {
-        rangeStart?: TodoFromResponse['date'];
-        rangeEnd?: TodoFromResponse['date'];
-      };
-    };
+  queryParams: {
+    id?: TodoFromResponse['id'][];
+    isDone?: TodoFromResponse['isDone'];
+    dateRangeStart?: TodoFromResponse['date'];
+    dateRangeEnd?: TodoFromResponse['date'];
   },
 ];
 export type BulkDeleteTodosResponse = {

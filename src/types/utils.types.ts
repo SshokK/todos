@@ -1,2 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type QuerySelector<R> = (response: R) => any;
+import type * as sortConstants from '../constants/sort-constants.ts';
+
+export type QuerySelector<R, D> = (response: R) => D;
+
+export type ListQueryParams = {
+  limit: number;
+  offset: number;
+};
+
+export type SortQueryParams<T extends string> = {
+  sortField?: T;
+  sortOrder?: sortConstants.SORT_ORDER;
+};

@@ -1,7 +1,7 @@
 import type * as api from '../../todos.api.ts';
 
 export const INITIAL_DATA: Awaited<
-  ReturnType<typeof api.fetchTodosCountAggregations>
+  ReturnType<typeof api.fetchTodosCountByStatus>
 > = {
   doneCount: 0,
   undoneCount: 0,

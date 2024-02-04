@@ -8,10 +8,9 @@ import * as animations from './TodoCard.animations.ts';
 import { useTodoCardHandlers } from './hooks';
 
 export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
-  ({ todo, date, ...props }, ref) => {
+  ({ todo, ...props }, ref) => {
     const handlers = useTodoCardHandlers({
       props: {
-        date,
         todo,
       },
     });

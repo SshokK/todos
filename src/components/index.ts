@@ -18,6 +18,7 @@ export * from './RichTextEditor';
 export * from './Select';
 export * from './Separator';
 export * from './Sidebar';
+export * from './Spinner';
 export * from './Status';
 export * from './StrictModeDroppable';
 export * from './TextField';

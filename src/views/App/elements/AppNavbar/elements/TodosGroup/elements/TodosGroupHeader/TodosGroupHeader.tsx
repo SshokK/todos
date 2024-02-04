@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 export const TodosGroupHeader = react.forwardRef<
   HTMLParagraphElement,
   TodosGroupHeaderProps
->(({ date }, ref) => {
+>(({ date, isLoading }, ref) => {
   const { t } = useTranslation();
 
   return (
@@ -27,6 +27,10 @@ export const TodosGroupHeader = react.forwardRef<
       exit={animations.ANIMATION_NAME.EXIT}
     >
       {utils.formatHumanizedDate(new Date(date), t)}
+      <components.Spinner
+        isVisible={isLoading}
+        width={components.SPINNER_WIDTH.MD}
+      />
     </components.Typography>
   );
 });
