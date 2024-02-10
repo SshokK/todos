@@ -9,13 +9,12 @@ export const useTodosGroupQueries = ({
 }: {
   props: Pick<
     TodosGroupProps,
-    'dateRangeStart' | 'dateRangeEnd' | 'searchString'
+    'dateRangeStart' | 'dateRangeEnd' | 'queryParams'
   >;
 }) => {
   const todosTotalCount = utils.useTodosTotalCount({
     queryParams: {
-      title: props.searchString,
-      isDone: false,
+      ...props.queryParams,
       dateRangeStart: props.dateRangeStart.toISOString(),
       dateRangeEnd: props.dateRangeEnd.toISOString(),
     },
@@ -23,6 +22,7 @@ export const useTodosGroupQueries = ({
 
   const todos = utils.useTodosList({
     queryParams: {
+      ...props.queryParams,
       limit: constants.VISIBLE_TODOS_COUNT,
       offset: 0,
       dateRangeStart: props.dateRangeStart.toISOString(),

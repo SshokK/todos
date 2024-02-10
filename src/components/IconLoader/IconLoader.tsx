@@ -8,9 +8,10 @@ import { Spinner } from '../Spinner';
 import classnames from 'classnames';
 
 export const IconLoader = react.forwardRef<HTMLDivElement, IconLoaderProps>(
-  ({ isLoading, Icon, spinnerWidth, classNames }) => {
+  ({ isLoading, Icon, spinnerWidth, classNames }, ref) => {
     return (
       <div
+        ref={ref}
         className={classnames(
           styles.CLASSNAMES.container,
           classNames?.container,

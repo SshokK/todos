@@ -3,7 +3,6 @@ import type { FC } from 'react';
 import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as elements from './elements';
-import * as constants from './AppNavbar.constants.ts';
 
 import { useAppNavbarData, useAppNavbarQueries } from './hooks';
 import { useTranslation } from 'react-i18next';
@@ -11,36 +10,27 @@ import { useTranslation } from 'react-i18next';
 export const AppNavbar: FC = () => {
   const { t } = useTranslation();
 
-  const { localState, localActions } = useAppNavbarData();
+  const { localState, localActions, formattedData } = useAppNavbarData();
 
   const queries = useAppNavbarQueries({
-    localState,
+    formattedData,
   });
 
   return (
     <div className={styles.CLASSNAMES.container}>
-      <components.TextField
-        value={localState.searchString}
-        onChange={localActions.setSearchString}
-        changeCallbackThrottleTime={constants.SEARCH_THROTTLE_TIME}
-        name={constants.SEARCH_FIELD_NAME}
-        placeholder={t(
-          'views.App.AppNavbar.searchPlaceholder',
-          'Search future todos',
-        )}
-        shouldRenderSearchButton
-        classNames={{
-          container: styles.CLASSNAMES.searchInput,
-        }}
+      <elements.AppNavbarHeader
+        searchString={localState.searchString}
+        filters={localState.filters}
+        onSearchChange={localActions.setSearchString}
+        onFiltersChange={localActions.setFilters}
       />
-      <elements.TodosCounts />
       <div className={styles.CLASSNAMES.upcomingTodosContainer}>
         {queries.todosCountByDays.data.map((todosCountByDay) => (
           <elements.TodosGroup
             key={todosCountByDay.dateRangeStart.toDateString()}
             dateRangeStart={todosCountByDay.dateRangeStart}
             dateRangeEnd={todosCountByDay.dateRangeEnd}
-            searchString={localState.searchString}
+            queryParams={formattedData.queryParams}
           />
         ))}
         <components.NoItemsMessage

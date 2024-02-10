@@ -9,10 +9,13 @@ export const useSelectHandlers = ({
   const handleChange: selectHandlersTypes.SelectHandlers['handleChange'] = (
     key,
   ) => {
-    const option = props.options.reduce((foundOption, group) => {
-      const option = group.options?.find((option) => option.key === key);
-      return option ?? foundOption;
-    }, null as selectTypes.SelectOption | null);
+    const option = props.options.reduce(
+      (foundOption, group) => {
+        const option = group.options?.find((option) => option.key === key);
+        return option ?? foundOption;
+      },
+      null as selectTypes.SelectOption | null,
+    );
 
     if (option) {
       props.onChange?.(key, option);

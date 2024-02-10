@@ -5,9 +5,17 @@
         "title": "To do items"
       },
       "AppNavbar": {
-        "searchPlaceholder": "Search future todos",
         "noSearchResults": "No todos matching search",
         "noResultsForToday": "No unfinished todos for today",
+
+        "AppNavbarHeader": {
+          "searchPlaceholder": "Search todos",
+
+          "AppNavbarHeaderFilters": {
+            "includeOverdueTodos": "Include overdue todos",
+            "includeDoneTodos": "Include done todos"
+          }
+        },
 
         "TodosCounts": {
           "todo": "To be done",

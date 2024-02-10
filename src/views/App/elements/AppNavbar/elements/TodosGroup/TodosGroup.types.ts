@@ -1,5 +1,9 @@
+import type * as utils from 'utils';
+
 export type TodosGroupProps = {
-  searchString?: string;
+  queryParams?: Partial<
+    Parameters<typeof utils.useTodosList>[0]['queryParams']
+  >;
   dateRangeStart: Date;
   dateRangeEnd: Date;
 };

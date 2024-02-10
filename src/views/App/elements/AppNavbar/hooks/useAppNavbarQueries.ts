@@ -1,18 +1,17 @@
 import type { AppNavbarData } from './useAppNavbarData.types.ts';
 
 import * as utils from 'utils';
+import * as constants from '../AppNavbar.constants.ts';
 
 export const useAppNavbarQueries = ({
-  localState,
+  formattedData,
 }: {
-  localState: AppNavbarData['localState'];
+  formattedData: AppNavbarData['formattedData'];
 }) => {
   const todosCountByDays = utils.useTodosCountByDays({
     queryParams: {
-      limit: 3,
-      offset: 0,
-      title: localState.searchString,
-      dateRangeStart: utils.getStartOfDay(utils.getToday()).toISOString(),
+      ...constants.DEFAULT_QUERY_PARAMS,
+      ...formattedData.queryParams,
     },
   });
 

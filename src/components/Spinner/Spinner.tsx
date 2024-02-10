@@ -44,7 +44,7 @@ export const Spinner: FC<SpinnerProps> = ({ isVisible, width, className }) => {
             className={styles.CLASSNAMES.spinningCircle}
             fill="none"
             stroke={`url(#${id})`}
-            stroke-width={strokeWidth}
+            strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray="200 1000"
             strokeDashoffset="0"
@@ -70,7 +70,7 @@ export const Spinner: FC<SpinnerProps> = ({ isVisible, width, className }) => {
             className={styles.CLASSNAMES.trackCircle}
             fill="none"
             opacity=".2"
-            stroke-width={strokeWidth}
+            strokeWidth={strokeWidth}
             strokeLinecap="round"
             cx="100"
             cy="100"

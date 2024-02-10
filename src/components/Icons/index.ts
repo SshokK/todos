@@ -17,6 +17,7 @@ export * from './IconCrossCircled';
 export * from './IconDoubleArrowLeft';
 export * from './IconDoubleArrowRight';
 export * from './IconDragHandle';
+export * from './IconFilers';
 export * from './IconGithub';
 export * from './IconGlobe.tsx';
 export * from './IconLinkedIn';

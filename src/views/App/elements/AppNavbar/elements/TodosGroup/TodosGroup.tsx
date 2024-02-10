@@ -9,12 +9,12 @@ import * as elements from './elements';
 import { useTodosGroupQueries } from './hooks';
 
 export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
-  ({ dateRangeStart, dateRangeEnd, searchString }, ref) => {
+  ({ dateRangeStart, dateRangeEnd, queryParams }, ref) => {
     const queries = useTodosGroupQueries({
       props: {
         dateRangeStart,
         dateRangeEnd,
-        searchString,
+        queryParams,
       },
     });
 

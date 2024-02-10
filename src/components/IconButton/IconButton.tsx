@@ -59,11 +59,11 @@ export const IconButton = react.forwardRef<HTMLButtonElement, IconButtonProps>(
             <Icon
               className={classnames({
                 [styles.ICON_CLASSNAMES.icon]: true,
-                [styles.ICON_CLASSNAMES.withBadge]: badge,
+                [styles.ICON_CLASSNAMES.withBadge]: Boolean(badge),
               })}
             />
           )}
-          {badge && (
+          {Boolean(badge) && (
             <div
               className={classnames({
                 [styles.BADGE_CLASSNAMES.badge]: true,

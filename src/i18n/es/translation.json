@@ -5,9 +5,17 @@
         "title": "Para hacer cosas"
       },
       "AppNavbar": {
-        "searchPlaceholder": "Buscar futuro todos",
         "noSearchResults": "No todos coinciden con la búsqueda",
         "noResultsForToday": "No hay tareas pendientes por hoy",
+
+        "AppNavbarHeader": {
+          "searchPlaceholder": "Buscar todos",
+
+          "AppNavbarHeaderFilters": {
+            "includeOverdueTodos": "Incluir artículos vencidos",
+            "includeDoneTodos": "Incluir hecho todas"
+          }
+        },
 
         "TodosCounts": {
           "todo": "Para acabar",

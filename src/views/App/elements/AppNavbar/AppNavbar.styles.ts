@@ -3,8 +3,6 @@ import classnames from 'classnames';
 export const CLASSNAMES = {
   container: classnames('flex', 'flex-col', 'gap-8', 'flex-1'),
 
-  searchInput: classnames('w-full'),
-
   separator: classnames('w-full'),
 
   upcomingTodosContainer: classnames(
