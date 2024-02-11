@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as elements from './elements';
+import * as utils from 'utils';
 
 import { useAppNavbarData, useAppNavbarQueries } from './hooks';
 import { useTranslation } from 'react-i18next';
@@ -24,13 +25,17 @@ export const AppNavbar: FC = () => {
         onSearchChange={localActions.setSearchString}
         onFiltersChange={localActions.setFilters}
       />
+      <components.TodosCounts queryParams={formattedData.queryParams} />
       <div className={styles.CLASSNAMES.upcomingTodosContainer}>
         {queries.todosCountByDays.data.map((todosCountByDay) => (
-          <elements.TodosGroup
+          <components.TodosGroup
             key={todosCountByDay.dateRangeStart.toDateString()}
-            dateRangeStart={todosCountByDay.dateRangeStart}
-            dateRangeEnd={todosCountByDay.dateRangeEnd}
-            queryParams={formattedData.queryParams}
+            title={utils.formatHumanizedDate(todosCountByDay.dateRangeStart, t)}
+            queryParams={{
+              ...formattedData.queryParams,
+              dateRangeStart: todosCountByDay.dateRangeStart.toISOString(),
+              dateRangeEnd: todosCountByDay.dateRangeEnd.toISOString(),
+            }}
           />
         ))}
         <components.NoItemsMessage

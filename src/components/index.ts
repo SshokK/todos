@@ -24,6 +24,8 @@ export * from './StrictModeDroppable';
 export * from './TextField';
 export * from './Toast';
 export * from './TodoItem';
+export * from './TodosCounts';
+export * from './TodosGroup';
 export * from './Toolbar';
 export * from './Tooltip';
 export * from './Typography';

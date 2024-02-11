@@ -2,7 +2,6 @@ import type * as apiTypes from './todos.api.types.ts';
 
 import * as requestConstants from '../../../constants/request.constants.ts';
 import * as fetch from '../../fetch';
-import * as dateUtils from '../../date';
 import * as apiHelpers from './todos.api.helpers.ts';
 
 export const fetchTodos: apiTypes.FetchTodos = async (queryParams) => {
@@ -15,19 +14,17 @@ export const fetchTodos: apiTypes.FetchTodos = async (queryParams) => {
   return apiHelpers.normalizeTodos(response.data);
 };
 
-export const fetchTodosCountByStatus: apiTypes.FetchTodosCountByStatus =
-  async () => {
-    const response =
-      await fetch.fetch<apiTypes.FetchTodosCountByStatusResponse>({
-        url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-status`,
-        method: requestConstants.HTTP_METHODS.GET,
-        queryParams: {
-          currentDate: dateUtils.getToday().toISOString(),
-        },
-      });
+export const fetchTodosCountByStatus: apiTypes.FetchTodosCountByStatus = async (
+  queryParams,
+) => {
+  const response = await fetch.fetch<apiTypes.FetchTodosCountByStatusResponse>({
+    url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-status`,
+    method: requestConstants.HTTP_METHODS.GET,
+    queryParams: queryParams,
+  });
 
-    return response.data;
-  };
+  return response.data;
+};
 
 export const fetchTodosCountByDays: apiTypes.FetchTodosCountByDays = async (
   queryParams,

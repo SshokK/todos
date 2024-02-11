@@ -47,7 +47,11 @@ export type FetchTodos = (
   ...args: FetchTodosPayload
 ) => Promise<FetchTodosReturn>;
 
-export type FetchTodosCountByStatusPayload = void[];
+export type FetchTodosCountByStatusPayload = [
+  queryParams: TodosQueryParamsFilters & {
+    dueDate: string;
+  },
+];
 export type FetchTodosCountByStatusResponse = {
   doneCount: number;
   undoneCount: number;

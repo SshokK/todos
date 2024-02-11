@@ -1,10 +1,10 @@
 import type { TodoCardProps } from '../TodoCard.types.ts';
 import type { TodoCardHandlers } from './useTodoCardHandlers.types.ts';
 
-import * as utils from 'utils';
-import * as dateConstants from '../../../../../../../../../constants/date.constants.ts';
+import * as utils from '../../../../../utils';
+import * as dateConstants from '../../../../../constants/date.constants.ts';
 
-import { useAppCalendar } from 'contexts';
+import { useAppCalendar } from '../../../../../contexts';
 
 export const useTodoCardHandlers = ({
   props,

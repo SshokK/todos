@@ -2,11 +2,11 @@ import type { TodoCardProps } from './TodoCard.types.ts';
 
 import * as react from 'react';
 import * as styles from './TodoCard.styles.ts';
-import * as components from 'components';
+import * as components from '../../../index.ts';
 import * as animations from './TodoCard.animations.ts';
 import * as twMerge from 'tailwind-merge';
-import * as utils from 'utils';
-import * as dateConstants from '../../../../../../../../constants/date.constants.ts';
+import * as utils from '../../../../utils';
+import * as dateConstants from '../../../../constants/date.constants.ts';
 
 import classnames from 'classnames';
 

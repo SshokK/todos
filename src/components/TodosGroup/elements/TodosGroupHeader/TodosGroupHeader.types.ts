@@ -1,4 +1,6 @@
+import type { ReactNode } from 'react';
+
 export type TodosGroupHeaderProps = {
-  date: Date;
+  children: ReactNode;
   isLoading?: boolean;
 };

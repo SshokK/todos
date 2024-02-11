@@ -1,16 +1,21 @@
 import type { FC } from 'react';
+import type { TodosCountsProps } from './TodosCounts.types.ts';
 
-import * as components from 'components';
+import * as components from '../index.ts';
 import * as styles from './TodosCounts.styles.ts';
 import * as constants from './TodosCounts.constants.ts';
 
 import { useTranslation } from 'react-i18next';
 import { useTodosCountsQueries } from './hooks';
 
-export const TodosCounts: FC = () => {
+export const TodosCounts: FC<TodosCountsProps> = ({ queryParams }) => {
   const { t } = useTranslation();
 
-  const queries = useTodosCountsQueries();
+  const queries = useTodosCountsQueries({
+    props: {
+      queryParams,
+    },
+  });
 
   return (
     <components.Separator>

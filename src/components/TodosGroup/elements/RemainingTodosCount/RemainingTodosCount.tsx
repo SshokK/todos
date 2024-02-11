@@ -2,7 +2,7 @@ import type { RemainingTodosCountProps } from './RemainingTodosCount.types.ts';
 
 import * as react from 'react';
 import * as framerMotion from 'framer-motion';
-import * as components from '../../../../../../../../components';
+import * as components from '../../../index.ts';
 import * as styles from './RemainingTodosCount.styles.ts';
 import * as animations from './RemainingTodosCount.animations.ts';
 

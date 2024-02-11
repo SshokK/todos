@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
-import type { FetchTodosCountByStatusResponse } from 'utils';
+import type { FetchTodosCountByStatusResponse } from '../../utils';
 
-import * as components from 'components';
+import * as components from '../index.ts';
 
 export enum TODOS_COUNT_TYPE {
   OVERDUE = 'overdue',
