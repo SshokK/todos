@@ -25,6 +25,7 @@ export const TodosGroupHeader = react.forwardRef<
       <components.Spinner
         isVisible={isLoading}
         width={components.SPINNER_WIDTH.MD}
+        size={components.SPINNER_SIZE.SM}
       />
     </components.Typography>
   );

@@ -1,2 +1,2 @@
 export * from './Spinner.tsx';
-export { SPINNER_WIDTH } from './Spinner.constants.ts';
+export { SPINNER_WIDTH, SPINNER_SIZE } from './Spinner.constants.ts';

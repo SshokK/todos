@@ -9,3 +9,9 @@ export const STROKE_WIDTH: Record<SPINNER_WIDTH, number> = {
   [SPINNER_WIDTH.MD]: 15,
   [SPINNER_WIDTH.LG]: 25,
 };
+
+export enum SPINNER_SIZE {
+  SM = 'sm',
+  MD = 'md',
+  LG = `lg`,
+}

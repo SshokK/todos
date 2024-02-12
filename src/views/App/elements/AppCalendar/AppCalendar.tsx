@@ -33,7 +33,9 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
 
   return (
     <components.Loader
+      Component={components.Pulse}
       isVisible={false}
+      isWithBackground
       classNames={{
         outerContainer: styles.CLASSNAMES.calendarContainer,
       }}

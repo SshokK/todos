@@ -6,7 +6,7 @@
       },
       "AppNavbar": {
         "noSearchResults": "No todos matching search",
-        "noResultsForToday": "No unfinished todos for today",
+        "noResultsForToday": "No todos",
 
         "AppNavbarHeader": {
           "searchPlaceholder": "Search todos",

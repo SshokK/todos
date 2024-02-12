@@ -27,7 +27,7 @@ export const AppNavbar: FC = () => {
       />
       <components.TodosCounts queryParams={formattedData.queryParams} />
       <div className={styles.CLASSNAMES.upcomingTodosContainer}>
-        {queries.todosCountByDays.data.map((todosCountByDay) => (
+        {queries.todosCountByDays.data?.map((todosCountByDay) => (
           <components.TodosGroup
             key={todosCountByDay.dateRangeStart.toDateString()}
             title={utils.formatHumanizedDate(todosCountByDay.dateRangeStart, t)}
@@ -40,7 +40,7 @@ export const AppNavbar: FC = () => {
         ))}
         <components.NoItemsMessage
           isVisible={
-            !queries.todosCountByDays.data.length &&
+            !queries.todosCountByDays.data?.length &&
             !queries.todosCountByDays.isFetching
           }
         >
@@ -49,11 +49,13 @@ export const AppNavbar: FC = () => {
                 'views.App.AppNavbar.noSearchResults',
                 'No todos matching search',
               )
-            : t(
-                'views.App.AppNavbar.noResultsForToday',
-                'No unfinished todos for today',
-              )}
+            : t('views.App.AppNavbar.noResultsForToday', 'No todos')}
         </components.NoItemsMessage>
+        <components.Loader
+          isVisible={queries.todosCountByDays.isFetching}
+          Component={components.Spinner}
+          componentProps={{ width: components.SPINNER_WIDTH.SM }}
+        />
       </div>
     </div>
   );

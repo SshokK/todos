@@ -6,7 +6,7 @@
       },
       "AppNavbar": {
         "noSearchResults": "No todos coinciden con la búsqueda",
-        "noResultsForToday": "No hay tareas pendientes por hoy",
+        "noResultsForToday": "No todos",
 
         "AppNavbarHeader": {
           "searchPlaceholder": "Buscar todos",

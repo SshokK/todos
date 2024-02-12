@@ -20,7 +20,11 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
     });
 
     return (
-      <div ref={ref} className={styles.CLASSNAMES.container}>
+      <framerMotion.motion.div
+        ref={ref}
+        layout={'position'}
+        className={styles.CLASSNAMES.container}
+      >
         <framerMotion.AnimatePresence initial={false} mode="popLayout">
           <elements.TodosGroupHeader
             key={id}
@@ -42,7 +46,7 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
             />
           )}
         </framerMotion.AnimatePresence>
-      </div>
+      </framerMotion.motion.div>
     );
   },
 );
