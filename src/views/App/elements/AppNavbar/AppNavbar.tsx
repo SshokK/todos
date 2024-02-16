@@ -4,6 +4,7 @@ import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as elements from './elements';
 import * as utils from 'utils';
+import * as framerMotion from 'framer-motion';
 
 import { useAppNavbarData, useAppNavbarQueries } from './hooks';
 import { useTranslation } from 'react-i18next';
@@ -27,18 +28,23 @@ export const AppNavbar: FC = () => {
       />
       <components.TodosCounts queryParams={formattedData.queryParams} />
       <div className={styles.CLASSNAMES.upcomingTodosContainer}>
-        {queries.todosCountByDays.data?.map((todosCountByDay) => (
-          <components.TodosGroup
-            key={todosCountByDay.dateRangeStart.toDateString()}
-            isFetchDisabled={queries.todosCountByDays.isFetching}
-            title={utils.formatHumanizedDate(todosCountByDay.dateRangeStart, t)}
-            queryParams={{
-              ...formattedData.queryParams,
-              dateRangeStart: todosCountByDay.dateRangeStart.toISOString(),
-              dateRangeEnd: todosCountByDay.dateRangeEnd.toISOString(),
-            }}
-          />
-        ))}
+        <framerMotion.AnimatePresence initial={false} mode="popLayout">
+          {queries.todosCountByDays.data?.map((todosCountByDay) => (
+            <components.TodosGroup
+              key={todosCountByDay.dateRangeStart.toDateString()}
+              isFetchDisabled={queries.todosCountByDays.isFetching}
+              title={utils.formatHumanizedDate(
+                todosCountByDay.dateRangeStart,
+                t,
+              )}
+              queryParams={{
+                ...formattedData.queryParams,
+                dateRangeStart: todosCountByDay.dateRangeStart.toISOString(),
+                dateRangeEnd: todosCountByDay.dateRangeEnd.toISOString(),
+              }}
+            />
+          ))}
+        </framerMotion.AnimatePresence>
         <components.NoItemsMessage
           isVisible={
             !queries.todosCountByDays.data?.length &&
