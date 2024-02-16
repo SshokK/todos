@@ -2,18 +2,20 @@ import type { TodoCardProps } from './TodoCard.types.ts';
 
 import * as react from 'react';
 import * as styles from './TodoCard.styles.ts';
-import * as components from '../../../index.ts';
 import * as animations from './TodoCard.animations.ts';
 import * as twMerge from 'tailwind-merge';
-import * as utils from '../../../../utils';
-import * as dateConstants from '../../../../constants/date.constants.ts';
+import * as utils from 'utils';
+import * as dateConstants from '../../constants/date.constants.ts';
+
+import { Card } from '../Card';
+import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 
 import classnames from 'classnames';
 
 import { useTodoCardHandlers } from './hooks';
 
 export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
-  ({ todo, ...props }, ref) => {
+  ({ todo, animationType, ...props }, ref) => {
     const handlers = useTodoCardHandlers({
       props: {
         todo,
@@ -21,9 +23,10 @@ export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
     });
 
     return (
-      <components.Card
+      <Card
         ref={ref}
         layout
+        custom={animationType}
         initial={animations.ANIMATION_NAME.ENTER}
         animate={animations.ANIMATION_NAME.ACTIVE}
         exit={animations.ANIMATION_NAME.EXIT}
@@ -53,20 +56,20 @@ export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
             }),
           )}
         >
-          <components.Typography
-            type={components.TYPOGRAPHY_TYPE.TITLE_2}
+          <Typography
+            type={TYPOGRAPHY_TYPE.TITLE_2}
             className={styles.CLASSNAMES.todoTitle}
           >
             {todo.title || 'No title'}
-          </components.Typography>
-          <components.Typography
-            type={components.TYPOGRAPHY_TYPE.SUBTITLE}
+          </Typography>
+          <Typography
+            type={TYPOGRAPHY_TYPE.SUBTITLE}
             className={styles.CLASSNAMES.todoDescription}
           >
             {todo.content || 'No description'}
-          </components.Typography>
+          </Typography>
         </div>
-      </components.Card>
+      </Card>
     );
   },
 );

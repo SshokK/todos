@@ -9,5 +9,6 @@ export const CLASSNAMES = {
     'text-secondary-500',
     'absolute',
     'h-full',
+    'w-full',
   ),
 };

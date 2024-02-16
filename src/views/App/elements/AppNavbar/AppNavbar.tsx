@@ -30,6 +30,7 @@ export const AppNavbar: FC = () => {
         {queries.todosCountByDays.data?.map((todosCountByDay) => (
           <components.TodosGroup
             key={todosCountByDay.dateRangeStart.toDateString()}
+            isFetchDisabled={queries.todosCountByDays.isFetching}
             title={utils.formatHumanizedDate(todosCountByDay.dateRangeStart, t)}
             queryParams={{
               ...formattedData.queryParams,
@@ -52,7 +53,7 @@ export const AppNavbar: FC = () => {
             : t('views.App.AppNavbar.noResultsForToday', 'No todos')}
         </components.NoItemsMessage>
         <components.Loader
-          isVisible={queries.todosCountByDays.isFetching}
+          isVisible={queries.todosCountByDays.isLoading}
           Component={components.Spinner}
           componentProps={{ width: components.SPINNER_WIDTH.SM }}
         />

@@ -4,6 +4,7 @@ import type { NoItemsMessageProps } from './NoItemsMessage.types.ts';
 import * as animations from './NoItemsMessage.animations.ts';
 import * as styles from './NoItemsMessage.styles.ts';
 import * as framerMotion from 'framer-motion';
+import * as twMerge from 'tailwind-merge';
 
 import classnames from 'classnames';
 
@@ -29,9 +30,8 @@ export const NoItemsMessage: FC<NoItemsMessageProps> = ({
           animate={animations.ANIMATION_NAME.ACTIVE}
           exit={animations.ANIMATION_NAME.EXIT}
           transition={animations.TRANSITION}
-          className={classnames(
-            className,
-            styles.CLASSNAMES.noUpcomingTodosMessage,
+          className={twMerge.twMerge(
+            classnames(styles.CLASSNAMES.noUpcomingTodosMessage, className),
           )}
         >
           <Typography

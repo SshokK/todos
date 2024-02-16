@@ -12,7 +12,7 @@ export const TodosGroupHeader = react.forwardRef<
   return (
     <components.Typography
       ref={ref}
-      layout
+      layout="position"
       type={components.TYPOGRAPHY_TYPE.SUBTITLE}
       className={styles.CLASSNAMES.container}
       textAlignment={components.TYPOGRAPHY_TEXT_ALIGNMENT.LEFT}

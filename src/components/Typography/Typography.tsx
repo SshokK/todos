@@ -17,12 +17,14 @@ export const Typography = react.forwardRef<HTMLElement, TypographyProps>(
       shouldTruncate,
       noBreak,
       children,
+      ...props
     },
     ref,
   ) => {
     return constants.TYPOGRAPHY_ELEMENTS[
       type ?? constants.TYPOGRAPHY_TYPE.BODY
     ]({
+      ...props,
       ref: ref,
       children: children,
       href: href,

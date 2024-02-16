@@ -1,4 +1,4 @@
-import type { Variants } from 'framer-motion';
+import type * as framerMotion from 'framer-motion';
 
 export enum ANIMATION_NAME {
   ENTER = 'initial',
@@ -6,7 +6,7 @@ export enum ANIMATION_NAME {
   EXIT = 'exit',
 }
 
-export const VARIANTS: Variants = {
+export const VARIANTS: framerMotion.Variants = {
   [ANIMATION_NAME.ENTER]: {
     opacity: 0,
   },

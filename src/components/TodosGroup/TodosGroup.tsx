@@ -2,51 +2,51 @@ import type { TodosGroupProps } from './TodosGroup.types.ts';
 
 import * as react from 'react';
 import * as framerMotion from 'framer-motion';
-import * as styles from './TodosGroup.styles.ts';
 import * as constants from './TodosGroup.constants.ts';
 import * as elements from './elements';
 
+import { ANIMATION_TYPE, TodoCard } from '../TodoCard';
+
 import { useTodosGroupQueries } from './hooks';
-import { useId } from 'react';
 
 export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
-  ({ title, queryParams }, ref) => {
-    const id = useId();
-
+  ({ title, isFetchDisabled, queryParams }, ref) => {
     const queries = useTodosGroupQueries({
       props: {
         queryParams,
+        isFetchDisabled,
       },
     });
 
     return (
-      <framerMotion.motion.div
-        ref={ref}
-        layout={'position'}
-        className={styles.CLASSNAMES.container}
-      >
+      <elements.TodosGroupContainer ref={ref}>
+        <elements.TodosGroupHeader
+          isLoading={
+            queries.todosTotalCount.isFetching && queries.todos.isFetching
+          }
+        >
+          {title}
+        </elements.TodosGroupHeader>
         <framerMotion.AnimatePresence initial={false} mode="popLayout">
-          <elements.TodosGroupHeader
-            key={id}
-            isLoading={
-              queries.todosTotalCount.isFetching && queries.todos.isFetching
-            }
-          >
-            {title}
-          </elements.TodosGroupHeader>
-          {queries.todos.data.flatMap((todo, i) => {
+          {queries.todos.data?.flatMap((todo, i) => {
             if (i < constants.VISIBLE_TODOS_COUNT) {
-              return <elements.TodoCard key={todo.id} todo={todo} />;
+              return (
+                <TodoCard
+                  key={todo.id}
+                  todo={todo}
+                  animationType={ANIMATION_TYPE.SLIDE_UP}
+                />
+              );
             }
           })}
           {queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT > 0 && (
-            <elements.RemainingTodosCount
-              todosCount={queries.todosTotalCount.data}
-              visibleTodosCount={constants.VISIBLE_TODOS_COUNT}
-            />
+            <elements.TodosGroupCount>
+              +{queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT}{' '}
+              More
+            </elements.TodosGroupCount>
           )}
         </framerMotion.AnimatePresence>
-      </framerMotion.motion.div>
+      </elements.TodosGroupContainer>
     );
   },
 );

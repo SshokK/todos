@@ -14,6 +14,7 @@ export const useTodosList = <D = Awaited<ReturnType<typeof api.fetchTodos>>>(
   const errorToast = useQueryErrorToast();
 
   return useQuery<Awaited<ReturnType<typeof api.fetchTodos>>, Error, D>({
+    enabled: args.options?.isEnabled,
     queryKey: [queryKeys.QUERY_KEY.TODOS, args.queryParams],
     queryFn: async () => {
       try {
@@ -25,7 +26,6 @@ export const useTodosList = <D = Awaited<ReturnType<typeof api.fetchTodos>>>(
       }
     },
     placeholderData: reactQuery.keepPreviousData,
-    initialData: constants.INITIAL_DATA,
     select: args.options?.selector,
   });
 };

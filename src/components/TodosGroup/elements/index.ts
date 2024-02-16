@@ -1,3 +1,3 @@
-export * from './TodoCard';
+export * from './TodosGroupContainer';
 export * from './TodosGroupHeader';
-export * from './RemainingTodosCount';
+export * from './TodosGroupCount';

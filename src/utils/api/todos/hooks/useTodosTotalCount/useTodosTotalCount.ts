@@ -19,6 +19,7 @@ export const useTodosTotalCount = <
     Error,
     D
   >({
+    enabled: args.options?.isEnabled,
     queryKey: [queryKeys.QUERY_KEY.TODOS_TOTAL_COUNT, args.queryParams],
     queryFn: async () => {
       try {

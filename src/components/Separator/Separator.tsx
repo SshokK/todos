@@ -4,6 +4,8 @@ import * as react from 'react';
 import * as reactSeparator from '@radix-ui/react-separator';
 import * as styles from './Separator.styles';
 import * as constants from './Separator.constants';
+import * as framerMotions from 'framer-motion';
+import * as twMerge from 'tailwind-merge';
 
 import classnames from 'classnames';
 
@@ -15,12 +17,17 @@ import {
 
 import { Typography } from '../Typography';
 
-export const Separator = react.forwardRef<HTMLHRElement, SeparatorProps>(
-  ({ orientation, className, children }, ref) => {
+export const Separator = react.forwardRef<HTMLDivElement, SeparatorProps>(
+  ({ orientation, className, children, ...props }, ref) => {
     return (
-      <div className={classnames(className, styles.CLASSNAMES.container)}>
+      <framerMotions.motion.div
+        ref={ref}
+        className={twMerge.twMerge(
+          classnames(styles.CLASSNAMES.container, className),
+        )}
+        {...props}
+      >
         <reactSeparator.Root
-          ref={ref}
           orientation={orientation}
           className={classnames(
             styles.CLASSNAMES.separator,
@@ -52,7 +59,7 @@ export const Separator = react.forwardRef<HTMLHRElement, SeparatorProps>(
             />
           </>
         )}
-      </div>
+      </framerMotions.motion.div>
     );
   },
 );
