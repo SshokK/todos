@@ -1,12 +1,16 @@
-import type { FC } from 'react';
+import type { ComponentProps, FC } from 'react';
+import type { AppNavbarListContext } from './AppNavbar.types.ts';
 
 import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as elements from './elements';
 import * as utils from 'utils';
-import * as framerMotion from 'framer-motion';
 
-import { useAppNavbarData, useAppNavbarQueries } from './hooks';
+import {
+  useAppNavbarData,
+  useAppNavbarHandlers,
+  useAppNavbarQueries,
+} from './hooks';
 import { useTranslation } from 'react-i18next';
 
 export const AppNavbar: FC = () => {
@@ -18,50 +22,63 @@ export const AppNavbar: FC = () => {
     formattedData,
   });
 
+  const handlers = useAppNavbarHandlers({
+    queries,
+  });
+
   return (
     <div className={styles.CLASSNAMES.container}>
       <elements.AppNavbarHeader
         searchString={localState.searchString}
         filters={localState.filters}
         onSearchChange={localActions.setSearchString}
+        onSearchButtonClick={handlers.handleRefetch}
         onFiltersChange={localActions.setFilters}
       />
-      <components.TodosCounts queryParams={formattedData.queryParams} />
-      <div className={styles.CLASSNAMES.upcomingTodosContainer}>
-        <framerMotion.AnimatePresence initial={false} mode="popLayout">
-          {queries.todosCountByDays.data?.map((todosCountByDay) => (
+      <components.TodosCounts
+        counts={queries.todosCounts.data}
+        isLoading={queries.todosCounts.isFetching}
+        classNames={{
+          container: styles.CLASSNAMES.todosCounts,
+        }}
+      />
+      <div className={styles.CLASSNAMES.list}>
+        <components.List
+          items={queries.todosCountByDays.data ?? []}
+          onEndReach={queries.todosCountByDays.fetchNextPage}
+          onItemRender={(todosCountPage) => (
             <components.TodosGroup
-              key={todosCountByDay.dateRangeStart.toDateString()}
+              key={todosCountPage.dateRangeStart.toDateString()}
+              isLoading={queries.todosCountByDays.isRefetching}
               isFetchDisabled={queries.todosCountByDays.isFetching}
               title={utils.formatHumanizedDate(
-                todosCountByDay.dateRangeStart,
+                todosCountPage.dateRangeStart,
                 t,
               )}
               queryParams={{
                 ...formattedData.queryParams,
-                dateRangeStart: todosCountByDay.dateRangeStart.toISOString(),
-                dateRangeEnd: todosCountByDay.dateRangeEnd.toISOString(),
+                dateRangeStart: todosCountPage.dateRangeStart.toISOString(),
+                dateRangeEnd: todosCountPage.dateRangeEnd.toISOString(),
+              }}
+              classNames={{
+                container: styles.CLASSNAMES.listItem,
               }}
             />
-          ))}
-        </framerMotion.AnimatePresence>
-        <components.NoItemsMessage
-          isVisible={
-            !queries.todosCountByDays.data?.length &&
-            !queries.todosCountByDays.isFetching
+          )}
+          componentsContext={
+            {
+              searchString: localState.searchString,
+              isRefetching: queries.todosCountByDays.isRefetching,
+              isInitialLoading: queries.todosCountByDays.isInitialLoading,
+              isFetchingNextPage: queries.todosCountByDays.isFetchingNextPage,
+            } satisfies AppNavbarListContext
           }
-        >
-          {localState.searchString
-            ? t(
-                'views.App.AppNavbar.noSearchResults',
-                'No todos matching search',
-              )
-            : t('views.App.AppNavbar.noResultsForToday', 'No todos')}
-        </components.NoItemsMessage>
-        <components.Loader
-          isVisible={queries.todosCountByDays.isLoading}
-          Component={components.Spinner}
-          componentProps={{ width: components.SPINNER_WIDTH.SM }}
+          components={
+            {
+              EmptyPlaceholder: elements.AppNavbarEmptyPlaceholder,
+              Footer: elements.AppNavbarListFooter,
+            } as ComponentProps<typeof components.List>['components']
+          }
         />
       </div>
     </div>

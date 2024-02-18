@@ -7,7 +7,17 @@ import * as styles from './List.styles.ts';
 import * as elements from './elements';
 
 export const List = react.forwardRef<HTMLElement, ListProps>(
-  ({ items, onItemRender, overscan, onEndReach, components }, ref) => {
+  (
+    {
+      items,
+      onItemRender,
+      overscan,
+      onEndReach,
+      components,
+      componentsContext,
+    },
+    ref,
+  ) => {
     return (
       <reactVirtuoso.Virtuoso
         {...(Boolean(ref) && {
@@ -24,6 +34,7 @@ export const List = react.forwardRef<HTMLElement, ListProps>(
         overscan={overscan}
         itemContent={(index, item) => onItemRender(item, index)}
         endReached={onEndReach}
+        context={componentsContext}
       />
     );
   },

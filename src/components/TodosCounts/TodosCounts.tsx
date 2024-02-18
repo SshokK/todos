@@ -6,19 +6,16 @@ import * as styles from './TodosCounts.styles.ts';
 import * as constants from './TodosCounts.constants.ts';
 
 import { useTranslation } from 'react-i18next';
-import { useTodosCountsQueries } from './hooks';
 
-export const TodosCounts: FC<TodosCountsProps> = ({ queryParams }) => {
+export const TodosCounts: FC<TodosCountsProps> = ({
+  counts,
+  isLoading,
+  classNames,
+}) => {
   const { t } = useTranslation();
 
-  const queries = useTodosCountsQueries({
-    props: {
-      queryParams,
-    },
-  });
-
   return (
-    <components.Separator>
+    <components.Separator className={classNames?.container}>
       <div className={styles.CLASSNAMES.iconsContainer}>
         {Object.entries(constants.TODOS_COUNT_CONFIG).map(
           ([countType, config]) => (
@@ -31,7 +28,7 @@ export const TodosCounts: FC<TodosCountsProps> = ({ queryParams }) => {
             >
               <div className={styles.CLASSNAMES.countContainer}>
                 <components.IconLoader
-                  isLoading={queries.todosCounts.isFetching}
+                  isLoading={isLoading}
                   Icon={config.Icon}
                   spinnerWidth={components.SPINNER_WIDTH.SM}
                   classNames={{
@@ -42,7 +39,7 @@ export const TodosCounts: FC<TodosCountsProps> = ({ queryParams }) => {
                   }}
                 />
                 <div className={styles.CLASSNAMES.countBadge}>
-                  {queries.todosCounts.data[config.dataKey]}
+                  {counts[countType as constants.TODOS_COUNT_TYPE]}
                 </div>
               </div>
             </components.Tooltip>

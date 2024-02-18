@@ -1,7 +1,8 @@
 import type { TodoDeleteArgs } from './useTodoDelete.types.ts';
 
-import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
+import * as todosConstants from '../../todos.constants.ts';
 import * as api from '../../todos.api.ts';
+import * as constants from './useTodoDelete.constants.ts';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useQueryErrorToast } from '../../../../hooks';
@@ -20,16 +21,20 @@ export const useTodoDelete = () => {
       return api.deleteTodo(...variables);
     },
     onMutate: async (variables) => {
-      await queryClient.cancelQueries({
-        queryKey: [queryKeys.QUERY_KEY.TODOS],
-      });
+      await Promise.all(
+        constants.QUERY_KEYS_TO_INVALIDATE.map((queryKeyFactory) =>
+          queryClient.cancelQueries({
+            queryKey: queryKeyFactory(),
+          }),
+        ),
+      );
 
       const previousTodos = queryClient.getQueryData<
         Awaited<ReturnType<typeof api.fetchTodos>>
-      >([queryKeys.QUERY_KEY.TODOS]);
+      >(todosConstants.QUERY_KEY_FACTORY.TODOS_LIST());
 
       queryClient.setQueryData<Awaited<ReturnType<typeof api.fetchTodos>>>(
-        [queryKeys.QUERY_KEY.TODOS],
+        todosConstants.QUERY_KEY_FACTORY.TODOS_LIST(),
         (todos) => {
           if (!todos) {
             return [];
@@ -41,22 +46,23 @@ export const useTodoDelete = () => {
 
       return previousTodos;
     },
+
     onError: (e, _, context) => {
       errorToast.show(e);
-      queryClient.setQueryData([queryKeys.QUERY_KEY.TODOS], context);
+      queryClient.setQueryData(
+        todosConstants.QUERY_KEY_FACTORY.TODOS_LIST(),
+        context,
+      );
     },
+
     onSettled: () => {
-      return Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNT_BY_STATUS],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS_TOTAL_COUNT],
-        }),
-      ]);
+      return Promise.all(
+        constants.QUERY_KEYS_TO_INVALIDATE.map((queryKeyFactory) =>
+          queryClient.invalidateQueries({
+            queryKey: queryKeyFactory(),
+          }),
+        ),
+      );
     },
   });
 };

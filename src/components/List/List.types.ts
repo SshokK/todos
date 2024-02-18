@@ -10,6 +10,7 @@ export type ListProps = {
   onItemRender: (item: any, index: number) => ReactNode;
 
   overscan?: reactVirtoso.VirtuosoProps<unknown, unknown>['overscan'];
-  onEndReach?: (index: number) => void;
+  onEndReach?: () => void;
+  componentsContext?: unknown;
   components?: Omit<reactVirtoso.Components, 'Item'>;
 };

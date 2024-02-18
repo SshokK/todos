@@ -11,7 +11,7 @@ export const CLASSNAMES = {
     'flex-col',
   ),
 
-  navContent: classnames('p-6', 'flex-1', 'flex', 'flex-col', 'overflow-auto'),
+  navContent: classnames('flex-1', 'flex', 'flex-col', 'overflow-auto'),
 
   copyright: classnames(
     'flex',

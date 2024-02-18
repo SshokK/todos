@@ -4,7 +4,7 @@ import type { AppCalendarProps } from './AppCalendar.types.ts';
 import * as styles from './AppCalendar.styles.ts';
 import * as components from 'components';
 import * as elements from './elements';
-import * as queryKeys from '../../../../constants/query-keys.constants.ts';
+import * as utils from 'utils';
 
 import { useTranslation } from 'react-i18next';
 import { useAppCalendar } from 'contexts';
@@ -45,7 +45,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
         date={appCalendar.date}
         queryOptions={{
           queryFn: handlers.handleItemsFetch,
-          queryKey: [queryKeys.QUERY_KEY.TODOS],
+          queryKey: utils.QUERY_KEY_FACTORY.TODOS_LIST(),
         }}
         whitelistedDates={formattedData.whitelistedDates}
         noDatesMessage={t(

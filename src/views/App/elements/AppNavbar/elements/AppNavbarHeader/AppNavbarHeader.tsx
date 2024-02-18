@@ -12,6 +12,7 @@ export const AppNavbarHeader: FC<AppNavbarHeaderProps> = ({
   searchString,
   filters,
   onSearchChange,
+  onSearchButtonClick,
   onFiltersChange,
 }) => {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ export const AppNavbarHeader: FC<AppNavbarHeaderProps> = ({
       <components.TextField
         value={searchString}
         onChange={onSearchChange}
+        onSearchButtonClick={onSearchButtonClick}
         changeCallbackThrottleTime={constants.SEARCH_THROTTLE_TIME}
         name={constants.SEARCH_FIELD_NAME}
         classNames={{

@@ -32,6 +32,7 @@ export const TextField = react.forwardRef<HTMLDivElement, TextFieldProps>(
       onFocus,
       onBlur,
       onClick,
+      onSearchButtonClick,
     },
     ref,
   ) => {
@@ -80,6 +81,7 @@ export const TextField = react.forwardRef<HTMLDivElement, TextFieldProps>(
             type={ICON_BUTTON_TYPE.SECONDARY}
             Icon={IconSearch}
             size={ICON_BUTTON_SIZE.LG}
+            onClick={onSearchButtonClick}
           />
         )}
       </div>

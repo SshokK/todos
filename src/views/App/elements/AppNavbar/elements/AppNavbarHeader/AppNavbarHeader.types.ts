@@ -9,6 +9,10 @@ export type AppNavbarHeaderProps = {
     typeof components.TextField
   >['onChange'];
 
+  onSearchButtonClick?: react.ComponentProps<
+    typeof components.TextField
+  >['onSearchButtonClick'];
+
   filters?: react.ComponentProps<
     typeof elements.AppNavbarHeaderFilters
   >['filters'];

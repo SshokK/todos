@@ -1,7 +1,11 @@
-import * as utils from '../../utils';
+import * as constants from './TodosCounts.constants.ts';
 
 export type TodosCountsProps = {
-  queryParams?: Partial<
-    Required<Parameters<typeof utils.useTodosCountByStatus>>[0]['queryParams']
-  >;
+  counts: Record<constants.TODOS_COUNT_TYPE, number>;
+
+  isLoading?: boolean;
+
+  classNames?: {
+    container?: string;
+  };
 };

@@ -1,6 +1,6 @@
 import type { TodosTotalCountArgs } from './useTodosTotalCount.types.ts';
 
-import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
+import * as todosConstants from '../../todos.constants.ts';
 import * as api from '../../todos.api.ts';
 import * as constants from './useTodosTotalCount.constants.ts';
 
@@ -20,7 +20,9 @@ export const useTodosTotalCount = <
     D
   >({
     enabled: args.options?.isEnabled,
-    queryKey: [queryKeys.QUERY_KEY.TODOS_TOTAL_COUNT, args.queryParams],
+    queryKey: todosConstants.QUERY_KEY_FACTORY.TODOS_TOTAL_COUNT([
+      args.queryParams,
+    ]),
     queryFn: async () => {
       try {
         return await api.fetchTodosTotalCount(args.queryParams ?? {});

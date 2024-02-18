@@ -10,7 +10,7 @@ import { ANIMATION_TYPE, TodoCard } from '../TodoCard';
 import { useTodosGroupQueries } from './hooks';
 
 export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
-  ({ title, isFetchDisabled, queryParams }, ref) => {
+  ({ title, isFetchDisabled, isLoading, queryParams, classNames }, ref) => {
     const queries = useTodosGroupQueries({
       props: {
         queryParams,
@@ -19,10 +19,12 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
     });
 
     return (
-      <elements.TodosGroupContainer ref={ref}>
+      <elements.TodosGroupContainer ref={ref} className={classNames?.container}>
         <elements.TodosGroupHeader
           isLoading={
-            queries.todosTotalCount.isFetching && queries.todos.isFetching
+            isLoading ||
+            queries.todosTotalCount.isFetching ||
+            queries.todos.isFetching
           }
         >
           {title}

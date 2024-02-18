@@ -29,6 +29,8 @@ export const fetchTodosCountByStatus: apiTypes.FetchTodosCountByStatus = async (
 export const fetchTodosCountByDays: apiTypes.FetchTodosCountByDays = async (
   queryParams,
 ) => {
+  await new Promise((r) => setTimeout(r, 5000));
+
   const response = await fetch.fetch<apiTypes.FetchTodosCountByDaysResponse>({
     url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-days`,
     method: requestConstants.HTTP_METHODS.GET,

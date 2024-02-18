@@ -1,6 +1,6 @@
 import type { TodosCountByStatusArgs } from './useTodosCountByStatus.types.ts';
 
-import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
+import * as todosConstants from '../../todos.constants.ts';
 import * as api from '../../todos.api.ts';
 import * as constants from './useTodosCountByStatus.constants.ts';
 import * as dateUtils from '../../../../date';
@@ -23,7 +23,9 @@ export const useTodosCountByStatus = <
     Error,
     D
   >({
-    queryKey: [queryKeys.QUERY_KEY.TODOS_COUNT_BY_STATUS, args.queryParams],
+    queryKey: todosConstants.QUERY_KEY_FACTORY.TODOS_COUNT_BY_STATUS(
+      args.queryParams,
+    ),
     queryFn: async () => {
       try {
         return await api.fetchTodosCountByStatus({

@@ -1,6 +1,7 @@
 export * from './useTodosList';
 export * from './useTodosCountByStatus';
 export * from './useTodosCountByDays';
+export * from './useTodosInfiniteCountByDays';
 export * from './useTodosTotalCount';
 export * from './useTodosBulkDelete';
 export * from './useTodoCreate';

@@ -1,6 +1,6 @@
 import type { TodosCountByDaysArgs } from './useTodosCountByDays.types.ts';
 
-import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
+import * as todosConstants from '../../todos.constants.ts';
 import * as api from '../../todos.api.ts';
 import * as constants from './useTodosCountByDays.constants.ts';
 import * as reactQuery from '@tanstack/react-query';
@@ -20,7 +20,9 @@ export const useTodosCountByDays = <
     Error,
     D
   >({
-    queryKey: [queryKeys.QUERY_KEY.TODOS_COUNT_BY_DAYS, args.queryParams],
+    queryKey: todosConstants.QUERY_KEY_FACTORY.TODOS_COUNT_BY_DAYS(
+      args.queryParams,
+    ),
     queryFn: async () => {
       try {
         return await api.fetchTodosCountByDays(args.queryParams);

@@ -3,9 +3,9 @@ import classnames from 'classnames';
 export const CLASSNAMES = {
   container: classnames('flex', 'flex-col', 'gap-8', 'flex-1'),
 
-  separator: classnames('w-full'),
+  todosCounts: classnames('px-6'),
 
-  upcomingTodosContainer: classnames(
+  list: classnames(
     'flex-1',
     'flex',
     'flex-col',
@@ -14,4 +14,6 @@ export const CLASSNAMES = {
     'relative',
     'w-full',
   ),
+
+  listItem: classnames('px-6'),
 };

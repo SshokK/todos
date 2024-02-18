@@ -1,5 +1,6 @@
-import type { FocusEvent, MouseEvent } from 'react';
+import type * as react from 'react';
 import type * as constants from './TextField.constants.ts';
+import type { IconButton } from '../IconButton';
 
 export type TextFieldProps = {
   value?: string;
@@ -14,7 +15,8 @@ export type TextFieldProps = {
   shouldRenderSearchButton?: boolean;
   isDisabled?: boolean;
   onChange?: (value: string) => void;
-  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
-  onClick?: (e: MouseEvent<HTMLInputElement>) => void;
+  onFocus?: (e: react.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: react.FocusEvent<HTMLInputElement>) => void;
+  onClick?: (e: react.MouseEvent<HTMLInputElement>) => void;
+  onSearchButtonClick?: react.ComponentProps<typeof IconButton>['onClick'];
 };

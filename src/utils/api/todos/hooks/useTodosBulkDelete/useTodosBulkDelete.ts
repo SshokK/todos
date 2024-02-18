@@ -1,6 +1,6 @@
 import type { TodoBulkDeleteArgs } from './useTodosBulkDelete.types.ts';
 
-import * as queryKeys from '../../../../../constants/query-keys.constants.ts';
+import * as constants from './useTodosBulkDelete.constants.ts';
 import * as api from '../../todos.api.ts';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -21,17 +21,13 @@ export const useTodosBulkDelete = () => {
     },
     onError: errorToast.show,
     onSuccess: () => {
-      return Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS_COUNT_BY_STATUS],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.QUERY_KEY.TODOS_TOTAL_COUNT],
-        }),
-      ]);
+      return Promise.all(
+        constants.QUERY_KEYS_TO_INVALIDATE.map((queryKeyFactory) =>
+          queryClient.invalidateQueries({
+            queryKey: queryKeyFactory(),
+          }),
+        ),
+      );
     },
   });
 };
