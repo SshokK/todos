@@ -3,8 +3,11 @@ import type * as apiTypes from './todos.api.types.ts';
 import * as requestConstants from '../../../constants/request.constants.ts';
 import * as fetch from '../../fetch';
 import * as apiHelpers from './todos.api.helpers.ts';
+import * as dateUtils from '../../date';
 
 export const fetchTodos: apiTypes.FetchTodos = async (queryParams) => {
+  await new Promise((r) => setTimeout(r, 2000));
+
   const response = await fetch.fetch<apiTypes.FetchTodosResponse>({
     url: `${import.meta.env.VITE_API_URL}/v1/todos`,
     method: requestConstants.HTTP_METHODS.GET,
@@ -26,18 +29,19 @@ export const fetchTodosCountByStatus: apiTypes.FetchTodosCountByStatus = async (
   return response.data;
 };
 
-export const fetchTodosCountByDays: apiTypes.FetchTodosCountByDays = async (
+export const fetchTodosCountByDates: apiTypes.FetchTodosCountByDates = async (
   queryParams,
 ) => {
-  await new Promise((r) => setTimeout(r, 5000));
-
-  const response = await fetch.fetch<apiTypes.FetchTodosCountByDaysResponse>({
-    url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-days`,
+  const response = await fetch.fetch<apiTypes.FetchTodosCountByDatesResponse>({
+    url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-dates`,
     method: requestConstants.HTTP_METHODS.GET,
     queryParams: queryParams,
+    headers: {
+      ['X-Timezone-Offset']: dateUtils.getCurrentTimezoneOffset(),
+    },
   });
 
-  return apiHelpers.normalizeTodosCountByDays(response.data);
+  return apiHelpers.normalizeTodosCountByDates(response.data);
 };
 
 export const fetchTodosTotalCount: apiTypes.FetchTodosTotalCount = async (

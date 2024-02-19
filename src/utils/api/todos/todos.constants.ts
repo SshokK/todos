@@ -5,7 +5,7 @@ import * as api from './todos.api.ts';
 export enum QUERY_KEY {
   TODOS = 'todos',
   TODOS_COUNT_BY_STATUS = 'todosCountByStatus',
-  TODOS_COUNT_BY_DAYS = 'todosCountByDays',
+  TODOS_COUNT_BY_DATES = 'todosCountByDates',
   TODOS_TOTAL_COUNT = 'todosTotalCount',
 }
 
@@ -18,17 +18,17 @@ export const QUERY_KEY_FACTORY = {
   ],
 
   TODOS_COUNT_BY_DAYS: (
-    ...args: Partial<Parameters<typeof api.fetchTodosCountByDays>>
-  ) => [QUERY_KEY.TODOS_COUNT_BY_DAYS, ...args],
+    ...args: Partial<Parameters<typeof api.fetchTodosCountByDates>>
+  ) => [QUERY_KEY.TODOS_COUNT_BY_DATES, ...args],
 
-  TODOS_INFINITE_COUNT_BY_DAYS: (
+  TODOS_INFINITE_COUNT_BY_DATES: (
     ...args: [
       queryParams?: Omit<
-        Parameters<typeof api.fetchTodosCountByDays>[0],
+        Parameters<typeof api.fetchTodosCountByDates>[0],
         'offset'
       >,
     ]
-  ) => [QUERY_KEY.TODOS_COUNT_BY_DAYS, 'infinite', ...args],
+  ) => [QUERY_KEY.TODOS_COUNT_BY_DATES, 'infinite', ...args],
 
   TODOS_COUNT_BY_STATUS: (
     ...args: [

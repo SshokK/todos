@@ -1,22 +1,22 @@
-import type { TodosCountByDaysArgs } from './useTodosCountByDays.types.ts';
+import type { TodosCountByDatesArgs } from './useTodosCountByDates.types.ts';
 
 import * as todosConstants from '../../todos.constants.ts';
 import * as api from '../../todos.api.ts';
-import * as constants from './useTodosCountByDays.constants.ts';
+import * as constants from './useTodosCountByDates.constants.ts';
 import * as reactQuery from '@tanstack/react-query';
 
 import { useQuery } from '@tanstack/react-query';
 import { useQueryErrorToast } from '../../../../hooks';
 
-export const useTodosCountByDays = <
-  D = Awaited<ReturnType<typeof api.fetchTodosCountByDays>>,
+export const useTodosCountByDates = <
+  D = Awaited<ReturnType<typeof api.fetchTodosCountByDates>>,
 >(
-  args: TodosCountByDaysArgs<D>,
+  args: TodosCountByDatesArgs<D>,
 ) => {
   const errorToast = useQueryErrorToast();
 
   return useQuery<
-    Awaited<ReturnType<typeof api.fetchTodosCountByDays>>,
+    Awaited<ReturnType<typeof api.fetchTodosCountByDates>>,
     Error,
     D
   >({
@@ -25,7 +25,7 @@ export const useTodosCountByDays = <
     ),
     queryFn: async () => {
       try {
-        return await api.fetchTodosCountByDays(args.queryParams);
+        return await api.fetchTodosCountByDates(args.queryParams);
       } catch (e) {
         errorToast.show(e);
         return constants.INITIAL_DATA;

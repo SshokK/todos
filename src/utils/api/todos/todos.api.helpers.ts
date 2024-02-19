@@ -1,16 +1,11 @@
-import type {
-  FetchTodosCountByDaysResponse,
-  Todo,
-  TodoFromResponse,
-} from './todos.api.types.ts';
+import type * as apiTypes from './todos.api.types.ts';
 
 import * as stringUtils from '../../string';
 import * as dateUtils from '../../date';
-import { TodoCountByDay } from './todos.api.types.ts';
 
 export const normalizeTodos = (
-  todosFromResponse: Partial<TodoFromResponse>[],
-): Todo[] => {
+  todosFromResponse: Partial<apiTypes.TodoFromResponse>[],
+): apiTypes.Todo[] => {
   if (!Array.isArray(todosFromResponse)) {
     return [];
   }
@@ -26,12 +21,16 @@ export const normalizeTodos = (
   }));
 };
 
-export const normalizeTodosCountByDays = (
-  todosCountByDaysResponse: FetchTodosCountByDaysResponse,
-): TodoCountByDay[] => {
-  return todosCountByDaysResponse.map((entry) => ({
-    dateRangeStart: new Date(entry.dateRangeStart),
-    dateRangeEnd: new Date(entry.dateRangeEnd),
-    count: entry.count,
-  }));
+export const normalizeTodosCountByDates = (
+  todosCountByDatesResponse: apiTypes.FetchTodosCountByDatesResponse,
+): apiTypes.TodoCountByDate[] => {
+  return todosCountByDatesResponse.map((entry) => {
+    const date = new Date(entry.date);
+
+    return {
+      dateRangeStart: dateUtils.getStartOfDay(date),
+      dateRangeEnd: dateUtils.getEndOfDay(date),
+      count: entry.count,
+    };
+  });
 };

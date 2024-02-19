@@ -14,6 +14,10 @@ export const useTodoCardHandlers = ({
   const appCalendar = useAppCalendar();
 
   const handleTodoClick: TodoCardHandlers['handleTodoClick'] = () => {
+    if (!props.todo) {
+      return;
+    }
+
     if (
       Math.abs(
         utils.getDiff({

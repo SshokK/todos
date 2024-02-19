@@ -10,7 +10,17 @@ import { ANIMATION_TYPE, TodoCard } from '../TodoCard';
 import { useTodosGroupQueries } from './hooks';
 
 export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
-  ({ title, isFetchDisabled, isLoading, queryParams, classNames }, ref) => {
+  (
+    {
+      title,
+      expectedTodosCount,
+      isFetchDisabled,
+      isLoading,
+      queryParams,
+      classNames,
+    },
+    ref,
+  ) => {
     const queries = useTodosGroupQueries({
       props: {
         queryParams,
@@ -30,17 +40,24 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
           {title}
         </elements.TodosGroupHeader>
         <framerMotion.AnimatePresence initial={false} mode="popLayout">
-          {queries.todos.data?.flatMap((todo, i) => {
-            if (i < constants.VISIBLE_TODOS_COUNT) {
-              return (
-                <TodoCard
-                  key={todo.id}
-                  todo={todo}
-                  animationType={ANIMATION_TYPE.SLIDE_UP}
-                />
-              );
-            }
-          })}
+          {[
+            ...Array(
+              (expectedTodosCount ?? 0) <= constants.VISIBLE_TODOS_COUNT
+                ? expectedTodosCount
+                : constants.VISIBLE_TODOS_COUNT,
+            ).keys(),
+          ].map((_, i) => (
+            <TodoCard
+              key={i}
+              isLoading={
+                isFetchDisabled ||
+                queries.todos.isLoading ||
+                queries.todosTotalCount.isLoading
+              }
+              todo={queries.todos.data?.flat()[i]}
+              animationType={ANIMATION_TYPE.SLIDE_UP}
+            />
+          ))}
           {queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT > 0 && (
             <elements.TodosGroupCount>
               +{queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT}{' '}

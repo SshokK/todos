@@ -1,6 +1,6 @@
 import type * as framerMotion from 'framer-motion';
 
-import * as constants from './TodoCard.constants.ts';
+import * as constants from './Container.constants.ts';
 
 export enum ANIMATION_NAME {
   ENTER = 'enter',

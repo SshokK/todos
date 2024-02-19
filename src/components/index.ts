@@ -20,6 +20,7 @@ export * from './Ripple';
 export * from './Select';
 export * from './Separator';
 export * from './Sidebar';
+export * from './Skeleton';
 export * from './Spinner';
 export * from './Status';
 export * from './StrictModeDroppable';

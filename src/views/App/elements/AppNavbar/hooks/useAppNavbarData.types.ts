@@ -25,7 +25,7 @@ export type AppNavbarLocalActions = {
 
 export type AppNavbarFormattedData = {
   queryParams: Omit<
-    | Parameters<typeof utils.useTodosCountByDays>[0]['queryParams']
+    | Parameters<typeof utils.useTodosCountByDates>[0]['queryParams']
     | Parameters<typeof utils.useTodosList>[0]['queryParams'],
     keyof types.ListQueryParams
   >;

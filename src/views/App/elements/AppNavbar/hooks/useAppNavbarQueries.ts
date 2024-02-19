@@ -22,7 +22,7 @@ export const useAppNavbarQueries = ({
     },
   });
 
-  const todosCountByDays = utils.useTodosInfiniteCountByDays({
+  const todosCountByDays = utils.useTodosInfiniteCountByDates({
     queryParams: {
       ...constants.DEFAULT_QUERY_PARAMS,
       ...formattedData.queryParams,

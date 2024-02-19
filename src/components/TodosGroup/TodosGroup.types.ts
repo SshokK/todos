@@ -5,6 +5,7 @@ export type TodosGroupProps = {
   title?: react.ReactNode;
   isLoading?: boolean;
   isFetchDisabled?: boolean;
+  expectedTodosCount?: number;
   queryParams?: Partial<
     Parameters<typeof utils.useTodosList>[0]['queryParams']
   >;

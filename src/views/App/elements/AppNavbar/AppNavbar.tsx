@@ -51,6 +51,7 @@ export const AppNavbar: FC = () => {
               key={todosCountPage.dateRangeStart.toDateString()}
               isLoading={queries.todosCountByDays.isRefetching}
               isFetchDisabled={queries.todosCountByDays.isFetching}
+              expectedTodosCount={todosCountPage.count}
               title={utils.formatHumanizedDate(
                 todosCountPage.dateRangeStart,
                 t,
