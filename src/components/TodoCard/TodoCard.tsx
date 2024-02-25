@@ -5,9 +5,9 @@ import * as styles from './TodoCard.styles.ts';
 import * as utils from 'utils';
 import * as dateConstants from '../../constants/date.constants.ts';
 import * as framerMotion from 'framer-motion';
+import * as elements from './elements';
 
 import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
-import { Skeleton } from '../Skeleton';
 import { Card } from '../Card';
 import { FadeIn } from '../Animations';
 
@@ -55,21 +55,27 @@ export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
               type={TYPOGRAPHY_TYPE.TITLE_2}
               className={styles.CLASSNAMES.todoTitle}
             >
-              {isLoading && (
-                <Skeleton className={styles.CLASSNAMES.todoTitleSkeleton} />
-              )}
-              {isLoading ? null : todo?.title || 'No title'}
+              <elements.TodoCardSkeleton
+                isLoading={isLoading}
+                classNames={{
+                  skeleton: styles.CLASSNAMES.todoTitleSkeleton,
+                }}
+              >
+                {todo?.title || 'No title'}
+              </elements.TodoCardSkeleton>
             </Typography>
             <Typography
               type={TYPOGRAPHY_TYPE.SUBTITLE}
               className={styles.CLASSNAMES.todoDescription}
             >
-              {isLoading && (
-                <Skeleton
-                  className={styles.CLASSNAMES.todoDescriptionSkeleton}
-                />
-              )}
-              {isLoading ? null : todo?.content || 'No description'}
+              <elements.TodoCardSkeleton
+                isLoading={isLoading}
+                classNames={{
+                  skeleton: styles.CLASSNAMES.todoDescriptionSkeleton,
+                }}
+              >
+                {todo?.content || 'No description'}
+              </elements.TodoCardSkeleton>
             </Typography>
           </framerMotion.motion.div>
         </Card>

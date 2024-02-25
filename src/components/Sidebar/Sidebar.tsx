@@ -11,7 +11,7 @@ import { Typography } from '../Typography';
 import { IconButton } from '../IconButton';
 import { IconClose } from '../Icons';
 
-import { useSidebars } from 'contexts';
+import { useSidebars } from 'utils';
 
 export const Sidebar: FC<SidebarProps> = () => {
   const sidebarsContext = useSidebars();

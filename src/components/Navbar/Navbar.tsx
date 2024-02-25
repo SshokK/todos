@@ -9,7 +9,7 @@ import * as constants from './Navbar.constants.ts';
 import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 import { IconGithub, IconLinkedIn } from '../Icons';
 
-import { useSidebars } from 'contexts';
+import { useSidebars } from 'utils';
 
 export const Navbar: FC<NavbarProps> = () => {
   const sidebarsContext = useSidebars();

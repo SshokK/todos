@@ -16,6 +16,7 @@ export type AppCalendarLocalActions = {
 
 export type AppCalendarFormattedData = {
   whitelistedDates: Date[] | null;
+  isBulkDeleteInProgress: boolean;
 };
 
 export type AppCalendarData = {

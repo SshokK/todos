@@ -1,8 +1,9 @@
-import { useToast } from 'contexts';
-import { useCallback } from 'react';
-
 import * as errorUtils from '../errors';
 import * as components from '../../components';
+
+import { useToast } from './useToast.ts';
+import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const useQueryErrorToast = (): Omit<
   ReturnType<typeof useToast>,
@@ -11,14 +12,15 @@ export const useQueryErrorToast = (): Omit<
   show: (e: unknown) => void;
 } => {
   const toast = useToast();
+  const { t } = useTranslation();
 
   const show = useCallback(
     (e: unknown) => {
       if (!import.meta.env.DEV) {
         return toast.show({
           type: components.TOAST_TYPE.ERROR,
-          title: 'Error',
-          description: 'Something went wrong',
+          title: t('utils.errors.networkError.title'),
+          description: t('utils.errors.networkError.description'),
         });
       }
 
@@ -39,10 +41,10 @@ export const useQueryErrorToast = (): Omit<
 
       toast.show({
         type: components.TOAST_TYPE.ERROR,
-        description: 'Something went wrong',
+        description: t('utils.errors.networkError.description'),
       });
     },
-    [toast],
+    [t, toast],
   );
 
   return {

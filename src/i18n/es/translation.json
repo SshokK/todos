@@ -48,6 +48,29 @@
   },
 
   "utils": {
+    "errors": {
+      "networkError": {
+        "title": "Error",
+        "description": "Algo salió mal"
+      }
+    },
+
+    "api": {
+      "todos": {
+        "bulkDeleteMessage": {
+          "success": {
+            "title": "Éxito",
+            "description_one": "{{count}} elemento fue eliminado",
+            "description_other": "Se eliminaron {{count}} elementos."
+          },
+          "emptyResult": {
+            "title": "Nothing to delete",
+            "description": "No todos were deleted"
+          }
+        }
+      }
+    },
+
     "date": {
       "today": "Hoy",
       "yesterday": "Ayer",

@@ -9,6 +9,14 @@ export enum QUERY_KEY {
   TODOS_TOTAL_COUNT = 'todosTotalCount',
 }
 
+export enum MUTATION_KEY {
+  BULK_DELETE = 'bulkDelete',
+}
+
+export const MUTATION_KEY_FACTORY = {
+  BULK_DELETE: () => [MUTATION_KEY.BULK_DELETE],
+};
+
 export const QUERY_KEY_FACTORY = {
   TODO_BY_ID: (id: Todo['id']) => [QUERY_KEY.TODOS, id],
 

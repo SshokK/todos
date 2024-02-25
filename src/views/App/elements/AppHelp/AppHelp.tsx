@@ -1,11 +1,10 @@
 import type { FC } from 'react';
 
 import * as components from 'components';
-
-import { useSidebars } from 'contexts';
+import * as utils from 'utils';
 
 export const AppHelp: FC = () => {
-  const sidebars = useSidebars();
+  const sidebars = utils.useSidebars();
 
   const handleClick = () => {
     sidebars.sidebar.setIsOpen(true);

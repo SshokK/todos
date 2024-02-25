@@ -7,7 +7,7 @@ export class FetchError extends Error {
     data: FetchError['data'];
     status: FetchError['status'];
   }) {
-    super('Request Error');
+    super('ror');
 
     this.status = args.status;
     this.data = args.data;

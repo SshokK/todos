@@ -4,14 +4,12 @@ import type { TodoCardHandlers } from './useTodoCardHandlers.types.ts';
 import * as utils from 'utils';
 import * as dateConstants from '../../../constants/date.constants.ts';
 
-import { useAppCalendar } from '../../../contexts';
-
 export const useTodoCardHandlers = ({
   props,
 }: {
   props: Pick<TodoCardProps, 'todo'>;
 }): TodoCardHandlers => {
-  const appCalendar = useAppCalendar();
+  const appCalendar = utils.useAppCalendar();
 
   const handleTodoClick: TodoCardHandlers['handleTodoClick'] = () => {
     if (!props.todo) {

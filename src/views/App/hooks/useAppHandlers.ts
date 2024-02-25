@@ -1,6 +1,6 @@
 import type { AppHandlers } from './useAppHandlers.types.ts';
 
-import { useSidebars } from 'contexts';
+import { useSidebars } from 'utils';
 import { useCallback } from 'react';
 
 export const useAppHandlers = (): AppHandlers => {

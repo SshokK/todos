@@ -1,2 +1,2 @@
 export * from './AppCalendarContextProvider';
-export * from './hooks';
+export * from './AppCalendarContext';

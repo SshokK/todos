@@ -7,7 +7,7 @@ import * as elements from './elements';
 import * as utils from 'utils';
 
 import { useTranslation } from 'react-i18next';
-import { useAppCalendar } from 'contexts';
+import { useAppCalendar } from 'utils';
 import {
   useAppCalendarData,
   useAppCalendarHandlers,
@@ -34,7 +34,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
   return (
     <components.Loader
       Component={components.Spinner}
-      isVisible={false}
+      isVisible={formattedData.isBulkDeleteInProgress}
       isWithBackground
       classNames={{
         outerContainer: styles.CLASSNAMES.calendarContainer,

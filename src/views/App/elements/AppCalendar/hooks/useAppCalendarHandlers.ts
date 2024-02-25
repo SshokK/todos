@@ -4,9 +4,15 @@ import type { AppCalendarData } from './useAppCalendarData.types.ts';
 import * as dateConstants from '../../../../../constants/date.constants.ts';
 import * as utils from 'utils';
 
-import { useTodoCreate, useTodoDelete, useTodoUpdate } from 'utils';
-import { useAppCalendar, useHighlighter, useSidebars } from 'contexts';
 import { useCallback } from 'react';
+import {
+  useTodoCreate,
+  useTodoDelete,
+  useTodoUpdate,
+  useAppCalendar,
+  useHighlighter,
+  useSidebars,
+} from 'utils';
 
 export const useAppCalendarHandlers = ({
   localActions,

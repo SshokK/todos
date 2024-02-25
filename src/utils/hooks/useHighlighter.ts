@@ -1,7 +1,7 @@
-import { HighlighterContext } from '../HighlighterContext';
+import { HighlighterContext } from '../../contexts/highlighter/HighlighterContext';
 
 import { useContext, useEffect } from 'react';
-import { usePreviousValue } from '../../../utils';
+import { usePreviousValue } from '../index.ts';
 
 export const useHighlighter = ({
   onHighlightStart,

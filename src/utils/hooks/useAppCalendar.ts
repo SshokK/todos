@@ -1,4 +1,4 @@
-import { AppCalendarContext } from '../AppCalendarContext';
+import { AppCalendarContext } from '../../contexts';
 
 import { useContext } from 'react';
 

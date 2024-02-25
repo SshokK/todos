@@ -49,6 +49,29 @@
   },
 
   "utils": {
+    "errors": {
+      "networkError": {
+        "title": "Error",
+        "description": "Something went wrong"
+      }
+    },
+
+    "api": {
+      "todos": {
+        "bulkDeleteMessage": {
+          "success": {
+            "title": "Success",
+            "description_one": "{{count}} item was deleted",
+            "description_other": "{{count}} items were deleted"
+          },
+          "emptyResult": {
+            "title": "Nothing to delete",
+            "description": "No items were deleted"
+          }
+        }
+      }
+    },
+
     "date": {
       "today": "Today",
       "yesterday": "Yesterday",
