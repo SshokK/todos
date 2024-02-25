@@ -50,7 +50,7 @@ export const AppNavbar: FC = () => {
             <components.TodosGroup
               key={todosCountPage.dateRangeStart.toDateString()}
               isLoading={queries.todosCountByDays.isRefetching}
-              isFetchDisabled={queries.todosCountByDays.isFetching}
+              isFetchDisabled={queries.todosCountByDays.isLoading}
               expectedTodosCount={todosCountPage.count}
               title={utils.formatHumanizedDate(
                 todosCountPage.dateRangeStart,

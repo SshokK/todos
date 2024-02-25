@@ -4,7 +4,6 @@ import type { ListProps } from './List.types.ts';
 import * as react from 'react';
 import * as reactVirtuoso from 'react-virtuoso';
 import * as styles from './List.styles.ts';
-import * as elements from './elements';
 
 export const List = react.forwardRef<HTMLElement, ListProps>(
   (
@@ -29,7 +28,10 @@ export const List = react.forwardRef<HTMLElement, ListProps>(
         style={styles.STYLES.virtualizedList}
         components={{
           ...components,
-          Item: elements.ListHeightPreservingItem,
+          /**
+           * TODO Figure out if still needed
+           */
+          // Item: elements.ListHeightPreservingItem,
         }}
         overscan={overscan}
         itemContent={(index, item) => onItemRender(item, index)}

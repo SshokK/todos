@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import * as constants from './Separator.constants';
 
 export const CLASSNAMES = {
-  container: classnames('flex', 'items-center', 'justify-center'),
+  container: classnames('flex', 'items-center', 'justify-center', 'relative'),
   separator: classnames('border-secondary-400'),
   text: classnames('p-3'),
 };
