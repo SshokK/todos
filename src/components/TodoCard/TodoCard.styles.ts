@@ -1,6 +1,8 @@
 import classnames from 'classnames';
 
 export const CLASSNAMES = {
+  container: classnames('w-full', 'overflow-hidden', 'relative'),
+
   todoCardIndicatorContainer: classnames(
     'border-solid',
     'border-l',

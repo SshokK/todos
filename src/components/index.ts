@@ -1,3 +1,4 @@
+export * from './Animations';
 export * from './Button';
 export * from './Calendar';
 export * from './Card';

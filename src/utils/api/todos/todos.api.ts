@@ -29,11 +29,11 @@ export const fetchTodosCountByStatus: apiTypes.FetchTodosCountByStatus = async (
   return response.data;
 };
 
-export const fetchTodosCountByDates: apiTypes.FetchTodosCountByDates = async (
+export const fetchTodosCountByDays: apiTypes.FetchTodosCountByDays = async (
   queryParams,
 ) => {
-  const response = await fetch.fetch<apiTypes.FetchTodosCountByDatesResponse>({
-    url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-dates`,
+  const response = await fetch.fetch<apiTypes.FetchTodosCountByDaysResponse>({
+    url: `${import.meta.env.VITE_API_URL}/v1/todos/count-by-days`,
     method: requestConstants.HTTP_METHODS.GET,
     queryParams: queryParams,
     headers: {
@@ -41,7 +41,7 @@ export const fetchTodosCountByDates: apiTypes.FetchTodosCountByDates = async (
     },
   });
 
-  return apiHelpers.normalizeTodosCountByDates(response.data);
+  return apiHelpers.normalizeTodosCountByDays(response.data);
 };
 
 export const fetchTodosTotalCount: apiTypes.FetchTodosTotalCount = async (

@@ -1,19 +1,20 @@
-import type { ComponentProps, FC } from 'react';
 import type { AppNavbarListContext } from './AppNavbar.types.ts';
+
+import type * as react from 'react';
 
 import * as components from 'components';
 import * as styles from './AppNavbar.styles.ts';
 import * as elements from './elements';
 import * as utils from 'utils';
 
+import { useTranslation } from 'react-i18next';
 import {
   useAppNavbarData,
   useAppNavbarHandlers,
   useAppNavbarQueries,
 } from './hooks';
-import { useTranslation } from 'react-i18next';
 
-export const AppNavbar: FC = () => {
+export const AppNavbar: react.FC = () => {
   const { t } = useTranslation();
 
   const { localState, localActions, formattedData } = useAppNavbarData();
@@ -46,26 +47,30 @@ export const AppNavbar: FC = () => {
         <components.List
           items={queries.todosCountByDays.data ?? []}
           onEndReach={queries.todosCountByDays.fetchNextPage}
-          onItemRender={(todosCountPage) => (
+          onItemRender={(
+            item: NonNullable<typeof queries.todosCountByDays.data>[number],
+          ) => (
             <components.TodosGroup
-              key={todosCountPage.dateRangeStart.toDateString()}
               isLoading={queries.todosCountByDays.isRefetching}
               isFetchDisabled={queries.todosCountByDays.isLoading}
-              expectedTodosCount={todosCountPage.count}
-              title={utils.formatHumanizedDate(
-                todosCountPage.dateRangeStart,
-                t,
-              )}
+              expectedTodosCount={item.count}
+              title={utils.formatHumanizedDate(item.date, t)}
               queryParams={{
                 ...formattedData.queryParams,
-                dateRangeStart: todosCountPage.dateRangeStart.toISOString(),
-                dateRangeEnd: todosCountPage.dateRangeEnd.toISOString(),
+                dateRangeStart: item.date.toISOString(),
+                dateRangeEnd: utils.getEndOfDay(item.date).toISOString(),
               }}
               classNames={{
                 container: styles.CLASSNAMES.listItem,
               }}
             />
           )}
+          components={
+            {
+              EmptyPlaceholder: elements.AppNavbarEmptyPlaceholder,
+              Footer: elements.AppNavbarListFooter,
+            } as react.ComponentProps<typeof components.List>['components']
+          }
           componentsContext={
             {
               searchString: localState.searchString,
@@ -73,12 +78,6 @@ export const AppNavbar: FC = () => {
               isInitialLoading: queries.todosCountByDays.isInitialLoading,
               isFetchingNextPage: queries.todosCountByDays.isFetchingNextPage,
             } satisfies AppNavbarListContext
-          }
-          components={
-            {
-              EmptyPlaceholder: elements.AppNavbarEmptyPlaceholder,
-              Footer: elements.AppNavbarListFooter,
-            } as ComponentProps<typeof components.List>['components']
           }
         />
       </div>

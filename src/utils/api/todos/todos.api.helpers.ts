@@ -21,15 +21,12 @@ export const normalizeTodos = (
   }));
 };
 
-export const normalizeTodosCountByDates = (
-  todosCountByDatesResponse: apiTypes.FetchTodosCountByDatesResponse,
-): apiTypes.TodoCountByDate[] => {
-  return todosCountByDatesResponse.map((entry) => {
-    const date = new Date(entry.date);
-
+export const normalizeTodosCountByDays = (
+  todosCountByDaysResponse: apiTypes.FetchTodosCountByDaysResponse,
+): apiTypes.TodoCountByDay[] => {
+  return todosCountByDaysResponse.map((entry) => {
     return {
-      dateRangeStart: dateUtils.getStartOfDay(date),
-      dateRangeEnd: dateUtils.getEndOfDay(date),
+      date: new Date(entry.date),
       count: entry.count,
     };
   });

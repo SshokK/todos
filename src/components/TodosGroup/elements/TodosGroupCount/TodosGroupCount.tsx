@@ -11,20 +11,22 @@ export const TodosGroupCount = react.forwardRef<
   RemainingTodosCountProps
 >(({ isVisible, children }, ref) => {
   return (
-    <framerMotion.AnimatePresence>
-      {isVisible && (
-        <components.Separator
-          ref={ref}
-          layout
-          initial={animations.ANIMATION_NAME.INITIAL}
-          animate={animations.ANIMATION_NAME.ANIMATE}
-          exit={animations.ANIMATION_NAME.EXIT}
-          variants={animations.VARIANTS}
-          className={styles.CLASSNAMES.separator}
-        >
-          <div className={styles.CLASSNAMES.text}>{children}</div>
-        </components.Separator>
-      )}
-    </framerMotion.AnimatePresence>
+    <framerMotion.motion.div className={styles.CLASSNAMES.container}>
+      <framerMotion.AnimatePresence>
+        {isVisible && (
+          <components.Separator
+            ref={ref}
+            layout
+            initial={animations.ANIMATION_NAME.INITIAL}
+            animate={animations.ANIMATION_NAME.ANIMATE}
+            exit={animations.ANIMATION_NAME.EXIT}
+            variants={animations.VARIANTS}
+            className={styles.CLASSNAMES.separator}
+          >
+            <div className={styles.CLASSNAMES.text}>{children}</div>
+          </components.Separator>
+        )}
+      </framerMotion.AnimatePresence>
+    </framerMotion.motion.div>
   );
 });

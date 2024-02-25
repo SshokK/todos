@@ -1,7 +1,6 @@
 import type { AppNavbarData } from './useAppNavbarData.types.ts';
 
 import * as utils from 'utils';
-import * as constants from '../AppNavbar.constants.ts';
 import * as components from 'components';
 
 export const useAppNavbarQueries = ({
@@ -22,15 +21,13 @@ export const useAppNavbarQueries = ({
     },
   });
 
-  const todosCountByDays = utils.useTodosInfiniteCountByDates({
+  const todosCountByDays = utils.useTodosInfiniteCountByDays({
     queryParams: {
-      ...constants.DEFAULT_QUERY_PARAMS,
+      limit: 50,
       ...formattedData.queryParams,
     },
     options: {
-      selector: ({ pages }) => {
-        return pages.flat();
-      },
+      selector: utils.formatFlattenInfiniteTodosCountByDays,
     },
   });
 

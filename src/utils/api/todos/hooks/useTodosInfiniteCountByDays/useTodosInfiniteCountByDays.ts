@@ -1,16 +1,16 @@
-import type { InfiniteTodosCountByDatesArgs } from './useTodosInfiniteCountByDates.types.ts';
+import type { InfiniteTodosCountByDaysArgs } from './useTodosInfiniteCountByDays.types.ts';
 
 import * as api from '../../todos.api.ts';
-import * as constants from './useTodosInfiniteCountByDates.constants.ts';
+import * as constants from './useTodosInfiniteCountByDays.constants.ts';
 import * as todoConstants from '../../todos.constants.ts';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useQueryErrorToast } from '../../../../hooks';
 
-export const useTodosInfiniteCountByDates = <
-  D = Awaited<ReturnType<typeof api.fetchTodosCountByDates>>,
+export const useTodosInfiniteCountByDays = <
+  D = Awaited<ReturnType<typeof api.fetchTodosCountByDays>>,
 >(
-  args: InfiniteTodosCountByDatesArgs<D>,
+  args: InfiniteTodosCountByDaysArgs<D>,
 ) => {
   const errorToast = useQueryErrorToast();
 
@@ -20,7 +20,7 @@ export const useTodosInfiniteCountByDates = <
     ),
     queryFn: async ({ pageParam }) => {
       try {
-        return await api.fetchTodosCountByDates({
+        return await api.fetchTodosCountByDays({
           ...args.queryParams,
           offset: args.queryParams.limit * pageParam,
         });

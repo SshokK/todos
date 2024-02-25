@@ -26,7 +26,7 @@ export type TodoDateRangeFromResponse = {
   dateRangeEnd: TodoFromResponse['date'];
 };
 
-export type TodoCountByDateFromResponse = {
+export type TodoCountByDayFromResponse = {
   date: TodoFromResponse['date'];
   count: number;
 };
@@ -36,11 +36,10 @@ export type TodoDateRange = {
   dateRangeEnd: Date;
 };
 
-export type TodoCountByDate = Omit<TodoCountByDateFromResponse, 'date'> &
-  TodoDateRange & {
-    count: number;
-  };
-
+export type TodoCountByDay = Omit<TodoCountByDayFromResponse, 'date'> & {
+  date: Date;
+  count: number;
+};
 export type FetchTodosPayload = [
   queryParams?: ListQueryParams &
     SortQueryParams<keyof Todo> &
@@ -66,14 +65,14 @@ export type FetchTodosCountByStatus = (
   ...args: FetchTodosCountByStatusPayload
 ) => Promise<FetchTodosCountByStatusResponse>;
 
-export type FetchTodosCountByDatesPayload = [
+export type FetchTodosCountByDaysPayload = [
   queryParams: ListQueryParams & TodosQueryParamsFilters,
 ];
-export type FetchTodosCountByDatesResponse = TodoCountByDateFromResponse[];
-export type FetchTodosCountByDatesReturn = TodoCountByDate[];
-export type FetchTodosCountByDates = (
-  ...args: FetchTodosCountByDatesPayload
-) => Promise<FetchTodosCountByDatesReturn>;
+export type FetchTodosCountByDaysResponse = TodoCountByDayFromResponse[];
+export type FetchTodosCountByDaysReturn = TodoCountByDay[];
+export type FetchTodosCountByDays = (
+  ...args: FetchTodosCountByDaysPayload
+) => Promise<FetchTodosCountByDaysReturn>;
 
 export type FetchTodosTotalCountPayload = [
   queryParams: Omit<FetchTodosPayload[0], 'limit' | 'offset'>,

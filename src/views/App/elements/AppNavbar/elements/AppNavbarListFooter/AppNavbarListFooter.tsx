@@ -7,9 +7,10 @@ import * as styles from './AppNavbarListFooter.styles.ts';
 export const AppNavbarListFooter = react.forwardRef<
   HTMLDivElement,
   AppNavbarListFooterProps
->(({ context }) => {
+>(({ context }, ref) => {
   return (
     <components.Loader
+      ref={ref}
       isVisible={context.isFetchingNextPage}
       Component={components.Spinner}
       componentProps={{ width: components.SPINNER_WIDTH.SM }}

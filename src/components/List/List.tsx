@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react';
 import type { ListProps } from './List.types.ts';
 
 import * as react from 'react';
@@ -9,22 +8,26 @@ export const List = react.forwardRef<HTMLElement, ListProps>(
   (
     {
       items,
-      onItemRender,
+      itemsTotalCount,
       overscan,
-      onEndReach,
       components,
       componentsContext,
+      onItemRender,
+      onEndReach,
+      onRenderedItemsChange,
+      onVisibleItemsRangeChange,
     },
     ref,
   ) => {
     return (
       <reactVirtuoso.Virtuoso
         {...(Boolean(ref) && {
-          scrollerRef: ref as ComponentProps<
+          scrollerRef: ref as react.ComponentProps<
             typeof reactVirtuoso.Virtuoso
           >['scrollerRef'],
         })}
         data={items}
+        totalCount={itemsTotalCount}
         style={styles.STYLES.virtualizedList}
         components={{
           ...components,
@@ -34,9 +37,13 @@ export const List = react.forwardRef<HTMLElement, ListProps>(
           // Item: elements.ListHeightPreservingItem,
         }}
         overscan={overscan}
-        itemContent={(index, item) => onItemRender(item, index)}
+        itemContent={(index, item, context) =>
+          onItemRender ? onItemRender(item, index, context) : index
+        }
         endReached={onEndReach}
         context={componentsContext}
+        itemsRendered={onRenderedItemsChange}
+        rangeChanged={onVisibleItemsRangeChange}
       />
     );
   },

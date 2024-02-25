@@ -5,9 +5,9 @@ import * as framerMotion from 'framer-motion';
 import * as constants from './TodosGroup.constants.ts';
 import * as elements from './elements';
 
-import { ANIMATION_TYPE, TodoCard } from '../TodoCard';
+import { TodoCard } from '../TodoCard';
 
-import { useTodosGroupQueries } from './hooks';
+import { useTodosGroupData, useTodosGroupQueries } from './hooks';
 
 export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
   (
@@ -21,6 +21,10 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
     },
     ref,
   ) => {
+    const { formattedData } = useTodosGroupData({
+      expectedTodosCount,
+    });
+
     const queries = useTodosGroupQueries({
       props: {
         queryParams,
@@ -40,13 +44,7 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
           {title}
         </elements.TodosGroupHeader>
         <framerMotion.AnimatePresence initial={false} mode="popLayout">
-          {[
-            ...Array(
-              (expectedTodosCount ?? 0) <= constants.VISIBLE_TODOS_COUNT
-                ? expectedTodosCount
-                : constants.VISIBLE_TODOS_COUNT,
-            ).keys(),
-          ].map((_, i) => (
+          {[...Array(formattedData.cardsCountToRender).keys()].map((_, i) => (
             <TodoCard
               key={i}
               isLoading={
@@ -55,7 +53,6 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
                 queries.todosTotalCount.isLoading
               }
               todo={queries.todos.data?.flat()[i]}
-              animationType={ANIMATION_TYPE.SLIDE_UP}
             />
           ))}
         </framerMotion.AnimatePresence>
