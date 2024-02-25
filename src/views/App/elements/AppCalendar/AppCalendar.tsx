@@ -33,7 +33,7 @@ export const AppCalendar: FC<AppCalendarProps> = ({ headerTools }) => {
 
   return (
     <components.Loader
-      Component={components.Pulse}
+      Component={components.Spinner}
       isVisible={false}
       isWithBackground
       classNames={{

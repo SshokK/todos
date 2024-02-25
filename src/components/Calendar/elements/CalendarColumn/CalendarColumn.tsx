@@ -72,37 +72,36 @@ export const CalendarColumn: FC<CalendarColumnProps> = ({
           </Typography>
           <NoItemsMessage
             isVisible={!formattedData.items.length}
-            className={styles.CLASSNAMES.noItemsMessage}
+            message="No items"
           >
-            No items
+            <List
+              ref={provided.innerRef}
+              items={formattedData.items}
+              onItemRender={(item: elements.CalendarItem, index) => (
+                <reactBeautifulDnd.Draggable
+                  draggableId={String(item.id)}
+                  index={index}
+                  key={item.id}
+                >
+                  {(provided, snapshot) => (
+                    <elements.CalendarRow
+                      ref={provided.innerRef}
+                      isHighlighted={item.id === highlightedItemId}
+                      onHighlightedElementRender={onHighlightedElementRender}
+                      draggableProps={provided.draggableProps}
+                      dragHandleProps={provided.dragHandleProps}
+                      isDropAnimating={snapshot.isDropAnimating}
+                      isDragging={snapshot.isDragging}
+                      dragTarget={snapshot.draggingOver}
+                      item={item}
+                      ItemComponent={ItemComponent}
+                      itemComponentProps={itemComponentProps}
+                    />
+                  )}
+                </reactBeautifulDnd.Draggable>
+              )}
+            />
           </NoItemsMessage>
-          <List
-            ref={provided.innerRef}
-            items={formattedData.items}
-            onItemRender={(item: elements.CalendarItem, index) => (
-              <reactBeautifulDnd.Draggable
-                draggableId={String(item.id)}
-                index={index}
-                key={item.id}
-              >
-                {(provided, snapshot) => (
-                  <elements.CalendarRow
-                    ref={provided.innerRef}
-                    isHighlighted={item.id === highlightedItemId}
-                    onHighlightedElementRender={onHighlightedElementRender}
-                    draggableProps={provided.draggableProps}
-                    dragHandleProps={provided.dragHandleProps}
-                    isDropAnimating={snapshot.isDropAnimating}
-                    isDragging={snapshot.isDragging}
-                    dragTarget={snapshot.draggingOver}
-                    item={item}
-                    ItemComponent={ItemComponent}
-                    itemComponentProps={itemComponentProps}
-                  />
-                )}
-              </reactBeautifulDnd.Draggable>
-            )}
-          />
         </div>
       )}
     </StrictModeDroppable>

@@ -55,14 +55,13 @@ export const TodosGroup = react.forwardRef<HTMLDivElement, TodosGroupProps>(
               todo={queries.todos.data?.flat()[i]}
             />
           ))}
+          {queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT > 0 && (
+            <elements.TodosGroupCount>
+              +{queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT}{' '}
+              More
+            </elements.TodosGroupCount>
+          )}
         </framerMotion.AnimatePresence>
-        <elements.TodosGroupCount
-          isVisible={
-            queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT > 0
-          }
-        >
-          +{queries.todosTotalCount.data - constants.VISIBLE_TODOS_COUNT} More
-        </elements.TodosGroupCount>
       </elements.TodosGroupContainer>
     );
   },

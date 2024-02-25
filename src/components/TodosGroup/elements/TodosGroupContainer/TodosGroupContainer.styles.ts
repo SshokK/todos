@@ -8,6 +8,6 @@ export const CLASSNAMES = {
     'w-full',
     'relative',
     'min-h-16',
-    'pb-12',
+    'pb-8',
   ),
 };

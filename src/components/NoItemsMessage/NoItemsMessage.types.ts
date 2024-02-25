@@ -2,6 +2,10 @@ import type { ReactNode } from 'react';
 
 export type NoItemsMessageProps = {
   isVisible?: boolean;
-  className?: string;
+  message?: ReactNode;
   children?: ReactNode;
+  classNames?: {
+    container?: string;
+    message?: string;
+  };
 };

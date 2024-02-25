@@ -30,7 +30,6 @@ export const useTodosCountByStatus = <
       try {
         return await api.fetchTodosCountByStatus({
           ...(args.queryParams ?? {}),
-          isDone: undefined,
           dueDate: dateUtils.getStartOfDay(dateUtils.getToday()).toISOString(),
         });
       } catch (e) {

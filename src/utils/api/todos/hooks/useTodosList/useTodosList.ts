@@ -21,7 +21,6 @@ export const useTodosList = <D = Awaited<ReturnType<typeof api.fetchTodos>>>(
         return await api.fetchTodos(args.queryParams);
       } catch (e) {
         errorToast.show(e);
-
         return constants.INITIAL_DATA;
       }
     },

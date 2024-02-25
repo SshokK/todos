@@ -2,16 +2,14 @@ import type { TodoCardProps } from './TodoCard.types.ts';
 
 import * as react from 'react';
 import * as styles from './TodoCard.styles.ts';
-import * as twMerge from 'tailwind-merge';
 import * as utils from 'utils';
 import * as dateConstants from '../../constants/date.constants.ts';
+import * as framerMotion from 'framer-motion';
 
 import { Typography, TYPOGRAPHY_TYPE } from '../Typography';
 import { Skeleton } from '../Skeleton';
 import { Card } from '../Card';
 import { FadeIn } from '../Animations';
-
-import classnames from 'classnames';
 
 import { useTodoCardHandlers } from './hooks';
 
@@ -32,28 +30,26 @@ export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
           onClick={handlers.handleTodoClick}
           {...props}
         >
-          <div
-            className={twMerge.twMerge(
-              classnames({
-                [styles.CLASSNAMES.todoCardIndicatorContainer]: true,
-                [styles.CLASSNAMES.todoCardIndicatorContainerIsToday]:
-                  todo &&
-                  utils.isSame({
-                    dateA: todo.date,
-                    dateB: utils.getToday(),
-                    granularity: dateConstants.DATE_GRANULARITY.DAY,
-                  }),
-                [styles.CLASSNAMES.todoCardIndicatorContainerIsOverdue]:
-                  todo &&
-                  utils.isBefore({
-                    dateA: todo.date,
-                    dateB: utils.getToday(),
-                    granularity: dateConstants.DATE_GRANULARITY.DAY,
-                  }),
-                [styles.CLASSNAMES.todoCardIndicatorContainerIsDone]:
-                  todo?.isDone,
-              }),
-            )}
+          <framerMotion.motion.div
+            className={utils.cn({
+              [styles.CLASSNAMES.todoCardIndicatorContainer]: true,
+              [styles.CLASSNAMES.todoCardIndicatorContainerIsToday]:
+                todo &&
+                utils.isSame({
+                  dateA: todo.date,
+                  dateB: utils.getToday(),
+                  granularity: dateConstants.DATE_GRANULARITY.DAY,
+                }),
+              [styles.CLASSNAMES.todoCardIndicatorContainerIsOverdue]:
+                todo &&
+                utils.isBefore({
+                  dateA: todo.date,
+                  dateB: utils.getToday(),
+                  granularity: dateConstants.DATE_GRANULARITY.DAY,
+                }),
+              [styles.CLASSNAMES.todoCardIndicatorContainerIsDone]:
+                todo?.isDone,
+            })}
           >
             <Typography
               type={TYPOGRAPHY_TYPE.TITLE_2}
@@ -75,7 +71,7 @@ export const TodoCard = react.forwardRef<HTMLDivElement, TodoCardProps>(
               )}
               {isLoading ? null : todo?.content || 'No description'}
             </Typography>
-          </div>
+          </framerMotion.motion.div>
         </Card>
       </FadeIn>
     );

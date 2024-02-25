@@ -5,3 +5,4 @@ export * from './hooks';
 export * from './number';
 export * from './promise';
 export * from './string';
+export * from './styles';

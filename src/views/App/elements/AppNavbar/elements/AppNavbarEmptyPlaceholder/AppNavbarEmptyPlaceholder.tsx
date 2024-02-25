@@ -11,24 +11,23 @@ export const AppNavbarEmptyPlaceholder: react.FC<
 > = ({ context }) => {
   const { t } = useTranslation();
 
-  if (context.isInitialLoading) {
-    return (
+  return (
+    <components.NoItemsMessage
+      isVisible={!context.isInitialLoading}
+      message={
+        context.searchString
+          ? t('views.App.AppNavbar.noSearchResults', 'No todos matching search')
+          : t('views.App.AppNavbar.noResultsForToday', 'No todos')
+      }
+    >
       <components.Loader
-        isVisible
+        isVisible={context.isInitialLoading}
         Component={components.Spinner}
         componentProps={{ width: components.SPINNER_WIDTH.SM }}
         classNames={{
           outerContainer: styles.CLASSNAMES.loader,
         }}
       />
-    );
-  }
-
-  return (
-    <components.NoItemsMessage isVisible>
-      {context.searchString
-        ? t('views.App.AppNavbar.noSearchResults', 'No todos matching search')
-        : t('views.App.AppNavbar.noResultsForToday', 'No todos')}
     </components.NoItemsMessage>
   );
 };

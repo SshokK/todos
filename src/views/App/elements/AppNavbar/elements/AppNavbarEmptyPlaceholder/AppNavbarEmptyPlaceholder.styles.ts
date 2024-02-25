@@ -1,7 +1,7 @@
-import classnames from 'classnames';
+import * as utils from 'utils';
 
 export const CLASSNAMES = {
-  loader: classnames(
+  loader: utils.cn(
     'w-full',
     'flex',
     'flex-col',

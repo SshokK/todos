@@ -1,11 +1,11 @@
-import classnames from 'classnames';
+import * as utils from 'utils';
 
 export const CLASSNAMES = {
-  container: classnames('flex', 'flex-col', 'gap-8', 'flex-1'),
+  container: utils.cn('flex', 'flex-col', 'gap-8', 'flex-1'),
 
-  todosCounts: classnames('px-6'),
+  todosCounts: utils.cn('px-6'),
 
-  list: classnames(
+  list: utils.cn(
     'flex-1',
     'flex',
     'flex-col',
@@ -15,5 +15,5 @@ export const CLASSNAMES = {
     'w-full',
   ),
 
-  listItem: classnames('px-6'),
+  listItem: utils.cn('px-6'),
 };

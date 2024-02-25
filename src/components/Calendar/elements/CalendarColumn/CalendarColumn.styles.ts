@@ -25,6 +25,4 @@ export const CLASSNAMES = {
     'overflow-auto',
     'relative',
   ),
-
-  noItemsMessage: classnames('w-full'),
 };

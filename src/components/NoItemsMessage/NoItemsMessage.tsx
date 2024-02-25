@@ -1,12 +1,9 @@
-import type { FC } from 'react';
 import type { NoItemsMessageProps } from './NoItemsMessage.types.ts';
 
-import * as animations from './NoItemsMessage.animations.ts';
+import * as react from 'react';
 import * as styles from './NoItemsMessage.styles.ts';
 import * as framerMotion from 'framer-motion';
-import * as twMerge from 'tailwind-merge';
-
-import classnames from 'classnames';
+import * as utils from 'utils';
 
 import {
   TYPOGRAPHY_SIZE,
@@ -15,39 +12,40 @@ import {
 } from '../Typography';
 
 import { Typography } from '../Typography';
+import { FadeIn } from '../Animations';
 
-export const NoItemsMessage: FC<NoItemsMessageProps> = ({
-  isVisible,
-  className,
-  children,
-}) => {
+export const NoItemsMessage = react.forwardRef<
+  HTMLDivElement,
+  NoItemsMessageProps
+>(({ isVisible, classNames, message, children }, ref) => {
   return (
-    <framerMotion.AnimatePresence initial={false}>
-      {isVisible && (
-        <framerMotion.motion.div
-          variants={animations.VARIANTS}
-          initial={animations.ANIMATION_NAME.ENTER}
-          animate={animations.ANIMATION_NAME.ACTIVE}
-          exit={animations.ANIMATION_NAME.EXIT}
-          transition={animations.TRANSITION}
-          className={twMerge.twMerge(
-            classnames(styles.CLASSNAMES.noUpcomingTodosMessage, className),
-          )}
-        >
-          <Typography
-            type={TYPOGRAPHY_TYPE.SUBTITLE}
-            size={TYPOGRAPHY_SIZE.SM}
-            textAlignment={TYPOGRAPHY_TEXT_ALIGNMENT.CENTER}
-            shouldTruncate
-          >
-            {children}
-          </Typography>
-        </framerMotion.motion.div>
-      )}
-    </framerMotion.AnimatePresence>
+    <div
+      ref={ref}
+      className={utils.cn(styles.CLASSNAMES.container, classNames?.container)}
+    >
+      <framerMotion.AnimatePresence initial={false}>
+        {isVisible && (
+          <FadeIn>
+            <Typography
+              type={TYPOGRAPHY_TYPE.SUBTITLE}
+              size={TYPOGRAPHY_SIZE.SM}
+              textAlignment={TYPOGRAPHY_TEXT_ALIGNMENT.CENTER}
+              shouldTruncate
+              className={utils.cn(
+                styles.CLASSNAMES.noUpcomingTodosMessage,
+                classNames?.container,
+              )}
+            >
+              {message}
+            </Typography>
+          </FadeIn>
+        )}
+      </framerMotion.AnimatePresence>
+      {children}
+    </div>
   );
-};
+});
 
 NoItemsMessage.defaultProps = {
-  children: 'No items',
+  message: 'No data',
 };

@@ -1,7 +1,7 @@
 import * as constants from './Typography.constants';
 import classnames from 'classnames';
 
-export const CLASSNAMES = classnames('text-inherit');
+export const CLASSNAMES = classnames('text-inherit', 'm-0');
 
 export const NO_BREAK_CLASSNAMES = classnames('whitespace-nowrap');
 

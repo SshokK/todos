@@ -5,6 +5,7 @@ import * as constants from './Typography.constants';
 import * as styles from './Typography.styles';
 
 import classnames from 'classnames';
+import * as twMerge from 'tailwind-merge';
 
 export const Typography = react.forwardRef<HTMLElement, TypographyProps>(
   (
@@ -28,16 +29,23 @@ export const Typography = react.forwardRef<HTMLElement, TypographyProps>(
       ref: ref,
       children: children,
       href: href,
-      className: classnames(className, {
-        [styles.CLASSNAMES]: true,
-        [styles.NO_BREAK_CLASSNAMES]: noBreak,
-        [styles.SIZE_CLASSNAMES[size ?? constants.TYPOGRAPHY_SIZE.MD]]: true,
-        [styles.TYPE_CLASSNAMES[type ?? constants.TYPOGRAPHY_TYPE.BODY]]: true,
-        [styles.TRUNCATE_CLASSNAMES]: shouldTruncate,
-        [styles.TEXT_ALIGNMENT_CLASSNAMES[
-          textAlignment ?? constants.TYPOGRAPHY_TEXT_ALIGNMENT.LEFT
-        ]]: true,
-      }),
+      className: twMerge.twMerge(
+        classnames(
+          {
+            [styles.CLASSNAMES]: true,
+            [styles.NO_BREAK_CLASSNAMES]: noBreak,
+            [styles.SIZE_CLASSNAMES[size ?? constants.TYPOGRAPHY_SIZE.MD]]:
+              true,
+            [styles.TYPE_CLASSNAMES[type ?? constants.TYPOGRAPHY_TYPE.BODY]]:
+              true,
+            [styles.TRUNCATE_CLASSNAMES]: shouldTruncate,
+            [styles.TEXT_ALIGNMENT_CLASSNAMES[
+              textAlignment ?? constants.TYPOGRAPHY_TEXT_ALIGNMENT.LEFT
+            ]]: true,
+          },
+          className,
+        ),
+      ),
     });
   },
 );
